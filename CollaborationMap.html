@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="../node-pie.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="../jquery-ui-slider-pips.js"></script>
+    <link rel="stylesheet" href="../jquery-ui-slider-pips.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="NavBar.css">
+    <link rel="stylesheet" type="text/css" href="NetworkMap.css">
+    <script src="https://use.typekit.net/adt3ctv.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+    <header class="navbar-fixed-top">
+        <div class="research-collab-header">
+            Research Collaboration in FCL
+        </div>
+        <div style="float:right;">
+            <img src="fcl.jpg" alt="FCL" class="fcl-image"><br/>
+            <span class="cival">
+          Developed by CIVAL
+        </span>
+        </div>
+    </header>
+</head>
+<body>
+<nav class="navbar navbar-toggleable-sm">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <ul>
+
+            <div style="padding-top: 34px; font: bold 14px adelle;">
+            Year
+            </div>
+            <div style="font: bold 16px lato;">2015 - 2020</div>
+
+            <li class="nav-item">
+                <br />
+                <div id="slider-range"></div>
+                <br />
+            </li>
+
+            <li class="nav-item">
+                <div style="font: bold 14px adelle">Select Project Outcomes</div>
+                <table>
+                    <tr>
+                        <td>
+                            <label class="switch"><input type="checkbox" class="project_outcome"><div class="slider round"></div></label>
+                        </td>
+                        <td>
+                            Data Sharing
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="switch"><input type="checkbox" class="project_outcome"><div class="slider round"></div></label>
+                        </td>
+                        <td>
+                            Expertise Contribution
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="switch"><input type="checkbox" class="project_outcome"><div class="slider round"></div></label>
+                        </td>
+                        <td>
+                            Granted Research Proposal
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="switch"><input type="checkbox" class="project_outcome"><div class="slider round"></div></label>
+                        </td>
+                        <td>
+                            Joint Publication
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="switch"><input type="checkbox" class="project_outcome"><div class="slider round"></div></label>
+                        </td>
+                        <td>
+                            Joint Prototype
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="switch"><input type="checkbox" class="project_outcome"><div class="slider round"></div></label>
+                        </td>
+                        <td>
+                            Other
+                        </td>
+                    </tr>
+                </table>
+            </li>
+            <br>
+            <li class="menu nav-item" data-toggle="collapse" data-target="#submenu3">MENU 3
+                <span class="glyphicon glyphicon-chevron-down" style="float:right"></span>
+            </li>
+            <div class="side-menu nav-item">
+                     <span class="sub-menu collapse" id="submenu3">
+                      <br />
+                     <button class="btn btn-default" id="submenu3-1">Submenu3-1</button><br /><br/>
+                   <button class="btn btn-default" id="submenu3-2">Submenu3-2</button><br /><br/>
+                   <button class="btn btn-default" id="submenu3-3">Submenu3-3</button><br /><br/>
+                      </span>
+            </div>
+            <ul id="submenu3result"></ul>
+            <li class="nav-item" data-toggle="collapse" data-target="#submenu4">MENU 4
+            </li>
+            <li class="collapse" id="submenu4">Sub menu 4</li>
+
+        </ul>
+    </div>
+</nav>
+<svg id="map"></svg>
+<script src="NavBar.js"></script>
+<script type="text/javascript">
+
+    var graph =
+        {
+            "nodes":[{
+                "id": "project twice",
+                "type": "Project",
+                "start_date": "2015-04-01",
+                "project_duration": "> 2 years",
+                "project_outcomes": ["Granted research proposal", "Joint publication", "Research modelling", "Joint prototype", "Data sharing", "Expert analysis"],
+                "pieChart": [{
+                    "color": "3",
+                    "percent": 16.666666666667
+                }, {
+                    "color": "4",
+                    "percent": 16.666666666667
+                }, {
+                    "color": "6",
+                    "percent": 16.666666666667
+                }, {
+                    "color": "5",
+                    "percent": 16.666666666667
+                }, {
+                    "color": "1",
+                    "percent": 16.666666666667
+                }, {
+                    "color": "6",
+                    "percent": 16.666666666667
+                }],
+                "radius": 7
+            }, {
+                "id": "1",
+                "type": "Collaborator",
+                "start_date": "1990-01-01",
+                "before_fcl": "< 1 year",
+                "academic_background": "bachelor",
+                "gender": "male",
+                "age": "41-50",
+                "disciplinary_backgrounds": ["Biology", "Chemistry"],
+                "nationality": "Indian",
+                "mother_tongues": "Chinese, English",
+                "research_group": "Scenario 2.3",
+                "locations": "FCL level 6"
+            }, {
+                "id": "project second",
+                "type": "Project",
+                "start_date": "2015-01-01",
+                "project_duration": "12 months - 2 years",
+                "project_outcomes": ["Joint publication", "Expert analysis", "Granted research proposal", "Joint prototype", "Data sharing", "Expertise contribution"],
+                "pieChart": [{
+                    "color": "4",
+                    "percent": 16.666666666667
+                }, {
+                    "color": "6",
+                    "percent": 16.666666666667
+                }, {
+                    "color": "3",
+                    "percent": 16.666666666667
+                }, {
+                    "color": "5",
+                    "percent": 16.666666666667
+                }, {
+                    "color": "1",
+                    "percent": 16.666666666667
+                }, {
+                    "color": "2",
+                    "percent": 16.666666666667
+                }],
+                "radius": 9
+            }, {
+                "id": "3",
+                "type": "Collaborator",
+                "start_date": "1990-01-01",
+                "before_fcl": "2-5 years",
+                "academic_background": "master",
+                "gender": "female",
+                "age": "20-30",
+                "disciplinary_backgrounds": ["Biology"],
+                "nationality": "New Zealander",
+                "mother_tongues": "Chinese",
+                "research_group": "Scenario 2.4",
+                "locations": "FCL level 15"
+            }, {
+                "id": "project abc",
+                "type": "Project",
+                "start_date": "2015-01-01",
+                "project_duration": "12 months - 2 years",
+                "project_outcomes": ["Expert analysis", "Granted research proposal"],
+                "pieChart": [{
+                    "color": "6",
+                    "percent": 50
+                }, {
+                    "color": "3",
+                    "percent": 50
+                }],
+                "radius": 4
+            }, {
+                "id": "this is others",
+                "type": "Project",
+                "start_date": "2015-01-01",
+                "project_duration": "12 months - 2 years",
+                "project_outcomes": ["Joint publication", "Expert analysis"],
+                "pieChart": [{
+                    "color": "4",
+                    "percent": 50
+                }, {
+                    "color": "6",
+                    "percent": 50
+                }],
+                "radius": 2
+            }, {
+                "id": "4",
+                "type": "Collaborator",
+                "start_date": "1990-01-01",
+                "before_fcl": "1-2 years",
+                "academic_background": "master",
+                "gender": "female",
+                "age": "41-50",
+                "disciplinary_backgrounds": ["Ecology"],
+                "nationality": "New Zealander",
+                "mother_tongues": "Chinese",
+                "research_group": "Scenario 2.2",
+                "locations": "Other location in CREATE"
+            }, {
+                "id": "5",
+                "type": "Collaborator",
+                "start_date": "2012-04-01",
+                "before_fcl": "1-2 years",
+                "academic_background": "master",
+                "gender": "female",
+                "age": "20-30",
+                "disciplinary_backgrounds": ["Psychology"],
+                "nationality": "Italian",
+                "mother_tongues": "Dutch, Flemish",
+                "research_group": "3 for 2",
+                "locations": "ETH Zurich"
+            }, {
+                "id": "6",
+                "type": "Collaborator",
+                "start_date": "1990-01-01",
+                "before_fcl": "1-2 years",
+                "academic_background": "master",
+                "gender": "female",
+                "age": "20-30",
+                "disciplinary_backgrounds": ["Ecology"],
+                "nationality": "Mexican",
+                "mother_tongues": "Chinese",
+                "research_group": "Scenario 3.4",
+                "locations": "SMU"
+            }, {
+                "id": "7",
+                "type": "Collaborator",
+                "start_date": "1990-01-01",
+                "before_fcl": "1-2 years",
+                "academic_background": "master",
+                "gender": "male",
+                "age": "41-50",
+                "disciplinary_backgrounds": ["Chemistry", "Computer Science"],
+                "nationality": "Iranian",
+                "mother_tongues": "Chinese, German",
+                "research_group": "Scenario 3.2",
+                "locations": "ETH Zurich"
+            }, {
+                "id": "this is new",
+                "type": "Project",
+                "start_date": "2015-01-01",
+                "project_duration": "12 months - 2 years",
+                "project_outcomes": ["Granted research proposal", "Joint prototype"],
+                "pieChart": [{
+                    "color": "3",
+                    "percent": 50
+                }, {
+                    "color": "5",
+                    "percent": 50
+                }],
+                "radius": 1
+            }, {
+                "id": "9",
+                "type": "Collaborator",
+                "start_date": "1990-01-01",
+                "before_fcl": "< 1 year",
+                "academic_background": "phD",
+                "gender": "female",
+                "age": "31-40",
+                "disciplinary_backgrounds": ["Biology"],
+                "nationality": "Russian",
+                "mother_tongues": "Chinese",
+                "research_group": "Cooler Singapore",
+                "locations": "NUS"
+            }, {
+                "id": "time",
+                "type": "Project",
+                "start_date": "2015-01-01",
+                "project_duration": "12 months - 2 years",
+                "project_outcomes": ["Granted research proposal", "Joint publication", "Joint prototype"],
+                "pieChart": [{
+                    "color": "3",
+                    "percent": 33.333333333333
+                }, {
+                    "color": "4",
+                    "percent": 33.333333333333
+                }, {
+                    "color": "5",
+                    "percent": 33.333333333333
+                }],
+                "radius": 2
+            }, {
+                "id": "11",
+                "type": "Collaborator",
+                "start_date": "1990-01-01",
+                "before_fcl": "2-5 years",
+                "academic_background": "bachelor",
+                "gender": "female",
+                "age": "41-50",
+                "disciplinary_backgrounds": ["Architecture", "Chemistry"],
+                "nationality": "New Zealander",
+                "mother_tongues": "Chinese, French",
+                "research_group": "Scenario 3 Coordination",
+                "locations": "FCL level 15"
+            }, {
+                "id": "12",
+                "type": "Collaborator",
+                "start_date": "1990-01-01",
+                "before_fcl": "< 1 year",
+                "academic_background": "phD",
+                "gender": "male",
+                "age": "20-30",
+                "disciplinary_backgrounds": ["Computer Science"],
+                "nationality": "New Zealander",
+                "mother_tongues": "Chinese",
+                "research_group": "Scenario 3.1",
+                "locations": "NUS"
+            }, {
+                "id": "13",
+                "type": "Collaborator",
+                "start_date": "1990-01-01",
+                "before_fcl": "2-5 years",
+                "academic_background": "master",
+                "gender": "female",
+                "age": "20-30",
+                "disciplinary_backgrounds": ["Chemistry", "Computer Science"],
+                "nationality": "Serbian",
+                "mother_tongues": "Dutch, Flemish",
+                "research_group": "Scenario 3.3",
+                "locations": "NUS"
+            }, {
+                "id": "14",
+                "type": "Collaborator",
+                "start_date": "1990-01-01",
+                "before_fcl": ">10 years",
+                "academic_background": "bachelor",
+                "gender": "female",
+                "age": "31-40",
+                "disciplinary_backgrounds": ["Chemistry", "Computer Science"],
+                "nationality": "Mexican",
+                "mother_tongues": "Chinese",
+                "research_group": "Scenario 1 Coordination",
+                "locations": "ETH Zurich"
+            }, {
+                "id": "16",
+                "type": "Collaborator",
+                "start_date": "1993-01-01",
+                "before_fcl": "2-5 years",
+                "academic_background": "phD",
+                "gender": "female",
+                "age": "31-40",
+                "disciplinary_backgrounds": ["Computer science"],
+                "nationality": "sdfs",
+                "mother_tongues": "Chinese",
+                "research_group": "research group new",
+                "locations": "Other location in CREATE"
+            }, {
+                "id": "17",
+                "type": "Collaborator",
+                "start_date": "1990-01-01",
+                "before_fcl": "2-5 years",
+                "academic_background": "phD",
+                "gender": "male",
+                "age": "41-50",
+                "disciplinary_backgrounds": ["Graphic designer"],
+                "nationality": "Italian",
+                "mother_tongues": "Chinese, Dutch, Flemish",
+                "research_group": "Scenario 2 Coordination",
+                "locations": "Other location in CREATE"
+            }, {
+                "id": "Collaboration map",
+                "type": "Project",
+                "start_date": "2016-08-01",
+                "project_duration": "12 months - 2 years",
+                "project_outcomes": ["Joint prototype", "Granted research proposal", "Joint publication"],
+                "pieChart": [{
+                    "color": "5",
+                    "percent": 33.333333333333
+                }, {
+                    "color": "3",
+                    "percent": 33.333333333333
+                }, {
+                    "color": "4",
+                    "percent": 33.333333333333
+                }],
+                "radius": 2
+            }, {
+                "id": "19",
+                "type": "Collaborator",
+                "start_date": "2016-09-01",
+                "before_fcl": "< 1 year",
+                "academic_background": "master",
+                "gender": "female",
+                "age": "20-30",
+                "disciplinary_backgrounds": ["Graphic designer"],
+                "nationality": "Japanese",
+                "mother_tongues": "Japanese",
+                "research_group": "CIVAL",
+                "locations": "FCL level 6"
+            }, {
+                "id": "SAO",
+                "type": "Project",
+                "start_date": "2015-01-01",
+                "project_duration": "12 months - 2 years",
+                "project_outcomes": ["Joint prototype", "Data sharing", "Granted research proposal", "Joint publication", "Other google outcome"],
+                "pieChart": [{
+                    "color": "5",
+                    "percent": 20
+                }, {
+                    "color": "1",
+                    "percent": 20
+                }, {
+                    "color": "3",
+                    "percent": 20
+                }, {
+                    "color": "4",
+                    "percent": 20
+                }, {
+                    "color": "6",
+                    "percent": 20
+                }],
+                "radius": 3
+            }, {
+                "id": "20",
+                "type": "Collaborator",
+                "start_date": "2010-01-01",
+                "before_fcl": "5-10 years",
+                "academic_background": "master",
+                "gender": "female",
+                "age": "20-30",
+                "disciplinary_backgrounds": ["Ecology"],
+                "nationality": "Iranian",
+                "mother_tongues": "Chinese",
+                "research_group": "Scenario 2.4",
+                "locations": "FCL level 6"
+            }, {
+                "id": "21",
+                "type": "Collaborator",
+                "start_date": "2013-02-01",
+                "before_fcl": "1-2 years",
+                "academic_background": "master",
+                "gender": "female",
+                "age": "20-30",
+                "disciplinary_backgrounds": ["Chemistry"],
+                "nationality": "Colombian",
+                "mother_tongues": "Chinese, English",
+                "research_group": "Scenario 1.2",
+                "locations": "FCL level 15"
+            }, {
+                "id": "project title",
+                "type": "Project",
+                "start_date": "2017-04-01",
+                "project_duration": "12 months - 2 years",
+                "project_outcomes": ["Granted research proposal"],
+                "pieChart": [{
+                    "color": "3",
+                    "percent": 100
+                }],
+                "radius": 1
+            }, {
+                "id": "22",
+                "type": "Collaborator",
+                "start_date": "2011-02-01",
+                "before_fcl": "< 1 year",
+                "academic_background": "master",
+                "gender": "female",
+                "age": "41-50",
+                "disciplinary_backgrounds": ["Ecology"],
+                "nationality": "Taiwanese",
+                "mother_tongues": "Chinese, Dutch, Flemish",
+                "research_group": "Cooler Singapore",
+                "locations": "ETH Zurich"
+            }, {
+                "id": "23",
+                "type": "Collaborator",
+                "start_date": "2012-03-01",
+                "before_fcl": "< 1 year",
+                "academic_background": "phD",
+                "gender": "female",
+                "age": "20-30",
+                "disciplinary_backgrounds": [""],
+                "nationality": "Dutch",
+                "mother_tongues": "Chinese",
+                "research_group": "Scenario 2.1",
+                "locations": "Other location"
+            }, {
+                "id": "Google Project",
+                "type": "Project",
+                "start_date": "2016-03-01",
+                "project_duration": "12 months - 2 years",
+                "project_outcomes": ["Expert analysis", "Granted research proposal", "Google outcome"],
+                "pieChart": [{
+                    "color": "6",
+                    "percent": 33.333333333333
+                }, {
+                    "color": "3",
+                    "percent": 33.333333333333
+                }, {
+                    "color": "6",
+                    "percent": 33.333333333333
+                }],
+                "radius": 1
+            }, {
+                "id": "37",
+                "type": "Collaborator",
+                "start_date": "2014-03-01",
+                "before_fcl": "1-2 years",
+                "academic_background": "bachelor",
+                "gender": "male",
+                "age": "31-40",
+                "disciplinary_backgrounds": ["Chemistry", "Computer science", "Computer engineering"],
+                "nationality": "Other Nationality",
+                "mother_tongues": "Chinese, English, Indonesian",
+                "research_group": "Scenario 1.4",
+                "locations": "Other location,ETH Zurich"
+            }, {
+                "id": "38",
+                "type": "Collaborator",
+                "start_date": "2012-03-01",
+                "before_fcl": "1-2 years",
+                "academic_background": "bachelor",
+                "gender": "male",
+                "age": "31-40",
+                "disciplinary_backgrounds": ["Psychology"],
+                "nationality": "Japanese",
+                "mother_tongues": "Chinese, Indonesian",
+                "research_group": "Cooler Singapore",
+                "locations": "ETH Zurich"
+            }, {
+                "id": "39",
+                "type": "Collaborator",
+                "start_date": "2015-09-01",
+                "before_fcl": ">10 years",
+                "academic_background": "phD",
+                "gender": "female",
+                "age": "41-50",
+                "disciplinary_backgrounds": ["Architecture", "Urban design and planning"],
+                "nationality": "Indonesian",
+                "mother_tongues": "Indonesian",
+                "research_group": "Scenario 1.3",
+                "locations": "FCL level 6"
+            }, {
+                "id": "35",
+                "type": "Collaborator",
+                "start_date": "2013-03-01",
+                "before_fcl": "1-2 years",
+                "academic_background": "bachelor",
+                "gender": "male",
+                "age": "41-50",
+                "disciplinary_backgrounds": ["Art", "Ecology", "History"],
+                "nationality": "British",
+                "mother_tongues": "English",
+                "research_group": "Scenario 1.1",
+                "locations": "FCL level 15,FHNW"
+            }],
+            "links":[{
+                "source": "1",
+                "target": "project twice"
+            },{
+                "source": "3",
+                "target": "project abc"
+            }, {
+                "source": "3",
+                "target": "project second"
+            }, {
+                "source": "4",
+                "target": "this is others"
+            }, {
+                "source": "5",
+                "target": "project twice"
+            }, {
+                "source": "6",
+                "target": "project twice"
+            }, {
+                "source": "7",
+                "target": "project second"
+            }, {
+                "source": "9",
+                "target": "this is new"
+            }, {
+                "source": "11",
+                "target": "time"
+            }, {
+                "source": "12",
+                "target": "this is others"
+            }, {
+                "source": "12",
+                "target": "project twice"
+            }, {
+                "source": "12",
+                "target": "project second"
+            }, {
+                "source": "12",
+                "target": "project second"
+            }, {
+                "source": "13",
+                "target": "project twice"
+            }, {
+                "source": "13",
+                "target": "time"
+            }, {
+                "source": "16",
+                "target": "project second"
+            }, {
+                "source": "17",
+                "target": "project twice"
+            }, {
+                "source": "19",
+                "target": "Collaboration map"
+            }, {
+                "source": "19",
+                "target": "SAO"
+            }, {
+                "source": "20",
+                "target": "project abc"
+            }, {
+                "source": "21",
+                "target": "project twice"
+            }, {
+                "source": "21",
+                "target": "project second"
+            }, {
+                "source": "21",
+                "target": "SAO"
+            }, {
+                "source": "21",
+                "target": "project abc"
+            }, {
+                "source": "22",
+                "target": "project title"
+            }, {
+                "source": "5",
+                "target": "project second"
+            }, {
+                "source": "5",
+                "target": "project abc"
+            }, {
+                "source": "37",
+                "target": "Google Project"
+            }, {
+                "source": "37",
+                "target": "SAO"
+            }, {
+                "source": "38",
+                "target": "project second"
+            }, {
+                "source": "39",
+                "target": "Collaboration map"
+            }, {
+                "source": "35",
+                "target": "project second"
+            }]
+        };
+
+    var width = $(window).width();
+    var height = $(window).height();
+
+    $('#map').attr('width', width);
+    $('#map').attr('height', height);
+    $('#map').attr('viewBox','0 0 2000 1000');
+
+    var linkedByIndex = {};
+
+    var svg = d3.select('svg'),
+        width = +svg.attr('width'),
+        height = +svg.attr('height');
+
+    var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+    var xScale = d3.scaleLinear().domain([0, 100]).range([0,width]);
+    var yScale = d3.scaleLinear().domain([0, 100]).range([0,height]);
+
+    var simulation = d3.forceSimulation()
+            .force('link', d3.forceLink().id(function (d) {
+                return d.id;
+            }).distance(xScale(10)))
+            .force('charge', d3.forceManyBody())
+            .force("collide", d3.forceCollide(function (d) {
+                if (d.type == 'Collaborator') return xScale(3);
+                if (d.type == 'Project') return d.radius + xScale(3);
+            }).iterations(16))
+            .force('center', d3.forceCenter(width / 2, height / 2))
+            .force("x", d3.forceX().strength(.1))
+            .force("y", d3.forceY().strength(.1))
+            .on("tick", ticked)
+        ;
+
+    var path = svg.append('g').attr('class', 'link')
+        .selectAll('path').data(graph.links).enter().append('path');
+
+    var node = svg.selectAll('.node').data((graph.nodes)).enter().append('g').attr('class', 'nodes').call(d3.drag().on('start', dragstarted).on('drag', dragged).on('end', dragended))
+        .attr('fill', function (d) {
+            if (d.type == 'Collaborator') {
+                return color(d.type);
+            }
+            if (d.type == 'Project') {
+                return color(d.id);
+            }
+        })
+        .attr('opacity', 0.9)
+        .attr('id', function(d){
+            var id = d.id;
+            var result = id.replace(' ','_');
+            return result;
+        })
+        .on("click", function (d) {
+            $('.tooltip').remove();
+            if (d.type == 'Project') {
+                d3.select('body').append("div")
+                    .attr("class", "tooltip")
+                    .style("opacity", 0.9)
+                    .html(
+                        'Project Name : ' + d.id + '<br />' +
+                        'Project Starting Date : ' + d.start_date + '<br />' +
+                        'Project Duration : ' + d.project_duration + '<br />' +
+                        'Project Outcome(s) : ' + d.project_outcomes
+                    )
+                    .style("left", d.x + "px")
+                    .style("top", d.y + "px");
+            } else {
+                d3.select('body').append("div")
+                    .attr("class", "tooltip")
+                    .style("opacity", 0.9)
+                    .html(
+                        'ID : ' + d.id + '<br />' +
+                        'Research Group : ' + d.research_group + '<br />' +
+                        'Disciplinary Background(s) : ' + d.disciplinary_backgrounds + '<br />' +
+                        'Location(s) : ' + d.locations + '<br />' +
+                        'Start working in FCL : ' + d.start_date + '<br />' +
+                        'Working as a researcher before coming to FCL : ' + d.before_fcl + '<br />' +
+                        'Academic Background : ' + d.academic_background + '<br />' +
+                        'Mother Tongue(s) : ' + d.mother_tongues + '<br />' +
+                        'Gender : ' + d.gender + '<br />' +
+                        'Age : ' + d.age + '<br />' +
+                        'Nationality : ' + d.nationality
+                    )
+                    .style("left", d.x + "px")
+                    .style("top", d.y + "px");
+            }
+        })
+
+        .on("mouseout", function () {
+            $('svg').dblclick(function() {
+                $('.tooltip').remove();
+            });
+        });
+
+    node.append('path')
+        .attr('d', d3.symbol()
+            .size(xScale(3))
+            .type(function (d) {
+                if (d.type == 'Project') {
+                    return d3.symbolCircle;
+                } else if
+                (d.type == 'Collaborator') {
+                    return d3.symbolSquare;
+                }
+            }))
+    ;
+
+    node.each(function (d) {
+        if (d.type == 'Project') {
+            NodePieBuilder.drawNodePie(d3.select(this), d.pieChart, {
+                parentNodeColor: color(d.id),
+                outerStrokeWidth: 12,
+                showLabelText: false,
+                labelText: d.id,
+                radius: d.radius * xScale(0.3),
+                labelColor: color(d.id)
+            });
+        }
+    });
+
+    simulation.nodes(graph.nodes);
+
+    simulation.force('link').links(graph.links);
+
+    function ticked() {
+
+        $('.link').show();
+
+        var project_length = 0;
+        var collaborator_length = 0;
+
+        for ($i = 0; $i < graph.nodes.length; $i++) {
+            if (graph.nodes[$i].type == 'Project') {
+                project_length++;
+            }
+            else {
+                collaborator_length++;
+            }
+        }
+
+        var outer_angle = Math.PI * 2 / (collaborator_length);
+        var inner_angle = Math.PI * 2 / (project_length);
+
+        var x_outer = 0;
+        var y_outer = 0;
+        var x_inner = 0;
+        var y_inner = 0;
+
+        function translate_outer_x(d) {
+            x_outer += outer_angle;
+            d.x = Math.cos(x_outer) * xScale(25) + xScale(50);
+            return Math.cos(x_outer) * xScale(15.625);
+        }
+
+        function translate_outer_y(d) {
+            y_outer += outer_angle;
+            d.y = Math.sin(y_outer) * yScale(40) + yScale(50);
+            return Math.sin(y_outer) * yScale(25);
+        }
+
+        function translate_inner_x(d) {
+            x_inner += inner_angle;
+            d.x = Math.cos(x_inner) * xScale(12.5) + xScale(50);
+            return Math.cos(x_inner) * xScale(6.25);
+        }
+
+        function translate_inner_y(d) {
+            y_inner += inner_angle;
+            d.y = Math.sin(y_inner) * yScale(20) + yScale(50);
+            return Math.sin(y_inner) * yScale(10);
+        }
+
+        node
+            .attr("transform", function (d) {
+                if (d.type == 'Project') {
+                    return "translate(" + translate_inner_x(d) + "," + translate_inner_y(d) + ")";
+                }
+                if (d.type == 'Collaborator') {
+                    return "translate(" + translate_outer_x(d) + "," + translate_outer_y(d) + ")";
+                }
+            });
+
+        node.transition().duration(50).attr("transform", function (d) {
+            return "translate(" + d.x + "," + d.y + ")";
+        });
+
+
+        path.transition().duration(50).attr("d", function (d) {
+            var dx = d.target.x - d.source.x,
+                dy = d.target.y - d.source.y,
+                dr = Math.sqrt(dx * dx + dy * dy);
+            return "M" +
+                d.source.x + "," +
+                d.source.y + "A" +
+                dr + "," + dr + " 0 0,1 " +
+                d.target.x + "," +
+                d.target.y;
+        });
+
+        graph.links.forEach(function (d) {
+            linkedByIndex[d.source.index + "," + d.target.index] = 1;
+            linkedByIndex[d.target.index + "," + d.source.index] = 1;
+        });
+    };
+
+    d3.select(window).on('resize', resize);
+
+    function neighboring(a, b) {
+        return a.index == b.index || linkedByIndex[a.index + "," + b.index];
+    }
+
+    function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+
+    function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+    }
+
+    function dragended(d) {
+        if (!d3.event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+    }
+
+    function getFociMap(items) {
+        var map = {};
+        var baseX = 300;
+        var baseY = 50;
+        var dy = 60;
+        var dx = 0;
+
+        for (i = 0; i < items.length; i++) {
+            y = baseY + (i * dy);
+            map[items[i]] = {x: baseX + (i * dx), y: baseY + (i * dy)};
+        }
+
+        return map;
+    }
+
+    function getProjects(items) {
+        projects = [];
+        for (i = 0; i < items.length; i++) {
+            if (projects.indexOf(items[i].research_group) < 0) {
+                projects.push(items[i].research_group);
+            }
+        }
+        return projects;
+    }
+
+    function resize(){
+
+        var width = $(window).width();
+        var height = $(window).height();
+
+        $('#map').attr('width', width);
+        $('#map').attr('height', height);
+
+        var svg = d3.select('svg'),
+            width = +svg.attr('width'),
+            height = +svg.attr('height');
+
+        var xScale = d3.scaleLinear().domain([0, 100]).range([0,width]);
+        var yScale = d3.scaleLinear().domain([0, 100]).range([0,height]);
+
+        simulation.alpha(1.0).restart();
+
+    }
+
+    //filtering function
+
+    //for project outcome they should make it 'and' or 'or'
+
+    //now make it or first
+    $('.project_outcome').on('click',function(){
+        path.style('stroke-width',0.2);
+        var selected = 0
+        var array = [];
+        $('.project_outcome').each(function(){
+            if($(this).is(':checked')){
+                var get = $(this).closest('td').next('td').text();
+                array.push(get);
+            }
+        })
+
+        var nodes = graph.nodes;
+        for (var i = 0 ; i < nodes.length; i++){
+            var one = nodes[i];
+            if (one.type == 'Collaborator'){
+                continue;
+            }else{
+                var project_outcomes = one.project_outcomes;
+                for(var j = 0; j < array.length; j++){
+                    for(var k = 0; k < project_outcomes.length; k++){
+                        if($.trim(array[j].toLowerCase()) === $.trim(project_outcomes[k]).toLowerCase()){
+                            selectedNode(one);
+                            selected = 1;
+                            break;
+                        }
+                    }
+                    if(selected === 1) break;
+                }
+            }
+        }
+    });
+
+    function selectedNode(d){
+        path.style('stroke-width', function (l) {
+            if(d === l.target){ return 1;}
+            else {
+                if($(this).css('stroke-width') === '1px'){
+                    return 1;
+                }else{
+                    return 0.2;
+                }
+            }
+        });
+
+        var tempo_id = d.id;
+        var tempo_id = tempo_id.replace(' ','_');
+        d3.select('#' + tempo_id).attr('opacity', 0.9);
+
+        for( var i = 0; i < graph.nodes.length; i++){
+            if(neighboring(d, graph.nodes[i]) == 1){
+                var tempo_id = graph.nodes[i].id;
+                var tempo_id = tempo_id.replace(' ','_');
+                d3.select('#' + tempo_id).attr('opacity', 0.9);
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
