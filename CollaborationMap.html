@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <script src="http://d3js.org/d3.v4.min.js"></script>
     <script src="../node-pie.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
@@ -32,17 +33,20 @@
     </header>
 </head>
 <body>
+<svg id="map"></svg>
 <nav class="navbar navbar-toggleable-sm">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <ul>
-
-            <div style="padding-top: 34px; font: bold 14px adelle;">
+    <table>
+        <tr>
+            <td><button class="menu-list glyphicon glyphicon-list"></button>
+            </td>
+        <td style="padding-top: 50px;">
+    <div style="margin-left: -5px;">
+        <ul class="main-menu">
+            <div class="nav-item" style="font: bold 14px adelle; padding-top: 20px;">
             Year
             </div>
-            <div style="font: bold 16px lato;">2015 - 2020</div>
+            <p></p>
+            <div class="nav-item" id="start_project" style="font: bold 16px lato;">2015 - 2020</div>
 
             <li class="nav-item">
                 <br />
@@ -55,75 +59,173 @@
                 <table>
                     <tr>
                         <td>
-                            <label class="switch"><input type="checkbox" class="project_outcome"><div class="slider round"></div></label>
+                            <label class="switch"><input type="checkbox" checked class="project_outcome" id="data_sharing"><div class="slider round"></div></label>
                         </td>
-                        <td>
+                        <td class="project_outcomes_label">
                             Data Sharing
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label class="switch"><input type="checkbox" class="project_outcome"><div class="slider round"></div></label>
+                            <label class="switch"><input type="checkbox" checked class="project_outcome" id="expertise_contribution"><div class="slider round"></div></label>
                         </td>
-                        <td>
+                        <td class="project_outcomes_label">
                             Expertise Contribution
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label class="switch"><input type="checkbox" class="project_outcome"><div class="slider round"></div></label>
+                            <label class="switch"><input type="checkbox" checked class="project_outcome" id="granted_research_proposal"><div class="slider round"></div></label>
                         </td>
-                        <td>
+                        <td class="project_outcomes_label">
                             Granted Research Proposal
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label class="switch"><input type="checkbox" class="project_outcome"><div class="slider round"></div></label>
+                            <label class="switch"><input type="checkbox" checked class="project_outcome" id="joint_publication"><div class="slider round"></div></label>
                         </td>
-                        <td>
+                        <td class="project_outcomes_label">
                             Joint Publication
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label class="switch"><input type="checkbox" class="project_outcome"><div class="slider round"></div></label>
+                            <label class="switch"><input type="checkbox" checked class="project_outcome" id="joint_prototype"><div class="slider round"></div></label>
                         </td>
-                        <td>
+                        <td class="project_outcomes_label">
                             Joint Prototype
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label class="switch"><input type="checkbox" class="project_outcome"><div class="slider round"></div></label>
+                            <label class="switch"><input type="checkbox" checked class="project_outcome" id="other"><div class="slider round"></div></label>
                         </td>
-                        <td>
+                        <td class="project_outcomes_label">
                             Other
                         </td>
                     </tr>
                 </table>
             </li>
             <br>
-            <li class="menu nav-item" data-toggle="collapse" data-target="#submenu3">MENU 3
-                <span class="glyphicon glyphicon-chevron-down" style="float:right"></span>
-            </li>
-            <div class="side-menu nav-item">
-                     <span class="sub-menu collapse" id="submenu3">
-                      <br />
-                     <button class="btn btn-default" id="submenu3-1">Submenu3-1</button><br /><br/>
-                   <button class="btn btn-default" id="submenu3-2">Submenu3-2</button><br /><br/>
-                   <button class="btn btn-default" id="submenu3-3">Submenu3-3</button><br /><br/>
-                      </span>
+            <div  class="nav-item" style="font: bold 14px adelle; padding-bottom : 7px;">
+                Explore the Collaborators
             </div>
-            <ul id="submenu3result"></ul>
-            <li class="nav-item" data-toggle="collapse" data-target="#submenu4">MENU 4
+            <li class="menu nav-item">
+                <div  id="disciplines">
+                Disciplines
+                <span class="glyphicon glyphicon-menu-down" id="disciplines-arrow" aria-hidden="true" style="float:right; margin-right: 10px;"></span>
+                </div>
+                <ul id="disciplines-result"></ul>
             </li>
-            <li class="collapse" id="submenu4">Sub menu 4</li>
-
+            <hr>
+            <li class="menu nav-item">
+                <div  id="fcl_project">
+                FCL Project
+                <span class="glyphicon glyphicon-menu-down" id="fcl_project-arrow" aria-hidden="true" style="float:right; margin-right: 10px;"></span>
+                </div>
+                <ul id="fcl_project-result"></ul>
+            </li>
+            <hr>
+            <li class="menu nav-item">
+                <div  id="location">
+                Location
+                <span class="glyphicon glyphicon-menu-down" id="location-arrow" aria-hidden="true" style="float:right; margin-right: 10px;"></span>
+                </div>
+                <ul id="location-result"></ul>
+            </li>
+            <hr>
+            <li class="menu nav-item">
+                <div  id="language">
+                Language
+                <span class="glyphicon glyphicon-menu-down" id="language-arrow" aria-hidden="true" style="float:right; margin-right: 10px;"></span>
+                </div>
+                <ul id="language-result"></ul>
+            </li>
         </ul>
     </div>
+    </td>
+            <td>
+                <span class="glyphicon-menu-left glyphicon"></span>
+            </td>
+<td>
+    <div class="side-menu" id="disciplines-submenu">
+        <li>
+            <span style="font:12px lato;">Disciplines</span>
+            <p></p>
+        </li>
+        <button>Architecture</button> <br />
+        <button>Art</button> <br />
+        <button>Biology</button> <br />
+        <button>Chemistry</button> <br />
+        <button>Computer science</button> <br />
+        <button>Ecology</button> <br />
+        <button>Economics</button> <br />
+        <button>Engineering</button> <br />
+        <button>Graphic design</button> <br />
+        <button>History</button> <br />
+        <button>Landscape architecture</button> <br />
+        <button>Law</button> <br />
+        <button>Literature</button> <br />
+        <button>Policy</button> <br />
+        <button>Psychology</button> <br />
+        <button>Sociology</button> <br />
+        <button>Urban design/planning</button> <br />
+        <button>Other</button> <br />
+    </div>
+
+    <div class="side-menu" id="fcl_project-submenu">
+        <li>
+            <span style="font:12px lato;">FCL Project</span>
+            <p></p>
+        </li>
+        <button>Less than 6 months</button> <br />
+        <button>6 - 12 months</button> <br />
+        <button>12 months - 2 years</button> <br />
+        <button>More than 2 years</button> <br />
+    </div>
+
+    <div class="side-menu" id="location-submenu">
+        <li>
+            <span style="font:12px lato;">Location</span>
+            <p></p>
+        </li>
+        <button>EPFL</button> <br />
+        <button>ETH Zurich</button> <br />
+        <button>FCL level 6</button> <br />
+        <button>FCL level 15</button> <br />
+        <button>FHNW</button> <br />
+        <button>NTU</button> <br />
+        <button>NUS</button> <br />
+        <button>SMU</button> <br />
+        <button>SUTD</button> <br />
+        <button>Other location</button> <br />
+    </div>
+
+    <div class="side-menu" id="language-submenu">
+        <li>
+            <span style="font:12px lato;">Language</span>
+            <p></p>
+        </li>
+        <button>Arabic</button> <br />
+        <button>Chinese</button> <br />
+        <button>Dutch</button> <br />
+        <button>English</button> <br />
+        <button>French</button> <br />
+        <button>German</button> <br />
+        <button>Hindi</button> <br />
+        <button>Indonesian</button> <br />
+        <button>Italian</button> <br />
+        <button>Japanese</button> <br />
+        <button>Russian</button> <br />
+        <button>Spanish</button> <br />
+        <button>Malay</button> <br />
+        <button>Others</button> <br />
+    </div>
+    </td>
+        </tr>
+    </table>
 </nav>
-<svg id="map"></svg>
 <script src="NavBar.js"></script>
 <script type="text/javascript">
 

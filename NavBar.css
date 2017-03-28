@@ -2,6 +2,7 @@ body{
     font-family: lato;
 }
 .navbar-fixed-top{
+    position:fixed;
     background-color:white;
     width:1024px;
     height:70px;
@@ -18,22 +19,26 @@ body{
 .fcl-image{
     height:43px;
     width:197px;
-    position:absolute;
+    position:fixed;
     top:15px;
     right:9px;
 }
 .cival{
     font-size:12px;
-    position:absolute;
+    position:fixed;
     top:66px;
     right:9px;
 }
 .navbar{
-    position: fixed;
-    margin-top: 12px;
-    margin-left: 9px;
+    padding-top: 40px;
+}
+.main-menu{
+    margin-top: auto;
+    margin-top: 3%;
+    margin-left: 5px;
     width: 260px;
-    height: 444px;
+    height: 100%;
+    padding-bottom: 8px;
     background-color: rgba(243,245,247,0.8);
     box-shadow: 1px 2px 4px 1px rgba(0,0,0,0.1);
     border-radius: 2px;
@@ -41,8 +46,12 @@ body{
 ul{
     margin-left: -40px;
 }
+.ui-slider-handle:focus{
+    outline: 0 none !important;
+    border-color: lightgray;
+}
 .ui-slider-handle{
-    outline: none;
+    border-color: lightgray;
 }
 .ui-slider-label{
     color: black;
@@ -70,8 +79,8 @@ ul{
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 29px;
+    height: 18.5px;
     bottom: -8px;
 }
 
@@ -96,17 +105,37 @@ ul{
 .slider:before {
     position: absolute;
     content: "";
-    height: 23px;
-    width: 23px;
-    left: 3px;
-    bottom: 4px;
+    height: 12px;
+    width: 12px;
+    left: 1.5px;
+    bottom: 2.5px;
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
 }
 
-input:checked + .slider {
-    background-color: #2196F3;
+input#data_sharing:checked + .slider{
+    background-color: #4DB6AC;
+}
+
+input#expertise_contribution:checked + .slider{
+    background-color: #FC8D62;
+}
+
+input#granted_research_proposal:checked + .slider{
+    background-color: #5C6BC0;
+}
+
+input#joint_publication:checked + .slider{
+    background-color: #FF80AB;
+}
+
+input#joint_prototype:checked + .slider{
+    background-color: #9CCC65;
+}
+
+input#other:checked + .slider{
+    background-color: #FFCA28;
 }
 
 input:focus + .slider {
@@ -114,14 +143,14 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+    -webkit-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    transform: translateX(10px);
 }
 
 /* Rounded sliders */
 .slider.round {
-    border-radius: 20px;
+    border-radius: 21px;
 }
 
 .slider.round:before {
@@ -130,10 +159,106 @@ input:checked + .slider:before {
 li{
     list-style : none;
 }
-.side-menu{
-    position: absolute;
-    /*margin-left: 200px;*/
-}
 td{
     font: 12px lato;
+}
+.project_outcomes_label{
+    padding-top : 6.5px;
+    padding-left: 7px;
+}
+hr{
+    box-sizing: border-box;
+    width: 240px;
+    height: 2px;
+    border: 1px solid #C8C8C8;
+    margin : 4px;
+    margin-left: -27px;
+}
+.menu{
+    line-height: 30px;
+    font: 12px adelle;
+}
+.side-menu{
+    display: inline-block;
+    background-color: rgba(243,245,247,0.8);
+    box-shadow: -1px 2px 4px 1px rgba(0,0,0,0.1);
+    border-radius: 2px;
+    padding-left: 8px;
+    padding-top : 18px;
+    padding-right: 25px;
+    padding-bottom: 10px;
+    margin-left: 265px;
+    position: absolute;
+    top: 98px;
+    left: 10px;
+    display : none;
+}
+button{
+    background-color: white;
+    font: 12px lato;
+    border: none;
+    display: inline-block;
+    text-align: left;
+    border: 1px solid #C8C8C8;
+    border-radius: 3px;
+    white-space: nowrap;
+    margin : 1px;
+}
+button:focus{
+    outline: 0;
+}
+.nav-item{
+    margin-left: -25px;
+}
+tag{
+    background-color: #4A4A4A;
+    color: white;
+    font: 12px lato;
+    border: none;
+    display: inline-block;
+    text-align: left;
+    border: 1px solid #C8C8C8;
+    border-radius: 3px;
+    white-space: nowrap;
+    margin : 2px;
+    margin-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#disciplines, #fcl_project, #location, #language{
+    cursor: pointer;
+}
+.glyphicon-menu-down, .glyphicon-menu-up{
+    box-sizing: border-box;
+    width: 16.52px;
+    height: 8.28px;
+}
+#map{
+    position:absolute;
+}
+.glyphicon-menu-left {
+    cursor: pointer;
+    background-color: rgba(243, 245, 247, 0.8);
+    padding-top: 9px;
+    top: 100px;
+    height: 30px;
+    width: 15px;
+    border-bottom-right-radius: 30px;
+    border-top-right-radius: 30px;
+    position: fixed;
+    left: 270px;
+}
+
+.glyphicon-list{
+    background-color: rgba(243,245,247,0.8);
+    box-shadow: 1px 2px 4px 1px rgba(0,0,0,0.1);
+    border-radius: 2px;
+    color: black;
+    top: 17.5%;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    display: none;
 }
