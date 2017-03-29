@@ -1,5 +1,6 @@
 
 
+
 $( function() {
     var show = 1;
     $("#slider-range").slider({
@@ -55,7 +56,8 @@ $( function() {
             id = id.substr(0, id.indexOf('-'));
             id = id + '-result';
             var content = $(this).text();
-            var li_id = content.replace('/','_');
+            var li_id = content.replace('.','_');
+            var li_id = li_id.replace('/','_');
             var li_id = li_id.replace(/ /g,'_');
             $('#' + id).append('<tag id="' + li_id +'">' + content +'</tag>');
         }
@@ -63,7 +65,8 @@ $( function() {
             $(this).css('background-color', 'white');
             $(this).css('color', 'black');
             var content = $(this).text();
-            var li_id = content.replace('/','_');
+            var li_id = content.replace('.','_');
+            var li_id = li_id.replace('/','_');
             var li_id = li_id.replace(/ /g,'_');
             $('#' + li_id).remove();
         }

@@ -16,10 +16,58 @@ div.tooltip {
     height: auto;
     padding: 2px;
     font: 14px sans-serif;
-    background: lightsteelblue;
+    background-color: rgba(243,245,247,0.8);
+    box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.2);
     border: 0px;
-    border-radius: 8px;
+    border-radius: 1px;
     pointer-events: none;
     display:inline-block;
     overflow: auto;
+}
+#project_tag_title , #collaborator_tag_title{
+    width: 169px;
+    height: 12px;
+    font-family: Lato;
+    font-size: 12px;
+    font-weight: bolder;
+    line-height: 12px;
+    color: #000000;
+}
+#project_tag_title{
+    margin-left: -9px;
+}
+.project_tag_content_title, .collaborator_tag_content_title{
+    font-family: adelle;
+    font-size: 9px;
+    line-height: 12px;
+    color: #000000;
+    padding-right: 10px;
+}
+.project_tag_content_subject, .collaborator_tag_content_subject{
+    font-family: lato;
+    font-size: 9px;
+    line-height: 12px;
+    color: #000000;
+}
+#collaborator_tag_table1 , #collaborator_tag_table2, #collaborator_tag_table3, #project_tag_table2{
+    margin-top : 5px;
+    margin-left: 11px;
+    margin-bottom: 5px;
+    margin-right: 11px;
+}
+#collaborator_logo{
+    padding-right: 20px;
+    padding-top : 2.5px;
+}
+#project_tag_table1{
+    margin-top : 1px;
+    margin-left: 11px;
+}
+#map{
+    z-index: 1;
+}
+#myChart {
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
 }

@@ -3,11 +3,10 @@ body{
 }
 .navbar-fixed-top{
     position:fixed;
-    background-color:white;
+    background-color:transparent;
     width:1024px;
     height:70px;
     font-family: "adelle";
-    padding-top: 12px;
 }
 .research-collab-header{
     font-size: 20px;
@@ -175,7 +174,6 @@ hr{
     margin-left: -27px;
 }
 .menu{
-    line-height: 30px;
     font: 12px adelle;
 }
 .side-menu{
@@ -192,6 +190,7 @@ hr{
     top: 98px;
     left: 10px;
     display : none;
+    z-index: 2;
 }
 button{
     background-color: white;
@@ -247,8 +246,9 @@ tag{
     width: 15px;
     border-bottom-right-radius: 30px;
     border-top-right-radius: 30px;
-    position: fixed;
+    position: absolute;
     left: 270px;
+    z-index: 2;
 }
 
 .glyphicon-list{
@@ -261,4 +261,14 @@ tag{
     width: 30px;
     height: 30px;
     display: none;
+    z-index:2;
+}
+#nav-bottom{
+    text-align: center;
+    left : 9px;
+    position:fixed;
+    bottom : 14px;
+    background-color: rgba(243,245,247,0.8);
+    box-shadow: 1px 2px 4px 1px rgba(0,0,0,0.1);
+    border-radius: 2px;
 }
