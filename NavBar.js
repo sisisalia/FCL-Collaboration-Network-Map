@@ -1,6 +1,3 @@
-
-
-
 $( function() {
     var show = 1;
     $("#slider-range").slider({
@@ -15,6 +12,7 @@ $( function() {
             }else {
                 $("#start_project").text(ui.values[0] + " - " + ui.values[1]);
             }
+            $('#start_project').trigger('contentchanged');
         }
     });
 
