@@ -1,1491 +1,1413 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8" />
-    <script src="http://d3js.org/d3.v4.min.js"></script>
-    <script src="node-pie.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="../jquery-ui-slider-pips.js"></script>
-    <link rel="stylesheet" href="../jquery-ui-slider-pips.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="NavBar.css">
-    <link rel="stylesheet" type="text/css" href="NetworkMap.css">
-    <script src="https://use.typekit.net/adt3ctv.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
 
-    <header class="navbar-fixed-top">
-        <div class="research-collab-header" style="background-color:white; width: 460px; padding: 12px;">
-            Research Collaboration in FCL
-        </div>
-        <div style="float:right;">
-            <img src="fcl.jpg" alt="FCL" class="fcl-image"><br/>
-            <span class="cival">
+<head>
+  <meta charset="UTF-8" />
+  <script src="http://d3js.org/d3.v4.min.js"></script>
+  <script src="node-pie.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <script src="../jquery-ui-slider-pips.js"></script>
+  <link rel="stylesheet" href="../jquery-ui-slider-pips.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="NavBar.css">
+  <link rel="stylesheet" type="text/css" href="NetworkMap.css">
+  <script src="https://use.typekit.net/adt3ctv.js"></script>
+  <script>
+    try {
+      Typekit.load({
+        async: true
+      });
+    } catch (e) {}
+  </script>
+
+  <header class="navbar-fixed-top">
+    <div class="research-collab-header" style="background-color:white; width: 460px; padding: 12px;">
+      Research Collaboration in FCL
+    </div>
+    <div style="float:right;">
+      <img src="fcl.jpg" alt="FCL" class="fcl-image">
+      <br/>
+      <span class="cival">
           Developed by CIVAL
         </span>
-        </div>
-    </header>
+    </div>
+  </header>
 </head>
-<body>
-<svg id="map"></svg>
-<nav class="navbar navbar-toggleable-sm">
-    <table>
-        <tr>
-            <td><button class="menu-list glyphicon glyphicon-list"></button>
-            </td>
-        <td style="padding-top: 50px;">
-    <div style="margin-left: -5px;">
-        <ul class="main-menu">
-            <div class="nav-item" style="font: bold 14px adelle; padding-top: 20px;">
-            Year
-            </div>
-            <p></p>
-            <div class="nav-item" id="start_project" style="font: bold 16px lato;">2015 - 2020</div>
 
-            <li class="nav-item">
+<body>
+  <svg id="map"></svg>
+  <nav class="navbar navbar-toggleable-sm">
+    <table>
+      <tr>
+        <td>
+          <button class="menu-list glyphicon glyphicon-list"></button>
+        </td>
+        <td style="padding-top: 50px;">
+          <div style="margin-left: -5px;">
+            <ul class="main-menu">
+              <div class="nav-item" style="font: bold 14px adelle; padding-top: 20px;">
+                Year
+              </div>
+              <p></p>
+              <div class="nav-item" id="start_project" style="font: bold 16px lato;">2015 - 2020</div>
+
+              <li class="nav-item">
                 <br />
                 <div id="slider-range"></div>
                 <br />
-            </li>
+              </li>
 
-            <li class="nav-item">
+              <li class="nav-item">
                 <div style="font: bold 14px adelle">Select Project Outcomes</div>
                 <table>
-                    <tr>
-                        <td>
-                            <label class="switch"><input type="checkbox" checked class="project_outcome" id="data_sharing"><div class="slider round"></div></label>
-                        </td>
-                        <td class="project_outcomes_label">
-                            Data Sharing
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label class="switch"><input type="checkbox" checked class="project_outcome" id="expertise_contribution"><div class="slider round"></div></label>
-                        </td>
-                        <td class="project_outcomes_label">
-                            Expertise Contribution
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label class="switch"><input type="checkbox" checked class="project_outcome" id="granted_research_proposal"><div class="slider round"></div></label>
-                        </td>
-                        <td class="project_outcomes_label">
-                            Granted Research Proposal
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label class="switch"><input type="checkbox" checked class="project_outcome" id="joint_publication"><div class="slider round"></div></label>
-                        </td>
-                        <td class="project_outcomes_label">
-                            Joint Publication
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label class="switch"><input type="checkbox" checked class="project_outcome" id="joint_prototype"><div class="slider round"></div></label>
-                        </td>
-                        <td class="project_outcomes_label">
-                            Joint Prototype
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label class="switch"><input type="checkbox" checked class="project_outcome" id="other"><div class="slider round"></div></label>
-                        </td>
-                        <td class="project_outcomes_label">
-                            Other
-                        </td>
-                    </tr>
+                  <tr>
+                    <td>
+                      <label class="switch">
+                        <input type="checkbox" checked class="project_outcome" id="data_sharing">
+                        <div class="slider round"></div>
+                      </label>
+                    </td>
+                    <td class="project_outcomes_label">
+                      Data Sharing
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="switch">
+                        <input type="checkbox" checked class="project_outcome" id="expertise_contribution">
+                        <div class="slider round"></div>
+                      </label>
+                    </td>
+                    <td class="project_outcomes_label">
+                      Expertise Contribution
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="switch">
+                        <input type="checkbox" checked class="project_outcome" id="granted_research_proposal">
+                        <div class="slider round"></div>
+                      </label>
+                    </td>
+                    <td class="project_outcomes_label">
+                      Granted Research Proposal
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="switch">
+                        <input type="checkbox" checked class="project_outcome" id="joint_publication">
+                        <div class="slider round"></div>
+                      </label>
+                    </td>
+                    <td class="project_outcomes_label">
+                      Joint Publication
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="switch">
+                        <input type="checkbox" checked class="project_outcome" id="joint_prototype">
+                        <div class="slider round"></div>
+                      </label>
+                    </td>
+                    <td class="project_outcomes_label">
+                      Joint Prototype
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="switch">
+                        <input type="checkbox" checked class="project_outcome" id="other">
+                        <div class="slider round"></div>
+                      </label>
+                    </td>
+                    <td class="project_outcomes_label">
+                      Other
+                    </td>
+                  </tr>
                 </table>
-            </li>
-            <br>
-            <div  class="nav-item" style="font: bold 14px adelle; padding-bottom : 7px;">
+              </li>
+              <br>
+              <div class="nav-item" style="font: bold 14px adelle; padding-bottom : 7px;">
                 Explore the Collaborators
-            </div>
-            <li class="menu nav-item">
-                <div  id="disciplines">
-                Disciplines
-                <span class="glyphicon glyphicon-menu-down" id="disciplines-arrow" aria-hidden="true" style="float:right; margin-right: 10px;"></span>
+              </div>
+              <li class="menu nav-item">
+                <div id="disciplines">
+                  Disciplines
+                  <span class="arrow glyphicon glyphicon-menu-down" id="disciplines-arrow" aria-hidden="true" style="float:right; margin-right: 10px;"></span>
                 </div>
                 <ul id="disciplines-result"></ul>
-            </li>
-            <hr>
-            <li class="menu nav-item">
-                <div  id="fcl_project">
-                FCL Project
-                <span class="glyphicon glyphicon-menu-down" id="fcl_project-arrow" aria-hidden="true" style="float:right; margin-right: 10px;"></span>
+              </li>
+              <hr>
+              <li class="menu nav-item">
+                <div id="fcl_project">
+                  FCL Project
+                  <span class="arrow glyphicon glyphicon-menu-down" id="fcl_project-arrow" aria-hidden="true" style="float:right; margin-right: 10px;"></span>
                 </div>
                 <ul id="fcl_project-result"></ul>
-            </li>
-            <hr>
-            <li class="menu nav-item">
-                <div  id="location">
-                Location
-                <span class="glyphicon glyphicon-menu-down" id="location-arrow" aria-hidden="true" style="float:right; margin-right: 10px;"></span>
+              </li>
+              <hr>
+              <li class="menu nav-item">
+                <div id="location">
+                  Location
+                  <span class="arrow glyphicon glyphicon-menu-down" id="location-arrow" aria-hidden="true" style="float:right; margin-right: 10px;"></span>
                 </div>
                 <ul id="location-result"></ul>
-            </li>
-            <hr>
-            <li class="menu nav-item">
-                <div  id="language">
-                Language
-                <span class="glyphicon glyphicon-menu-down" id="language-arrow" aria-hidden="true" style="float:right; margin-right: 10px;"></span>
+              </li>
+              <hr>
+              <li class="menu nav-item">
+                <div id="language">
+                  Language
+                  <span class="arrow glyphicon glyphicon-menu-down" id="language-arrow" aria-hidden="true" style="float:right; margin-right: 10px;"></span>
                 </div>
                 <ul id="language-result"></ul>
+              </li>
+            </ul>
+          </div>
+        </td>
+        <td>
+          <span class="glyphicon-menu-left glyphicon"></span>
+        </td>
+        <td>
+          <div class="side-menu" id="disciplines-submenu">
+            <li>
+              <span style="font:12px lato;">Disciplines</span>
+              <p></p>
             </li>
-        </ul>
-    </div>
-    </td>
-            <td>
-                <span class="glyphicon-menu-left glyphicon"></span>
-            </td>
-<td>
-    <div class="side-menu" id="disciplines-submenu">
-        <li>
-            <span style="font:12px lato;">Disciplines</span>
-            <p></p>
-        </li>
-        <button class="disciplines-choices">Architecture</button> <br />
-        <button class="disciplines-choices">Art</button> <br />
-        <button class="disciplines-choices">Biology</button> <br />
-        <button class="disciplines-choices">Chemistry</button> <br />
-        <button class="disciplines-choices">Computer science</button> <br />
-        <button class="disciplines-choices">Ecology</button> <br />
-        <button class="disciplines-choices">Economics</button> <br />
-        <button class="disciplines-choices">Engineering</button> <br />
-        <button class="disciplines-choices">Graphic design</button> <br />
-        <button class="disciplines-choices">History</button> <br />
-        <button class="disciplines-choices">Landscape architecture</button> <br />
-        <button class="disciplines-choices">Law</button> <br />
-        <button class="disciplines-choices">Literature</button> <br />
-        <button class="disciplines-choices">Policy</button> <br />
-        <button class="disciplines-choices">Psychology</button> <br />
-        <button class="disciplines-choices">Sociology</button> <br />
-        <button class="disciplines-choices">Urban design/planning</button> <br />
-        <button class="disciplines-choices">Other</button> <br />
-    </div>
+            <button class="disciplines-choices">Architecture</button>
+            <br />
+            <button class="disciplines-choices">Art</button>
+            <br />
+            <button class="disciplines-choices">Biology</button>
+            <br />
+            <button class="disciplines-choices">Chemistry</button>
+            <br />
+            <button class="disciplines-choices">Computer science</button>
+            <br />
+            <button class="disciplines-choices">Ecology</button>
+            <br />
+            <button class="disciplines-choices">Economics</button>
+            <br />
+            <button class="disciplines-choices">Engineering</button>
+            <br />
+            <button class="disciplines-choices">Graphic design</button>
+            <br />
+            <button class="disciplines-choices">History</button>
+            <br />
+            <button class="disciplines-choices">Landscape architecture</button>
+            <br />
+            <button class="disciplines-choices">Law</button>
+            <br />
+            <button class="disciplines-choices">Literature</button>
+            <br />
+            <button class="disciplines-choices">Policy</button>
+            <br />
+            <button class="disciplines-choices">Psychology</button>
+            <br />
+            <button class="disciplines-choices">Sociology</button>
+            <br />
+            <button class="disciplines-choices">Urban design/planning</button>
+            <br />
+            <button class="disciplines-choices">Other</button>
+            <br />
+          </div>
 
-    <div class="side-menu" id="fcl_project-submenu">
-        <li>
-            <span style="font:12px lato;">FCL Project</span>
-            <p></p>
-        </li>
-        <button class="fcl_project-choices">Scenario 1 Coordination</button> <br />
-        <button class="fcl_project-choices">Scenario 1.1</button> <br />
-        <button class="fcl_project-choices">Scenario 1.2</button> <br />
-        <button class="fcl_project-choices">Scenario 1.3</button> <br />
-        <button class="fcl_project-choices">Scenario 1.4</button> <br />
-        <button class="fcl_project-choices">Scenario 2 Coordination</button> <br />
-        <button class="fcl_project-choices">Scenario 2.1</button> <br />
-        <button class="fcl_project-choices">Scenario 2.2</button> <br />
-        <button class="fcl_project-choices">Scenario 2.3</button> <br />
-        <button class="fcl_project-choices">Scenario 2.4</button> <br />
-        <button class="fcl_project-choices">Scenario 3 Coordination</button> <br />
-        <button class="fcl_project-choices">Scenario 3.1</button> <br />
-        <button class="fcl_project-choices">Scenario 3.2</button> <br />
-        <button class="fcl_project-choices">Scenario 3.3</button> <br />
-        <button class="fcl_project-choices">Scenario 3.4</button> <br />
-        <button class="fcl_project-choices">Cooler Singapore</button> <br />
-        <button class="fcl_project-choices">3 for 2</button> <br />
-        <button class="fcl_project-choices">Robotic Tiling</button> <br />
-        <button class="fcl_project-choices">CIVAL</button> <br />
-        <button class="fcl_project-choices">Other</button> <br />
-    </div>
+          <div class="side-menu" id="fcl_project-submenu">
+            <li>
+              <span style="font:12px lato;">FCL Project</span>
+              <p></p>
+            </li>
+            <button class="fcl_project-choices">Scenario 1 Coordination</button>
+            <br />
+            <button class="fcl_project-choices">Scenario 1.1</button>
+            <br />
+            <button class="fcl_project-choices">Scenario 1.2</button>
+            <br />
+            <button class="fcl_project-choices">Scenario 1.3</button>
+            <br />
+            <button class="fcl_project-choices">Scenario 1.4</button>
+            <br />
+            <button class="fcl_project-choices">Scenario 2 Coordination</button>
+            <br />
+            <button class="fcl_project-choices">Scenario 2.1</button>
+            <br />
+            <button class="fcl_project-choices">Scenario 2.2</button>
+            <br />
+            <button class="fcl_project-choices">Scenario 2.3</button>
+            <br />
+            <button class="fcl_project-choices">Scenario 2.4</button>
+            <br />
+            <button class="fcl_project-choices">Scenario 3 Coordination</button>
+            <br />
+            <button class="fcl_project-choices">Scenario 3.1</button>
+            <br />
+            <button class="fcl_project-choices">Scenario 3.2</button>
+            <br />
+            <button class="fcl_project-choices">Scenario 3.3</button>
+            <br />
+            <button class="fcl_project-choices">Scenario 3.4</button>
+            <br />
+            <button class="fcl_project-choices">Cooler Singapore</button>
+            <br />
+            <button class="fcl_project-choices">3 for 2</button>
+            <br />
+            <button class="fcl_project-choices">Robotic Tiling</button>
+            <br />
+            <button class="fcl_project-choices">CIVAL</button>
+            <br />
+            <button class="fcl_project-choices">Other</button>
+            <br />
+          </div>
 
-    <div class="side-menu" id="location-submenu">
-        <li>
-            <span style="font:12px lato;">Location</span>
-            <p></p>
-        </li>
-        <button class="location-choices">EPFL</button> <br />
-        <button class="location-choices">ETH Zurich</button> <br />
-        <button class="location-choices">FCL level 6</button> <br />
-        <button class="location-choices">FCL level 15</button> <br />
-        <button class="location-choices">FHNW</button> <br />
-        <button class="location-choices">NTU</button> <br />
-        <button class="location-choices">NUS</button> <br />
-        <button class="location-choices">SMU</button> <br />
-        <button class="location-choices">SUTD</button> <br />
-        <button class="location-choices">Other location</button> <br />
-    </div>
+          <div class="side-menu" id="location-submenu">
+            <li>
+              <span style="font:12px lato;">Location</span>
+              <p></p>
+            </li>
+            <button class="location-choices">EPFL</button>
+            <br />
+            <button class="location-choices">ETH Zurich</button>
+            <br />
+            <button class="location-choices">FCL level 6</button>
+            <br />
+            <button class="location-choices">FCL level 15</button>
+            <br />
+            <button class="location-choices">FHNW</button>
+            <br />
+            <button class="location-choices">NTU</button>
+            <br />
+            <button class="location-choices">NUS</button>
+            <br />
+            <button class="location-choices">SMU</button>
+            <br />
+            <button class="location-choices">SUTD</button>
+            <br />
+            <button class="location-choices">Other location</button>
+            <br />
+          </div>
 
-    <div class="side-menu" id="language-submenu">
-        <li>
-            <span style="font:12px lato;">Language</span>
-            <p></p>
-        </li>
-        <button class="language-choices">Arabic</button> <br />
-        <button class="language-choices">Chinese</button> <br />
-        <button class="language-choices">Dutch</button> <br />
-        <button class="language-choices">English</button> <br />
-        <button class="language-choices">French</button> <br />
-        <button class="language-choices">German</button> <br />
-        <button class="language-choices">Hindi</button> <br />
-        <button class="language-choices">Indonesian</button> <br />
-        <button class="language-choices">Italian</button> <br />
-        <button class="language-choices">Japanese</button> <br />
-        <button class="language-choices">Russian</button> <br />
-        <button class="language-choices">Spanish</button> <br />
-        <button class="language-choices">Malay</button> <br />
-        <button class="language-choices">Others</button> <br />
-    </div>
-    </td>
-        </tr>
+          <div class="side-menu" id="language-submenu">
+            <li>
+              <span style="font:12px lato;">Language</span>
+              <p></p>
+            </li>
+            <button class="language-choices">Arabic</button>
+            <br />
+            <button class="language-choices">Chinese</button>
+            <br />
+            <button class="language-choices">Dutch</button>
+            <br />
+            <button class="language-choices">English</button>
+            <br />
+            <button class="language-choices">French</button>
+            <br />
+            <button class="language-choices">German</button>
+            <br />
+            <button class="language-choices">Hindi</button>
+            <br />
+            <button class="language-choices">Indonesian</button>
+            <br />
+            <button class="language-choices">Italian</button>
+            <br />
+            <button class="language-choices">Japanese</button>
+            <br />
+            <button class="language-choices">Russian</button>
+            <br />
+            <button class="language-choices">Spanish</button>
+            <br />
+            <button class="language-choices">Malay</button>
+            <br />
+            <button class="language-choices">Others</button>
+            <br />
+          </div>
+        </td>
+      </tr>
     </table>
-</nav>
+    <div class='btn-group-vertical' style="padding-top: 50px;">
+      <button class='btn btn-primary' id='research_group'>Sort by FCL Project</button>
+      <button class='btn btn-primary' id='locations'>Sort by Location</button>
+      <button class='btn btn-primary' id='mother_tongues'>Sort by Language</button>
+      <button class='btn btn-primary' id='gender'>Sort by Gender</button>
+      <button class='btn btn-primary' id='academic_background'>Sort by Academic Background</button>
+      <button class='btn btn-primary' id='start_date'>Sort by Starting Date</button>
+    </div>
+  </nav>
 
-<table id="nav-bottom">
+  <table id="nav-bottom">
     <tr>
-        <td>
+      <td>
         <button class="glyphicon glyphicon-repeat" style="width: 30px; height: 26px; font-size: 18px; border:none; background-color:transparent;"></button>
-        </td>
-        <td>
-            <button style="width: 74px; height: 18px; font-family: lato; font-size: 12px; line-height: 12px; border:none; background-color:transparent; padding-left: 10px; border-left: 2px solid #C8C8C8">Rationale</button>
-        </td>
+      </td>
+      <td>
+        <button style="width: 74px; height: 18px; font-family: lato; font-size: 12px; line-height: 12px; border:none; background-color:transparent; padding-left: 10px; border-left: 2px solid #C8C8C8">Rationale</button>
+      </td>
     </tr>
-</table>
+  </table>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" ></script>
-<script src="NavBar.js"></script>
-<script type="text/javascript">
-    var graph =
-        {
-            "nodes":[{
-                "id": "project twice",
-                "type": "Project",
-                "start_date": "Apr. 2015",
-                "project_duration": "> 2 years",
-                "project_outcomes": ["Granted research proposal", "Joint publication", "Research modelling", "Joint prototype", "Data sharing", "Expert analysis"],
-                "research_groups": "Scenario 2.3, 3 for 2, Scenario 3.4, Scenario 3.1, Scenario 3.3, Scenario 1.2",
-                "pieChart": [{
-                    "color": "#5C6BC0",
-                    "percent": 16.666666666667
-                }, {
-                    "color": "#FF80AB",
-                    "percent": 16.666666666667
-                }, {
-                    "color": "#FFCA28",
-                    "percent": 16.666666666667
-                }, {
-                    "color": "#9CCC65",
-                    "percent": 16.666666666667
-                }, {
-                    "color": "#4DB6AC",
-                    "percent": 16.666666666667
-                }, {
-                    "color": "#FFCA28",
-                    "percent": 16.666666666667
-                }],
-                "radius": 7
-            }, {
-                "id": "1",
-                "type": "Collaborator",
-                "start_date": "Jan. 1990",
-                "before_fcl": "< 1 year",
-                "academic_background": "bachelor",
-                "gender": "male",
-                "age": "41-50",
-                "disciplinary_backgrounds": ["Biology", "Chemistry"],
-                "nationality": "Indian",
-                "mother_tongues": "Chinese, English",
-                "research_group": "Scenario 2.3",
-                "locations": "FCL level 6"
-            }, {
-                "id": "project second",
-                "type": "Project",
-                "start_date": "Jan. 2015",
-                "project_duration": "12 months - 2 years",
-                "project_outcomes": ["Joint publication", "Expert analysis", "Granted research proposal", "Joint prototype", "Data sharing", "Expertise contribution"],
-                "research_groups": "Scenario 2.4, Scenario 3.2, Scenario 3.1, research group new, Scenario 1.2, 3 for 2, Cooler Singapore, Scenario 1.1",
-                "pieChart": [{
-                    "color": "#FF80AB",
-                    "percent": 16.666666666667
-                }, {
-                    "color": "#FFCA28",
-                    "percent": 16.666666666667
-                }, {
-                    "color": "#5C6BC0",
-                    "percent": 16.666666666667
-                }, {
-                    "color": "#9CCC65",
-                    "percent": 16.666666666667
-                }, {
-                    "color": "#4DB6AC",
-                    "percent": 16.666666666667
-                }, {
-                    "color": "#FC8D62",
-                    "percent": 16.666666666667
-                }],
-                "radius": 9
-            }, {
-                "id": "3",
-                "type": "Collaborator",
-                "start_date": "Jan. 1990",
-                "before_fcl": "2-5 years",
-                "academic_background": "master",
-                "gender": "female",
-                "age": "20-30",
-                "disciplinary_backgrounds": ["Biology"],
-                "nationality": "New Zealander",
-                "mother_tongues": "Chinese",
-                "research_group": "Scenario 2.4",
-                "locations": "FCL level 15"
-            }, {
-                "id": "project abc",
-                "type": "Project",
-                "start_date": "Jan. 2015",
-                "project_duration": "12 months - 2 years",
-                "project_outcomes": ["Expert analysis", "Granted research proposal"],
-                "research_groups": "Scenario 2.4, Scenario 1.2, 3 for 2",
-                "pieChart": [{
-                    "color": "#FFCA28",
-                    "percent": 50
-                }, {
-                    "color": "#5C6BC0",
-                    "percent": 50
-                }],
-                "radius": 4
-            }, {
-                "id": "this is others",
-                "type": "Project",
-                "start_date": "Jan. 2015",
-                "project_duration": "12 months - 2 years",
-                "project_outcomes": ["Joint publication", "Expert analysis"],
-                "research_groups": "Scenario 2.4, Scenario 3.1",
-                "pieChart": [{
-                    "color": "#FF80AB",
-                    "percent": 50
-                }, {
-                    "color": "#FFCA28",
-                    "percent": 50
-                }],
-                "radius": 2
-            }, {
-                "id": "4",
-                "type": "Collaborator",
-                "start_date": "Jan. 1990",
-                "before_fcl": "1-2 years",
-                "academic_background": "master",
-                "gender": "female",
-                "age": "41-50",
-                "disciplinary_backgrounds": ["Ecology"],
-                "nationality": "New Zealander",
-                "mother_tongues": "Chinese",
-                "research_group": "Scenario 2.4",
-                "locations": "Other location in CREATE"
-            }, {
-                "id": "5",
-                "type": "Collaborator",
-                "start_date": "Apr. 2012",
-                "before_fcl": "1-2 years",
-                "academic_background": "master",
-                "gender": "female",
-                "age": "20-30",
-                "disciplinary_backgrounds": ["Psychology"],
-                "nationality": "Italian",
-                "mother_tongues": "Dutch, Flemish",
-                "research_group": "3 for 2",
-                "locations": "ETH Zurich"
-            }, {
-                "id": "6",
-                "type": "Collaborator",
-                "start_date": "Jan. 1990",
-                "before_fcl": "1-2 years",
-                "academic_background": "master",
-                "gender": "female",
-                "age": "20-30",
-                "disciplinary_backgrounds": ["Ecology"],
-                "nationality": "Mexican",
-                "mother_tongues": "Chinese",
-                "research_group": "Scenario 3.4",
-                "locations": "SMU"
-            }, {
-                "id": "7",
-                "type": "Collaborator",
-                "start_date": "Jan. 1990",
-                "before_fcl": "1-2 years",
-                "academic_background": "master",
-                "gender": "male",
-                "age": "41-50",
-                "disciplinary_backgrounds": ["Chemistry", "Computer Science"],
-                "nationality": "Iranian",
-                "mother_tongues": "Chinese, German",
-                "research_group": "Scenario 3.2",
-                "locations": "ETH Zurich"
-            }, {
-                "id": "this is new",
-                "type": "Project",
-                "start_date": "Jan. 2015",
-                "project_duration": "12 months - 2 years",
-                "project_outcomes": ["Granted research proposal", "Joint prototype"],
-                "research_groups": "Cooler Singapore",
-                "pieChart": [{
-                    "color": "#5C6BC0",
-                    "percent": 50
-                }, {
-                    "color": "#9CCC65",
-                    "percent": 50
-                }],
-                "radius": 1
-            }, {
-                "id": "9",
-                "type": "Collaborator",
-                "start_date": "Jan. 1990",
-                "before_fcl": "< 1 year",
-                "academic_background": "phD",
-                "gender": "female",
-                "age": "31-40",
-                "disciplinary_backgrounds": ["Biology"],
-                "nationality": "Russian",
-                "mother_tongues": "Chinese",
-                "research_group": "Cooler Singapore",
-                "locations": "NUS"
-            }, {
-                "id": "time",
-                "type": "Project",
-                "start_date": "Jan. 2015",
-                "project_duration": "12 months - 2 years",
-                "project_outcomes": ["Granted research proposal", "Joint publication", "Joint prototype"],
-                "research_groups": "Scenario 3.2, Scenario 3.3",
-                "pieChart": [{
-                    "color": "#5C6BC0",
-                    "percent": 33.333333333333
-                }, {
-                    "color": "#FF80AB",
-                    "percent": 33.333333333333
-                }, {
-                    "color": "#9CCC65",
-                    "percent": 33.333333333333
-                }],
-                "radius": 2
-            }, {
-                "id": "11",
-                "type": "Collaborator",
-                "start_date": "Jan. 1990",
-                "before_fcl": "2-5 years",
-                "academic_background": "bachelor",
-                "gender": "female",
-                "age": "41-50",
-                "disciplinary_backgrounds": ["Architecture", "Chemistry"],
-                "nationality": "New Zealander",
-                "mother_tongues": "Chinese, French",
-                "research_group": "Scenario 3.2",
-                "locations": "FCL level 15"
-            }, {
-                "id": "12",
-                "type": "Collaborator",
-                "start_date": "Jan. 1990",
-                "before_fcl": "< 1 year",
-                "academic_background": "phD",
-                "gender": "male",
-                "age": "20-30",
-                "disciplinary_backgrounds": ["Computer Science"],
-                "nationality": "New Zealander",
-                "mother_tongues": "Chinese",
-                "research_group": "Scenario 3.1",
-                "locations": "NUS"
-            }, {
-                "id": "13",
-                "type": "Collaborator",
-                "start_date": "Jan. 1990",
-                "before_fcl": "2-5 years",
-                "academic_background": "master",
-                "gender": "female",
-                "age": "20-30",
-                "disciplinary_backgrounds": ["Chemistry", "Computer Science"],
-                "nationality": "Serbian",
-                "mother_tongues": "Dutch, Flemish",
-                "research_group": "Scenario 3.3",
-                "locations": "NUS"
-            }, {
-                "id": "gogo",
-                "type": "Project",
-                "start_date": "Jan. 2015",
-                "project_duration": "12 months - 2 years",
-                "project_outcomes": ["Joint prototype", " Edit outcome", " Edit another outcome", "Data sharing"],
-                "research_groups": "Scenario 2.3, Scenario 2.4, research group new, Scenario 2.1",
-                "pieChart": [{
-                    "color": "#9CCC65",
-                    "percent": 25
-                }, {
-                    "color": "#FFCA28",
-                    "percent": 25
-                }, {
-                    "color": "#FFCA28",
-                    "percent": 25
-                }, {
-                    "color": "#4DB6AC",
-                    "percent": 25
-                }],
-                "radius": 4
-            }, {
-                "id": "14",
-                "type": "Collaborator",
-                "start_date": "Jan. 1990",
-                "before_fcl": ">10 years",
-                "academic_background": "bachelor",
-                "gender": "female",
-                "age": "31-40",
-                "disciplinary_backgrounds": ["Chemistry", "Computer Science"],
-                "nationality": "Mexican",
-                "mother_tongues": "Chinese",
-                "research_group": "Scenario 2.4",
-                "locations": "ETH Zurich"
-            }, {
-                "id": "16",
-                "type": "Collaborator",
-                "start_date": "Jan. 1993",
-                "before_fcl": "2-5 years",
-                "academic_background": "phD",
-                "gender": "female",
-                "age": "31-40",
-                "disciplinary_backgrounds": ["Computer science"],
-                "nationality": "sdfs",
-                "mother_tongues": "Chinese",
-                "research_group": "research group new",
-                "locations": "Other location in CREATE"
-            }, {
-                "id": "17",
-                "type": "Collaborator",
-                "start_date": "Jan. 1990",
-                "before_fcl": "2-5 years",
-                "academic_background": "phD",
-                "gender": "male",
-                "age": "41-50",
-                "disciplinary_backgrounds": ["Graphic designer"],
-                "nationality": "Italian",
-                "mother_tongues": "Chinese, Dutch, Flemish",
-                "research_group": "Scenario 3.3",
-                "locations": "Other location in CREATE"
-            }, {
-                "id": "Collaboration map",
-                "type": "Project",
-                "start_date": "Aug. 2016",
-                "project_duration": "12 months - 2 years",
-                "project_outcomes": ["Joint prototype", "Granted research proposal", "Joint publication"],
-                "research_groups": "CIVAL, Scenario 3",
-                "pieChart": [{
-                    "color": "#9CCC65",
-                    "percent": 33.333333333333
-                }, {
-                    "color": "#5C6BC0",
-                    "percent": 33.333333333333
-                }, {
-                    "color": "#FF80AB",
-                    "percent": 33.333333333333
-                }],
-                "radius": 2
-            }, {
-                "id": "19",
-                "type": "Collaborator",
-                "start_date": "Sept. 2016",
-                "before_fcl": "< 1 year",
-                "academic_background": "master",
-                "gender": "female",
-                "age": "20-30",
-                "disciplinary_backgrounds": ["Graphic designer"],
-                "nationality": "Japanese",
-                "mother_tongues": "Japanese",
-                "research_group": "CIVAL",
-                "locations": "FCL level 6"
-            }, {
-                "id": "SAO",
-                "type": "Project",
-                "start_date": "Jan. 2015",
-                "project_duration": "12 months - 2 years",
-                "project_outcomes": ["Joint prototype", "Data sharing", "Granted research proposal", "Joint publication", "Other google outcome"],
-                "research_groups": "CIVAL, Scenario 1.2, Research Group Google",
-                "pieChart": [{
-                    "color": "#9CCC65",
-                    "percent": 20
-                }, {
-                    "color": "#4DB6AC",
-                    "percent": 20
-                }, {
-                    "color": "#5C6BC0",
-                    "percent": 20
-                }, {
-                    "color": "#FF80AB",
-                    "percent": 20
-                }, {
-                    "color": "#FFCA28",
-                    "percent": 20
-                }],
-                "radius": 3
-            }, {
-                "id": "20",
-                "type": "Collaborator",
-                "start_date": "Jan. 2010",
-                "before_fcl": "5-10 years",
-                "academic_background": "master",
-                "gender": "female",
-                "age": "20-30",
-                "disciplinary_backgrounds": ["Ecology"],
-                "nationality": "Iranian",
-                "mother_tongues": "Chinese",
-                "research_group": "Scenario 2.4",
-                "locations": "FCL level 6"
-            }, {
-                "id": "21",
-                "type": "Collaborator",
-                "start_date": "Feb. 2013",
-                "before_fcl": "1-2 years",
-                "academic_background": "master",
-                "gender": "female",
-                "age": "20-30",
-                "disciplinary_backgrounds": ["Chemistry"],
-                "nationality": "Colombian",
-                "mother_tongues": "Chinese, English",
-                "research_group": "Scenario 1.2",
-                "locations": "FCL level 15"
-            }, {
-                "id": "project title",
-                "type": "Project",
-                "start_date": "Apr. 2017",
-                "project_duration": "12 months - 2 years",
-                "project_outcomes": ["Granted research proposal"],
-                "research_groups": "Cooler Singapore",
-                "pieChart": [{
-                    "color": "#5C6BC0",
-                    "percent": 100
-                }],
-                "radius": 1
-            }, {
-                "id": "22",
-                "type": "Collaborator",
-                "start_date": "Feb. 2011",
-                "before_fcl": "< 1 year",
-                "academic_background": "master",
-                "gender": "female",
-                "age": "41-50",
-                "disciplinary_backgrounds": ["Ecology"],
-                "nationality": "Taiwanese",
-                "mother_tongues": "Chinese, Dutch, Flemish",
-                "research_group": "Cooler Singapore",
-                "locations": "ETH Zurich"
-            }, {
-                "id": "23",
-                "type": "Collaborator",
-                "start_date": "Mar. 2012",
-                "before_fcl": "< 1 year",
-                "academic_background": "phD",
-                "gender": "female",
-                "age": "20-30",
-                "disciplinary_backgrounds": [""],
-                "nationality": "Dutch",
-                "mother_tongues": "Chinese",
-                "research_group": "Scenario 2.1",
-                "locations": "Other location"
-            }, {
-                "id": "Google Project",
-                "type": "Project",
-                "start_date": "Mar. 2016",
-                "project_duration": "12 months - 2 years",
-                "project_outcomes": ["Expert analysis", "Granted research proposal", "Google outcome"],
-                "research_groups": "Research Group Google",
-                "pieChart": [{
-                    "color": "#FFCA28",
-                    "percent": 33.333333333333
-                }, {
-                    "color": "#5C6BC0",
-                    "percent": 33.333333333333
-                }, {
-                    "color": "#FFCA28",
-                    "percent": 33.333333333333
-                }],
-                "radius": 1
-            }, {
-                "id": "37",
-                "type": "Collaborator",
-                "start_date": "Mar. 2014",
-                "before_fcl": "1-2 years",
-                "academic_background": "bachelor",
-                "gender": "male",
-                "age": "31-40",
-                "disciplinary_backgrounds": ["Chemistry", "Computer science", "Computer engineering"],
-                "nationality": "Other Nationality",
-                "mother_tongues": "Chinese, English, Indonesian",
-                "research_group": "Research Group Google",
-                "locations": "Other location,ETH Zurich"
-            }, {
-                "id": "38",
-                "type": "Collaborator",
-                "start_date": "Mar. 2012",
-                "before_fcl": "1-2 years",
-                "academic_background": "bachelor",
-                "gender": "male",
-                "age": "31-40",
-                "disciplinary_backgrounds": ["Psychology"],
-                "nationality": "Japanese",
-                "mother_tongues": "Chinese, Indonesian",
-                "research_group": "Cooler Singapore",
-                "locations": "ETH Zurich"
-            }, {
-                "id": "39",
-                "type": "Collaborator",
-                "start_date": "Sept. 2015",
-                "before_fcl": ">10 years",
-                "academic_background": "phD",
-                "gender": "female",
-                "age": "41-50",
-                "disciplinary_backgrounds": ["Architecture", "Urban design\/planning"],
-                "nationality": "Indonesian",
-                "mother_tongues": "Indonesian",
-                "research_group": "Scenario 3",
-                "locations": "FCL level 6"
-            }, {
-                "id": "35",
-                "type": "Collaborator",
-                "start_date": "Mar. 2013",
-                "before_fcl": "1-2 years",
-                "academic_background": "bachelor",
-                "gender": "male",
-                "age": "41-50",
-                "disciplinary_backgrounds": ["Art", "Ecology", "History"],
-                "nationality": "British",
-                "mother_tongues": "English",
-                "research_group": "Scenario 1.1",
-                "locations": "FCL level 15,FHNW"
-            }],
-            "links":[{
-                "source": "1",
-                "target": "project twice"
-            },{
-                "source": "3",
-                "target": "project abc"
-            }, {
-                "source": "3",
-                "target": "project second"
-            }, {
-                "source": "4",
-                "target": "this is others"
-            }, {
-                "source": "5",
-                "target": "project twice"
-            }, {
-                "source": "6",
-                "target": "project twice"
-            }, {
-                "source": "7",
-                "target": "project second"
-            }, {
-                "source": "9",
-                "target": "this is new"
-            }, {
-                "source": "11",
-                "target": "time"
-            }, {
-                "source": "12",
-                "target": "this is others"
-            }, {
-                "source": "12",
-                "target": "project twice"
-            }, {
-                "source": "12",
-                "target": "project second"
-            }, {
-                "source": "12",
-                "target": "project second"
-            }, {
-                "source": "13",
-                "target": "project twice"
-            }, {
-                "source": "13",
-                "target": "time"
-            }, {
-                "source": "16",
-                "target": "project second"
-            }, {
-                "source": "17",
-                "target": "project twice"
-            }, {
-                "source": "19",
-                "target": "Collaboration map"
-            }, {
-                "source": "19",
-                "target": "SAO"
-            }, {
-                "source": "20",
-                "target": "project abc"
-            }, {
-                "source": "21",
-                "target": "project twice"
-            }, {
-                "source": "21",
-                "target": "project second"
-            }, {
-                "source": "21",
-                "target": "SAO"
-            }, {
-                "source": "21",
-                "target": "project abc"
-            }, {
-                "source": "22",
-                "target": "project title"
-            }, {
-                "source": "5",
-                "target": "project second"
-            }, {
-                "source": "5",
-                "target": "project abc"
-            }, {
-                "source": "37",
-                "target": "Google Project"
-            }, {
-                "source": "37",
-                "target": "SAO"
-            }, {
-                "source": "38",
-                "target": "project second"
-            }, {
-                "source": "39",
-                "target": "Collaboration map"
-            }, {
-                "source": "35",
-                "target": "project second"
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <script src="NavBar.js"></script>
+  <script type="text/javascript">
+    $('.main-menu').hide();
+    $('.glyphicon-menu-left').hide();
+
+    var graph = {
+      "nodes": [{
+        "id": "project twice",
+        "type": "Project",
+        "start_date": "Apr. 2015",
+        "project_duration": "> 2 years",
+        "project_outcomes": ["Granted research proposal", "Joint publication", "Research modelling", "Joint prototype", "Data sharing", "Expert analysis"],
+        "research_groups": "Scenario 2.3, 3 for 2, Scenario 3.4, Scenario 3.1, Scenario 3.3, Scenario 1.2",
+        "pieChart": [{
+          "color": "#5C6BC0",
+          "percent": 16.666666666667
+        }, {
+          "color": "#FF80AB",
+          "percent": 16.666666666667
+        }, {
+          "color": "#FFCA28",
+          "percent": 16.666666666667
+        }, {
+          "color": "#9CCC65",
+          "percent": 16.666666666667
+        }, {
+          "color": "#4DB6AC",
+          "percent": 16.666666666667
+        }, {
+          "color": "#FFCA28",
+          "percent": 16.666666666667
+        }],
+        "radius": 7
+      }, {
+        "id": "1",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "< 1 year",
+        "academic_background": "bachelor",
+        "gender": "male",
+        "age": "41-50",
+        "disciplinary_backgrounds": ["Biology", "Chemistry"],
+        "nationality": "Indian",
+        "mother_tongues": "Chinese, English",
+        "research_group": "Scenario 2.3",
+        "locations": "FCL level 6"
+      }, {
+        "id": "project second",
+        "type": "Project",
+        "start_date": "Jan. 2015",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Joint publication", "Expert analysis", "Granted research proposal", "Joint prototype", "Data sharing", "Expertise contribution"],
+        "research_groups": "Scenario 2.4, Scenario 3.2, Scenario 3.1, research group new, Scenario 1.2, 3 for 2, Cooler Singapore, Scenario 1.1",
+        "pieChart": [{
+          "color": "#FF80AB",
+          "percent": 16.666666666667
+        }, {
+          "color": "#FFCA28",
+          "percent": 16.666666666667
+        }, {
+          "color": "#5C6BC0",
+          "percent": 16.666666666667
+        }, {
+          "color": "#9CCC65",
+          "percent": 16.666666666667
+        }, {
+          "color": "#4DB6AC",
+          "percent": 16.666666666667
+        }, {
+          "color": "#FC8D62",
+          "percent": 16.666666666667
+        }],
+        "radius": 9
+      }, {
+        "id": "3",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "2-5 years",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "20-30",
+        "disciplinary_backgrounds": ["Biology"],
+        "nationality": "New Zealander",
+        "mother_tongues": "Chinese",
+        "research_group": "Scenario 2.4",
+        "locations": "FCL level 15"
+      }, {
+        "id": "project abc",
+        "type": "Project",
+        "start_date": "Jan. 2015",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Expert analysis", "Granted research proposal"],
+        "research_groups": "Scenario 2.4, Scenario 1.2, 3 for 2",
+        "pieChart": [{
+          "color": "#FFCA28",
+          "percent": 50
+        }, {
+          "color": "#5C6BC0",
+          "percent": 50
+        }],
+        "radius": 4
+      }, {
+        "id": "this is others",
+        "type": "Project",
+        "start_date": "Jan. 2015",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Joint publication", "Expert analysis"],
+        "research_groups": "Scenario 2.4, Scenario 3.1",
+        "pieChart": [{
+          "color": "#FF80AB",
+          "percent": 50
+        }, {
+          "color": "#FFCA28",
+          "percent": 50
+        }],
+        "radius": 2
+      }, {
+        "id": "4",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "1-2 years",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "41-50",
+        "disciplinary_backgrounds": ["Ecology"],
+        "nationality": "New Zealander",
+        "mother_tongues": "Chinese",
+        "research_group": "Scenario 2.4",
+        "locations": "Other location in CREATE"
+      }, {
+        "id": "5",
+        "type": "Collaborator",
+        "start_date": "Apr. 2012",
+        "before_fcl": "1-2 years",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "20-30",
+        "disciplinary_backgrounds": ["Psychology"],
+        "nationality": "Italian",
+        "mother_tongues": "Dutch, Flemish",
+        "research_group": "3 for 2",
+        "locations": "ETH Zurich"
+      }, {
+        "id": "6",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "1-2 years",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "20-30",
+        "disciplinary_backgrounds": ["Ecology"],
+        "nationality": "Mexican",
+        "mother_tongues": "Chinese",
+        "research_group": "Scenario 3.4",
+        "locations": "SMU"
+      }, {
+        "id": "7",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "1-2 years",
+        "academic_background": "master",
+        "gender": "male",
+        "age": "41-50",
+        "disciplinary_backgrounds": ["Chemistry", "Computer Science"],
+        "nationality": "Iranian",
+        "mother_tongues": "Chinese, German",
+        "research_group": "Scenario 3.2",
+        "locations": "ETH Zurich"
+      }, {
+        "id": "this is new",
+        "type": "Project",
+        "start_date": "Jan. 2015",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Granted research proposal", "Joint prototype"],
+        "research_groups": "Cooler Singapore",
+        "pieChart": [{
+          "color": "#5C6BC0",
+          "percent": 50
+        }, {
+          "color": "#9CCC65",
+          "percent": 50
+        }],
+        "radius": 1
+      }, {
+        "id": "9",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "< 1 year",
+        "academic_background": "phD",
+        "gender": "female",
+        "age": "31-40",
+        "disciplinary_backgrounds": ["Biology"],
+        "nationality": "Russian",
+        "mother_tongues": "Chinese",
+        "research_group": "Cooler Singapore",
+        "locations": "NUS"
+      }, {
+        "id": "time",
+        "type": "Project",
+        "start_date": "Jan. 2015",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Granted research proposal", "Joint publication", "Joint prototype"],
+        "research_groups": "Scenario 3.2, Scenario 3.3",
+        "pieChart": [{
+          "color": "#5C6BC0",
+          "percent": 33.333333333333
+        }, {
+          "color": "#FF80AB",
+          "percent": 33.333333333333
+        }, {
+          "color": "#9CCC65",
+          "percent": 33.333333333333
+        }],
+        "radius": 2
+      }, {
+        "id": "11",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "2-5 years",
+        "academic_background": "bachelor",
+        "gender": "female",
+        "age": "41-50",
+        "disciplinary_backgrounds": ["Architecture", "Chemistry"],
+        "nationality": "New Zealander",
+        "mother_tongues": "Chinese, French",
+        "research_group": "Scenario 3.2",
+        "locations": "FCL level 15"
+      }, {
+        "id": "12",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "< 1 year",
+        "academic_background": "phD",
+        "gender": "male",
+        "age": "20-30",
+        "disciplinary_backgrounds": ["Computer Science"],
+        "nationality": "New Zealander",
+        "mother_tongues": "Chinese",
+        "research_group": "Scenario 3.1",
+        "locations": "NUS"
+      }, {
+        "id": "13",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "2-5 years",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "20-30",
+        "disciplinary_backgrounds": ["Chemistry", "Computer Science"],
+        "nationality": "Serbian",
+        "mother_tongues": "Dutch, Flemish",
+        "research_group": "Scenario 3.3",
+        "locations": "NUS"
+      },{
+        "id": "14",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": ">10 years",
+        "academic_background": "bachelor",
+        "gender": "female",
+        "age": "31-40",
+        "disciplinary_backgrounds": ["Chemistry", "Computer Science"],
+        "nationality": "Mexican",
+        "mother_tongues": "Chinese",
+        "research_group": "Scenario 2.4",
+        "locations": "ETH Zurich"
+      }, {
+        "id": "16",
+        "type": "Collaborator",
+        "start_date": "Jan. 1993",
+        "before_fcl": "2-5 years",
+        "academic_background": "phD",
+        "gender": "female",
+        "age": "31-40",
+        "disciplinary_backgrounds": ["Computer science"],
+        "nationality": "sdfs",
+        "mother_tongues": "Chinese",
+        "research_group": "research group new",
+        "locations": "Other location in CREATE"
+      }, {
+        "id": "17",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "2-5 years",
+        "academic_background": "phD",
+        "gender": "male",
+        "age": "41-50",
+        "disciplinary_backgrounds": ["Graphic designer"],
+        "nationality": "Italian",
+        "mother_tongues": "Chinese, Dutch, Flemish",
+        "research_group": "Scenario 3.3",
+        "locations": "Other location in CREATE"
+      }, {
+        "id": "Collaboration map",
+        "type": "Project",
+        "start_date": "Aug. 2016",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Joint prototype", "Granted research proposal", "Joint publication"],
+        "research_groups": "CIVAL, Scenario 3",
+        "pieChart": [{
+          "color": "#9CCC65",
+          "percent": 33.333333333333
+        }, {
+          "color": "#5C6BC0",
+          "percent": 33.333333333333
+        }, {
+          "color": "#FF80AB",
+          "percent": 33.333333333333
+        }],
+        "radius": 2
+      }, {
+        "id": "19",
+        "type": "Collaborator",
+        "start_date": "Sept. 2016",
+        "before_fcl": "< 1 year",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "20-30",
+        "disciplinary_backgrounds": ["Graphic designer"],
+        "nationality": "Japanese",
+        "mother_tongues": "Japanese",
+        "research_group": "CIVAL",
+        "locations": "FCL level 6"
+      }, {
+        "id": "SAO",
+        "type": "Project",
+        "start_date": "Jan. 2015",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Joint prototype", "Data sharing", "Granted research proposal", "Joint publication", "Other google outcome"],
+        "research_groups": "CIVAL, Scenario 1.2, Research Group Google",
+        "pieChart": [{
+          "color": "#9CCC65",
+          "percent": 20
+        }, {
+          "color": "#4DB6AC",
+          "percent": 20
+        }, {
+          "color": "#5C6BC0",
+          "percent": 20
+        }, {
+          "color": "#FF80AB",
+          "percent": 20
+        }, {
+          "color": "#FFCA28",
+          "percent": 20
+        }],
+        "radius": 3
+      }, {
+        "id": "20",
+        "type": "Collaborator",
+        "start_date": "Jan. 2010",
+        "before_fcl": "5-10 years",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "20-30",
+        "disciplinary_backgrounds": ["Ecology"],
+        "nationality": "Iranian",
+        "mother_tongues": "Chinese",
+        "research_group": "Scenario 2.4",
+        "locations": "FCL level 6"
+      }, {
+        "id": "21",
+        "type": "Collaborator",
+        "start_date": "Feb. 2013",
+        "before_fcl": "1-2 years",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "20-30",
+        "disciplinary_backgrounds": ["Chemistry"],
+        "nationality": "Colombian",
+        "mother_tongues": "Chinese, English",
+        "research_group": "Scenario 1.2",
+        "locations": "FCL level 15"
+      }, {
+        "id": "project title",
+        "type": "Project",
+        "start_date": "Apr. 2017",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Granted research proposal"],
+        "research_groups": "Cooler Singapore",
+        "pieChart": [{
+          "color": "#5C6BC0",
+          "percent": 100
+        }],
+        "radius": 1
+      }, {
+        "id": "22",
+        "type": "Collaborator",
+        "start_date": "Feb. 2011",
+        "before_fcl": "< 1 year",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "41-50",
+        "disciplinary_backgrounds": ["Ecology"],
+        "nationality": "Taiwanese",
+        "mother_tongues": "Chinese, Dutch, Flemish",
+        "research_group": "Cooler Singapore",
+        "locations": "ETH Zurich"
+      }, {
+        "id": "23",
+        "type": "Collaborator",
+        "start_date": "Mar. 2012",
+        "before_fcl": "< 1 year",
+        "academic_background": "phD",
+        "gender": "female",
+        "age": "20-30",
+        "disciplinary_backgrounds": [""],
+        "nationality": "Dutch",
+        "mother_tongues": "Chinese",
+        "research_group": "Scenario 2.1",
+        "locations": "Other location"
+      }, {
+        "id": "Google Project",
+        "type": "Project",
+        "start_date": "Mar. 2016",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Expert analysis", "Granted research proposal", "Google outcome"],
+        "research_groups": "Research Group Google",
+        "pieChart": [{
+          "color": "#FFCA28",
+          "percent": 33.333333333333
+        }, {
+          "color": "#5C6BC0",
+          "percent": 33.333333333333
+        }, {
+          "color": "#FFCA28",
+          "percent": 33.333333333333
+        }],
+        "radius": 1
+      }, {
+        "id": "37",
+        "type": "Collaborator",
+        "start_date": "Mar. 2014",
+        "before_fcl": "1-2 years",
+        "academic_background": "bachelor",
+        "gender": "male",
+        "age": "31-40",
+        "disciplinary_backgrounds": ["Chemistry", "Computer science", "Computer engineering"],
+        "nationality": "Other Nationality",
+        "mother_tongues": "Chinese, English, Indonesian",
+        "research_group": "Research Group Google",
+        "locations": "Other location,ETH Zurich"
+      }, {
+        "id": "38",
+        "type": "Collaborator",
+        "start_date": "Mar. 2012",
+        "before_fcl": "1-2 years",
+        "academic_background": "bachelor",
+        "gender": "male",
+        "age": "31-40",
+        "disciplinary_backgrounds": ["Psychology"],
+        "nationality": "Japanese",
+        "mother_tongues": "Chinese, Indonesian",
+        "research_group": "Cooler Singapore",
+        "locations": "ETH Zurich"
+      }, {
+        "id": "39",
+        "type": "Collaborator",
+        "start_date": "Sept. 2015",
+        "before_fcl": ">10 years",
+        "academic_background": "phD",
+        "gender": "female",
+        "age": "41-50",
+        "disciplinary_backgrounds": ["Architecture", "Urban design\/planning"],
+        "nationality": "Indonesian",
+        "mother_tongues": "Indonesian",
+        "research_group": "Scenario 3",
+        "locations": "FCL level 6"
+      }, {
+        "id": "35",
+        "type": "Collaborator",
+        "start_date": "Mar. 2013",
+        "before_fcl": "1-2 years",
+        "academic_background": "bachelor",
+        "gender": "male",
+        "age": "41-50",
+        "disciplinary_backgrounds": ["Art", "Ecology", "History"],
+        "nationality": "British",
+        "mother_tongues": "English",
+        "research_group": "Scenario 1.1",
+        "locations": "FCL level 15,FHNW"
+      }],
+      "links": [{
+        "source": "1",
+        "target": "project twice"
+      }, {
+        "source": "3",
+        "target": "project abc"
+      }, {
+        "source": "3",
+        "target": "project second"
+      }, {
+        "source": "4",
+        "target": "this is others"
+      }, {
+        "source": "5",
+        "target": "project twice"
+      }, {
+        "source": "6",
+        "target": "project twice"
+      }, {
+        "source": "7",
+        "target": "project second"
+      }, {
+        "source": "9",
+        "target": "this is new"
+      }, {
+        "source": "11",
+        "target": "time"
+      }, {
+        "source": "12",
+        "target": "this is others"
+      }, {
+        "source": "12",
+        "target": "project twice"
+      }, {
+        "source": "12",
+        "target": "project second"
+      }, {
+        "source": "12",
+        "target": "project second"
+      }, {
+        "source": "13",
+        "target": "project twice"
+      }, {
+        "source": "13",
+        "target": "time"
+      }, {
+        "source": "16",
+        "target": "project second"
+      }, {
+        "source": "17",
+        "target": "project twice"
+      }, {
+        "source": "19",
+        "target": "Collaboration map"
+      }, {
+        "source": "19",
+        "target": "SAO"
+      }, {
+        "source": "20",
+        "target": "project abc"
+      }, {
+        "source": "21",
+        "target": "project twice"
+      }, {
+        "source": "21",
+        "target": "project second"
+      }, {
+        "source": "21",
+        "target": "SAO"
+      }, {
+        "source": "21",
+        "target": "project abc"
+      }, {
+        "source": "22",
+        "target": "project title"
+      }, {
+        "source": "5",
+        "target": "project second"
+      }, {
+        "source": "5",
+        "target": "project abc"
+      }, {
+        "source": "37",
+        "target": "Google Project"
+      }, {
+        "source": "37",
+        "target": "SAO"
+      }, {
+        "source": "38",
+        "target": "project second"
+      }, {
+        "source": "39",
+        "target": "Collaboration map"
+      }, {
+        "source": "35",
+        "target": "project second"
+      }]
+    };
+
+    var width = $(window).width();
+    var height = $(window).height();
+
+    var xScale = d3.scaleLinear().domain([0, 100]).range([0, width]);
+    var yScale = d3.scaleLinear().domain([0, 100]).range([0, height]);
+
+    width = width - xScale(20);
+    height = height - yScale(10);
+
+    $('#map').attr('width', width);
+    $('#map').attr('height', height);
+    $('#map').attr('viewBox', '225 0 ' + xScale(200) + ' ' + yScale(130));
+    //    $('#map').css('border','1px solid black');
+    $('#map').css('top', xScale(5));
+    $('#map').css('left', xScale(20));
+
+    // d3.json('graph.json', function(error,graph){
+
+    var outerRadius = xScale(50);
+
+    var linkedByIndex = {};
+
+    var svg = d3.select('svg'),
+      width = +svg.attr('width'),
+      height = +svg.attr('height');
+
+    var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+    var simulation = d3.forceSimulation()
+      .force('link', d3.forceLink().id(function(d) {
+        return d.id;
+      }).distance(xScale(10)));
+
+    var path = svg.append('g').attr('class', 'link')
+      .selectAll('path').data(graph.links).enter().append('path');
+
+    var node = svg.selectAll('.node').data((graph.nodes)).enter().append('g').attr('class', 'nodes').call(d3.drag().on('start', dragstarted).on('drag', dragged).on('end', dragended))
+      .attr('fill', function(d) {
+        if (d.type == 'Collaborator') {
+          return 'black';
+        }
+      })
+      .attr('opacity', 0.9)
+      .attr('id', function(d) {
+        var id = d.id;
+        var result = id.replace(/ /g, '_');
+        var result = result.replace('/', '_');
+        return result;
+      })
+      .on("click", function(d) {
+        $('.tooltip').remove();
+        if (d.type === 'Project') {
+          d3.select('body').append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0.9)
+            .html(
+              '<div id="project_tag">' +
+              '<table id="project_tag_table1">' +
+              '<tr>' +
+              '<td style="padding-right: 7px">' +
+              '<canvas id="myChart"></canvas>' + '</td>' +
+              '<td>' +
+              '<span id="project_tag_title">' +
+              d.id + '</span>' + '</td>' + '</tr>' + '</table><table id="project_tag_table2">' +
+              '<tr>' +
+              '<td class="project_tag_content_title">' +
+              'Start date' +
+              '</td>' +
+              '<td class="project_tag_content_subject">' +
+              d.start_date +
+              '</td>' +
+              '</tr>' +
+              '<tr>' +
+              '<td class="project_tag_content_title">' +
+              'Duration' +
+              '</td>' +
+              '<td class="project_tag_content_subject">' +
+              d.project_duration +
+              '</td>' +
+              '</tr>' +
+              '<tr>' +
+              '<td class="project_tag_content_title">' +
+              'FCL project' +
+              '</td>' +
+              '<td class="project_tag_content_subject">' +
+              d.research_groups +
+              '</td>' +
+              '</tr>' +
+              '</table>' + '</div>'
+            )
+            .style("left", $(this).offset().left + d.radius * xScale(0.8) + 'px')
+            .style("top", $(this).offset().top + 'px');
+        } else {
+          d3.select('body').append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0.9)
+            .html(
+              '<div id="collaborator_tag">' +
+              '<table id="collaborator_tag_table1">' +
+              '<tr>' +
+              '<td>' +
+              '<svg id="collaborator_logo" height="15px" width="15px">' +
+              '<rect width="12" height="12" fill="black" />' +
+              '</svg>' + '</td>' +
+              '<td>' +
+              '<span id="collaborator_tag_title">' +
+              'ID ' + d.id + '</span>' + '</td>' + '</tr>' + '</table><table id="collaborator_tag_table2">' +
+              '<tr>' +
+              '<td class="collaborator_tag_content_title">' +
+              'Discipline' +
+              '</td>' +
+              '<td class="project_tag_content_subject">' +
+              d.disciplinary_backgrounds +
+              '</td>' +
+              '</tr>' +
+              '<tr>' +
+              '<td class="collaborator_tag_content_title">' +
+              'FCL Project' +
+              '</td>' +
+              '<td class="collaborator_tag_content_subject">' +
+              d.research_group +
+              '</td>' +
+              '</tr>' +
+              '<tr>' +
+              '<td class="collaborator_tag_content_title">' +
+              'Location' +
+              '</td>' +
+              '<td class="collaborator_tag_content_subject">' +
+              d.locations +
+              '</td>' +
+              '</tr>' + '</table><table id="collaborator_tag_table3">' +
+              '<tr>' +
+              '<td class="collaborator_tag_content_title" style="padding-right: 20px">' +
+              'Start date' +
+              '</td>' +
+              '<td class="collaborator_tag_content_subject">' +
+              d.start_date +
+              '</td>' +
+              '</tr>' +
+              '<tr>' +
+              '<td class="collaborator_tag_content_title">' +
+              'Education' +
+              '</td>' +
+              '<td class="collaborator_tag_content_subject">' +
+              d.academic_background +
+              '</td>' +
+              '</tr>' +
+              '<tr>' +
+              '<td class="collaborator_tag_content_title">' +
+              'Language' +
+              '</td>' +
+              '<td class="collaborator_tag_content_subject">' +
+              d.mother_tongues +
+              '</td>' +
+              '</tr>' +
+              '<tr>' +
+              '<td class="collaborator_tag_content_title">' +
+              'Gender' +
+              '</td>' +
+              '<td class="collaborator_tag_content_subject">' +
+              d.gender +
+              '</td>' +
+              '</tr>' +
+              '</table>' + '</div>'
+            )
+            .style("left", $(this).offset().left + 20 + 'px')
+            .style("top", $(this).offset().top + 'px');
+        }
+        if (d.type == 'Project') {
+
+          var ctx = $("#myChart");
+
+          var percent = [];
+          var color = [];
+
+          for (var i = 0; i < d.pieChart.length; i++) {
+            percent.push(d.pieChart[i].percent);
+            color.push(d.pieChart[i].color);
+          }
+
+          var data = {
+            datasets: [{
+              data: percent,
+              backgroundColor: color,
+              hoverBackgroundColor: color
             }]
-        };
+          };
 
-    ////////////////////////
-
-//    var width = $(window).width() + $(window).width()/3;
-//    var height = $(window).height() + $(window).height()/6;
-        var width = $(window).width();
-        var height = $(window).height();
-
-        var xScale = d3.scaleLinear().domain([0, 100]).range([0,width]);
-        var yScale = d3.scaleLinear().domain([0, 100]).range([0,height]);
-
-        width = width - xScale(20);
-        height = height - yScale(10);
-
-        $('#map').attr('width', width);
-        $('#map').attr('height', height);
-        $('#map').attr('viewBox','225 0 ' + xScale(200) + ' ' + yScale(130));
-//    $('#map').css('border','1px solid black');
-        $('#map').css('top', xScale(5) );
-        $('#map').css('left', xScale(20) );
-
-        var linkedByIndex = {};
-
-        var svg = d3.select('svg'),
-            width = +svg.attr('width'),
-            height = +svg.attr('height');
-
-        var color = d3.scaleOrdinal(d3.schemeCategory20);
-
-        var simulation = d3.forceSimulation()
-                .force('link', d3.forceLink().id(function (d) {
-                    return d.id;
-                }).distance(xScale(10)))
-                .force('charge', d3.forceManyBody())
-                .force("collide", d3.forceCollide(function (d) {
-                    if (d.type == 'Collaborator') return xScale(3);
-                    if (d.type == 'Project') return d.radius + xScale(3);
-                }).iterations(16))
-                .force('center', d3.forceCenter(width / 2, height / 2))
-                .force("x", d3.forceX().strength(.1))
-                .force("y", d3.forceY().strength(.1))
-                .on("tick", ticked)
-            ;
-
-        var path = svg.append('g').attr('class', 'link')
-            .selectAll('path').data(graph.links).enter().append('path');
-
-        var node = svg.selectAll('.node').data((graph.nodes)).enter().append('g').attr('class', 'nodes').call(d3.drag().on('start', dragstarted).on('drag', dragged).on('end', dragended))
-            .attr('fill', function (d) {
-                if (d.type == 'Collaborator') {
-                    return 'black';
+          new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: {
+              tooltips: {
+                enabled: false
+              },
+              elements: {
+                arc: {
+                  borderWidth: 0
                 }
-                if (d.type == 'Project') {
-                    return color(d.id);
-                }
-            })
-            .attr('opacity', 0.9)
-            .attr('id', function(d){
-                var id = d.id;
-                var result = id.replace(/ /g,'_');
-                var result = result.replace('/','_');
-                return result;
-            })
-            .on("click", function (d) {
-                $('.tooltip').remove();
-                if (d.type === 'Project') {
-                    d3.select('body').append("div")
-                        .attr("class", "tooltip")
-                        .style("opacity", 0.9)
-                        .html(
-                            '<div id="project_tag">' +
-                            '<table id="project_tag_table1">' +
-                            '<tr>' +
-                            '<td style="padding-right: 7px">' +
-                            '<canvas id="myChart"></canvas>' + '</td>' +
-                            '<td>' +
-                            '<span id="project_tag_title">'+
-                            d.id + '</span>' +'</td>' +'</tr>'+ '</table><table id="project_tag_table2">' +
-                            '<tr>' +
-                            '<td class="project_tag_content_title">' +
-                            'Start date' +
-                            '</td>' +
-                            '<td class="project_tag_content_subject">' +
-                            d.start_date +
-                            '</td>' +
-                            '</tr>' +
-                            '<tr>' +
-                            '<td class="project_tag_content_title">' +
-                            'Duration' +
-                            '</td>' +
-                            '<td class="project_tag_content_subject">' +
-                            d.project_duration+
-                            '</td>' +
-                            '</tr>' +
-                            '<tr>' +
-                            '<td class="project_tag_content_title">' +
-                            'FCL project' +
-                            '</td>' +
-                            '<td class="project_tag_content_subject">' +
-                            d.research_groups +
-                            '</td>' +
-                            '</tr>' +
-                            '</table>' + '</div>'
-                        )
-                        .style("left",$(this).offset().left + d.radius * xScale(0.8) + 'px')
-                        .style("top", $(this).offset().top + 'px');
-                } else {
-                    d3.select('body').append("div")
-                        .attr("class", "tooltip")
-                        .style("opacity", 0.9)
-                        .html(
-                            '<div id="collaborator_tag">' +
-                            '<table id="collaborator_tag_table1">' +
-                            '<tr>' +
-                            '<td>' +
-                            '<svg id="collaborator_logo" height="15px" width="15px">' +
-                            '<rect width="12" height="12" fill="black" />'+
-                            '</svg>' + '</td>' +
-                            '<td>' +
-                            '<span id="collaborator_tag_title">'+
-                            'ID ' +d.id + '</span>' +'</td>' +'</tr>'+ '</table><table id="collaborator_tag_table2">' +
-                            '<tr>' +
-                            '<td class="collaborator_tag_content_title">' +
-                            'Discipline' +
-                            '</td>' +
-                            '<td class="project_tag_content_subject">' +
-                            d.disciplinary_backgrounds +
-                            '</td>' +
-                            '</tr>' +
-                            '<tr>' +
-                            '<td class="collaborator_tag_content_title">' +
-                            'FCL Project' +
-                            '</td>' +
-                            '<td class="collaborator_tag_content_subject">' +
-                            d.research_group+
-                            '</td>' +
-                            '</tr>' +
-                            '<tr>' +
-                            '<td class="collaborator_tag_content_title">' +
-                            'Location' +
-                            '</td>' +
-                            '<td class="collaborator_tag_content_subject">' +
-                            d.locations +
-                            '</td>' +
-                            '</tr>' + '</table><table id="collaborator_tag_table3">' +
-                            '<tr>' +
-                            '<td class="collaborator_tag_content_title" style="padding-right: 20px">' +
-                            'Start date' +
-                            '</td>' +
-                            '<td class="collaborator_tag_content_subject">' +
-                            d.start_date +
-                            '</td>' +
-                            '</tr>' +
-                            '<tr>' +
-                            '<td class="collaborator_tag_content_title">' +
-                            'Education' +
-                            '</td>' +
-                            '<td class="collaborator_tag_content_subject">' +
-                            d.academic_background +
-                            '</td>' +
-                            '</tr>' +
-                            '<tr>' +
-                            '<td class="collaborator_tag_content_title">' +
-                            'Language' +
-                            '</td>' +
-                            '<td class="collaborator_tag_content_subject">' +
-                            d.mother_tongues +
-                            '</td>' +
-                            '</tr>' +
-                            '<tr>' +
-                            '<td class="collaborator_tag_content_title">' +
-                            'Gender' +
-                            '</td>' +
-                            '<td class="collaborator_tag_content_subject">' +
-                            d.gender +
-                            '</td>' +
-                            '</tr>' +
-                            '</table>' + '</div>'
-                        )
-                        .style("left",$(this).offset().left + 20 + 'px')
-                        .style("top", $(this).offset().top + 'px');
-                }
-                if(d.type == 'Project') {
+              },
+            },
+          });
 
-                    var ctx = $("#myChart");
-
-                    var percent = [];
-                    var color = [];
-
-                    for (var i = 0; i < d.pieChart.length; i++) {
-                        percent.push(d.pieChart[i].percent);
-                        color.push(d.pieChart[i].color);
-                    }
-
-                    var data = {
-                        datasets: [
-                            {
-                                data: percent,
-                                backgroundColor: color,
-                                hoverBackgroundColor: color
-                            }]
-                    };
-
-                    new Chart(ctx, {
-                        type: 'pie',
-                        data: data,
-                        options: {
-                            tooltips: {
-                                enabled: false
-                            },
-                            elements: {
-                                arc: {
-                                    borderWidth: 0
-                                }
-                            },
-                        },
-                    });
-
-                    $('#myChart').width('30');
-                    $('#myChart').height('30');
-                }
-
-            })
-
-            .on("mouseout", function () {
-                $('svg').dblclick(function() {
-                    $('.tooltip').remove();
-                });
-            });
-
-        node.append('path')
-            .attr('d', d3.symbol()
-                .size(xScale(30))
-                .type(function (d) {
-                    if (d.type == 'Project') {
-                        return d3.symbolCircle;
-                    } else if
-                    (d.type == 'Collaborator') {
-                        return d3.symbolSquare;
-                    }
-                }))
-        ;
-
-        node.each(function (d) {
-            if (d.type == 'Project') {
-                NodePieBuilder.drawNodePie(d3.select(this), d.pieChart, {
-                    parentNodeColor: color(d.id),
-                    outerStrokeWidth: 12,
-                    showLabelText: false,
-                    labelText: d.id,
-                    radius: d.radius * xScale(1),
-                    labelColor: color(d.id)
-                });
-            }
-        });
-
-        simulation.nodes(graph.nodes);
-
-        simulation.force('link').links(graph.links);
-
-        function ticked() {
-
-            $('.link').show();
-
-            var project_length = 0;
-            var collaborator_length = 0;
-
-            for ($i = 0; $i < graph.nodes.length; $i++) {
-                if (graph.nodes[$i].type == 'Project') {
-                    project_length++;
-                }
-                else {
-                    collaborator_length++;
-                }
-            }
-
-            var outer_angle = Math.PI * 2 / (collaborator_length);
-            var inner_angle = Math.PI * 2 / (project_length);
-
-            var x_outer = 0;
-            var y_outer = 0;
-            var x_inner = 0;
-            var y_inner = 0;
-
-            function translate_outer_x(d) {
-                x_outer += outer_angle;
-                d.x = Math.cos(x_outer) * xScale(60) + xScale(100);
-                return Math.cos(x_outer) * xScale(60);
-            }
-
-            function translate_outer_y(d) {
-                y_outer += outer_angle;
-                d.y = Math.sin(y_outer) * yScale(100) + yScale(60);
-                return Math.sin(y_outer) * yScale(100);
-            }
-
-            function translate_inner_x(d) {
-                x_inner += inner_angle;
-                d.x = Math.cos(x_inner) * xScale(25) + xScale(100);
-                return Math.cos(x_inner) * xScale(25);
-            }
-
-            function translate_inner_y(d) {
-                y_inner += inner_angle;
-                d.y = Math.sin(y_inner) * yScale(40) + yScale(60);
-                return Math.sin(y_inner) * yScale(40);
-            }
-
-            node
-                .attr("transform", function (d) {
-                    if (d.type == 'Project') {
-                        return "translate(" + translate_inner_x(d) + "," + translate_inner_y(d) + ")";
-                    }
-                    if (d.type == 'Collaborator') {
-                        return "translate(" + translate_outer_x(d) + "," + translate_outer_y(d) + ")";
-                    }
-                });
-
-            node.transition().duration(50).attr("transform", function (d) {
-                return "translate(" + d.x + "," + d.y + ")";
-            });
-
-
-            path.transition().duration(50).attr("d", function (d) {
-                var dx = d.target.x - d.source.x,
-                    dy = d.target.y - d.source.y,
-                    dr = Math.sqrt(dx * dx + dy * dy);
-                return "M" +
-                    d.source.x + "," +
-                    d.source.y + "A" +
-                    dr + "," + dr + " 0 0,1 " +
-                    d.target.x + "," +
-                    d.target.y;
-            });
-
-            graph.links.forEach(function (d) {
-                linkedByIndex[d.source.index + "," + d.target.index] = 1;
-                linkedByIndex[d.target.index + "," + d.source.index] = 1;
-            });
-            simulation.alpha(1.0);
+          $('#myChart').width('30');
+          $('#myChart').height('30');
         }
 
-//    d3.select(window).on('resize', resize);
+      })
 
-        function neighboring(a, b) {
-            return a.index == b.index || linkedByIndex[a.index + "," + b.index];
-        }
-
-        function dragstarted(d) {
-            if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-            d.fx = d.x;
-            d.fy = d.y;
-        }
-
-        function dragged(d) {
-            d.fx = d3.event.x;
-            d.fy = d3.event.y;
-        }
-
-        function dragended(d) {
-            if (!d3.event.active) simulation.alphaTarget(0);
-            d.fx = null;
-            d.fy = null;
-        }
-
-        function getFociMap(items) {
-            var map = {};
-            var baseX = 300;
-            var baseY = 50;
-            var dy = 60;
-            var dx = 0;
-
-            for (i = 0; i < items.length; i++) {
-                y = baseY + (i * dy);
-                map[items[i]] = {x: baseX + (i * dx), y: baseY + (i * dy)};
-            }
-
-            return map;
-        }
-
-        function getProjects(items) {
-            projects = [];
-            for (i = 0; i < items.length; i++) {
-                if (projects.indexOf(items[i].research_group) < 0) {
-                    projects.push(items[i].research_group);
-                }
-            }
-            return projects;
-        }
-
-//    function resize(){
-//
-//        var width = $(window).width();
-//        var height = $(window).height();
-//
-//        $('#map').attr('width', width);
-//        $('#map').attr('height', height);
-//
-//        var svg = d3.select('svg'),
-//            width = +svg.attr('width'),
-//            height = +svg.attr('height');
-//
-//        var xScale = d3.scaleLinear().domain([0, 100]).range([0,width]);
-//        var yScale = d3.scaleLinear().domain([0, 100]).range([0,height]);
-//
-//        simulation.alpha(1.0).restart();
-//
-//    }
-
-
-
-    ////////////////////////
-
-    //Year filter
-    $("#start_project").bind('contentchanged',function(){
-        var duration = ($(this).text());
-        var start = duration.substring( 0, 4);
-        var end = duration.substring(7, 11);
-        initialization();
-        for(var i = 0; i < graph.nodes.length; i++) {
-            if (graph.nodes[i].type === 'Collaborator') continue;
-            var project = graph.nodes[i];
-            var projectId = getId(project);
-            var year = project.start_date;
-            year = year.substring('5', '9');
-            if (year >= start && year <= end) {
-                $(projectId).attr('opacity', '0.9');
-                highlightCollaborators(project);
-            }
-        }
+    .on("mouseout", function() {
+      $('svg').dblclick(function() {
+        $('.tooltip').remove();
+      });
     });
 
-    $('.project_outcome, .disciplines-choices, .fcl_project-choices, .location-choices, .language-choices').on('click',function(){
+    node.append('path')
+      .attr('d', d3.symbol()
+        .size(xScale(30))
+        .type(function(d) {
+          if (d.type == 'Project') {
+            return d3.symbolCircle;
+          } else if (d.type == 'Collaborator') {
+            return d3.symbolSquare;
+          }
+        }));
 
+    node.each(function(d) {
+      if (d.type == 'Project') {
+        NodePieBuilder.drawNodePie(d3.select(this), d.pieChart, {
+          parentNodeColor: color(d.id),
+          outerStrokeWidth: 12,
+          showLabelText: false,
+          labelText: d.id,
+          radius: d.radius * xScale(1),
+          labelColor: color(d.id)
+        });
+      }
+    });
+
+    simulation.nodes(graph.nodes);
+
+    simulation.force('link').links(graph.links);
+
+    function pieChartLabel(label, angle, plus, qty, number) {
+      pi = Math.PI;
+      if(label == ''){
+        var added = (angle + plus);
+        var arc = d3.arc()
+          .innerRadius(outerRadius  + xScale(2))
+          .outerRadius(outerRadius + xScale(2.3))
+          .startAngle((angle))
+          .endAngle((angle + plus) - 0.05);
+      }else{
+        var added = (angle + qty * 0.143);
+        var arc = d3.arc()
+          .innerRadius(outerRadius  + xScale(2))
+          .outerRadius(outerRadius + xScale(2.3))
+          .startAngle((angle))
+          .endAngle((angle + qty * 0.143) - 0.05);
+      }
+
+      var temp_x = width / 2 + xScale(60);
+      var temp_y = height / 2 + yScale(15);
+
+      var textPath = svg.append("path")
+        .attr("d", arc)
+        .attr("id", "path" + number)
+        .attr("transform", "translate(" + temp_x + "," + temp_y + ")");
+
+      if(label == ''){
+        textPath.attr('fill', 'transparent');
+      }else{
+        textPath.attr('fill', 'gray');
+      }
+
+      textLabel(label, angle,plus,qty,number + 100);
+
+      return added;
+    }
+
+    function textLabel(label, angle, plus, qty, number) {
+      pi = Math.PI;
+        var added = (angle + qty * 0.143);
+        var arc = d3.arc()
+          .innerRadius(outerRadius  + xScale(2))
+          .outerRadius(outerRadius + xScale(2.3))
+          .startAngle((angle) - 1.05)
+          .endAngle((angle + qty * 0.143) + 1);
+
+      var temp_x = width / 2 + xScale(60);
+      var temp_y = height / 2 + yScale(15);
+
+      var textPath = svg.append("path")
+        .attr("d", arc)
+        .attr("id", "path" + number)
+        .attr("transform", "translate(" + temp_x + "," + temp_y + ")")
+        .attr('fill','transparent');
+
+      // Add a text label.
+      var text = svg.append("text")
+        .attr("dy", -40)
+        .attr('font-size', xScale(1.5) + 'px');
+
+      text.append("textPath")
+        .data(graph.nodes)
+        .attr("startOffset","25%")
+        .attr('x', 10)
+        .style("text-anchor","middle")
+        .attr("xlink:href", "#path" + number)
+        .text(label);
+    }
+
+    function drawing(choice) {
+      var project_length = 0;
+      var collaborator_length = 0;
+      var choice_type = [];
+      var choice_qty = [];
+      var choice_qty_temp = [];
+
+      for ($i = 0; $i < graph.nodes.length; $i++) {
+        if (graph.nodes[$i].type == 'Project') {
+          project_length++;
+        } else {
+          collaborator_length++;
+          if (choice_type.indexOf(graph.nodes[$i][choice]) == -1) {
+            choice_type.push(graph.nodes[$i][choice]);
+            choice_type.push('');
+            choice_qty.push(1);
+            choice_qty.push(-1);
+            choice_qty_temp.push(1);
+            choice_qty_temp.push(-1);
+          } else {
+            var index = choice_type.indexOf(graph.nodes[$i][choice]);
+            choice_qty[index] += 1;
+            choice_qty_temp[index] += 1;
+          }
+        }
+      }
+
+      var start_angle = [];
+      var end_angle = [];
+      var increment = [];
+
+      var outer_angle = Math.PI / choice_type.length;
+
+      var angle = 0;
+      for (var i = 0; i < choice_type.length; i++) {
+        start_angle[i] = angle + 0.01;
+        var added = pieChartLabel(choice_type[i], angle, 2 * outer_angle, choice_qty[i] , i);
+        angle = added;
+        end_angle[i] = angle - 0.06;
+        increment[i] = 0;
+      }
+
+      var inner_angle = Math.PI * 2 / (project_length);
+
+      var x_outer = 0;
+      var y_outer = 0;
+      var x_inner = 0;
+      var y_inner = 0;
+
+      function translate_outer_x(d) {
+        if (d.type == 'Collaborator') {
+          var index = choice_type.indexOf(d[choice]);
+        }
+        if(choice_qty[index] == 1){
+          angle = (start_angle[index] + end_angle[index])/2;
+        }else if(choice_qty[index] == choice_qty_temp[index]){
+          angle = start_angle[index];
+          choice_qty_temp[index]--;
+        }else{
+            increment[index] += (end_angle[index] - start_angle[index])/(choice_qty[index] - 1);
+            angle = start_angle[index] + increment[index];
+        }
+        d.x = Math.cos(-Math.PI/2 + angle) * outerRadius + xScale(100);
+        return Math.cos(-Math.PI/2 + angle) * outerRadius;
+      }
+
+      function translate_outer_y(d) {
+        if (d.type == 'Collaborator') {
+          var index = choice_type.indexOf(d[choice])
+        }
+        d.y = Math.sin(-Math.PI/2 + angle) * outerRadius + yScale(60);
+        return Math.sin(-Math.PI/2 + angle) * outerRadius;
+      }
+
+      function translate_inner_x(d) {
+        x_inner += inner_angle;
+        d.x = Math.cos(x_inner) * xScale(25) + xScale(100);
+        return Math.cos(x_inner) * xScale(25);
+      }
+
+      function translate_inner_y(d) {
+        y_inner += inner_angle;
+        d.y = Math.sin(y_inner) * yScale(40) + yScale(60);
+        return Math.sin(y_inner) * yScale(40);
+      }
+
+      // var outer_angle = Math.PI / choice_type.length;
+      // var angle = 0;
+      // for (var i = 0; i < choice_type.length; i++) {
+      //   var added = pieChartLabel(choice_type[i], angle, 2 * outer_angle, choice_qty[i] , i);
+      //   angle = added;
+      // }
+
+      node.attr("transform", function(d) {
+        if (d.type == 'Project') {
+          return "translate(" + translate_inner_x(d) + "," + translate_inner_y(d) + ")";
+        }
+        if (d.type == 'Collaborator') {
+          return "translate(" + translate_outer_x(d) + "," + translate_outer_y(d) + ")";
+        }
+      });
+
+      node.transition().duration(1).attr("transform", function(d) {
+        return "translate(" + d.x + "," + d.y + ")";
+      });
+
+      path.transition().duration(1).attr("d", function(d) {
+        var dx = d.target.x - d.source.x,
+          dy = d.target.y - d.source.y,
+          dr = Math.sqrt(dx * dx + dy * dy);
+        return "M" +
+          d.source.x + "," +
+          d.source.y + "A" +
+          dr + "," + dr + " 0 0,1 " +
+          d.target.x + "," +
+          d.target.y;
+      });
+
+      graph.links.forEach(function(d) {
+        linkedByIndex[d.source.index + "," + d.target.index] = 1;
+        linkedByIndex[d.target.index + "," + d.source.index] = 1;
+      });
+      simulation.alpha(1.0);
+    };
+
+    drawing('locations');
+
+    function neighboring(a, b) {
+      return a.index == b.index || linkedByIndex[a.index + "," + b.index];
+    }
+
+    function dragstarted(d) {
+      if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+    }
+
+    function dragged(d) {
+      d.fx = d3.event.x;
+      d.fy = d3.event.y;
+    }
+
+    function dragended(d) {
+      if (!d3.event.active) simulation.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+    }
+
+    $('button').on('click', function() {
+      mousedown($(this).attr('id'));
     })
 
-    //Project Outcomes filter
-    $('.project_outcome').on('click',function(){
-        var original = getAllChoices('.project_outcome');
-        initialization();
-        var inputs = [];
-        $('.project_outcome').each(function(){
-            if($(this).is(':checked')){
-                inputs.push($(this).attr('id'));
-            }
-        });
-        for(var i = 0; i < graph.nodes.length; i++){
-            var node = graph.nodes[i];
-            if(node.type === 'Collaborator') continue;
-            else{
-                for(var j = 0; j < node.project_outcomes.length; j++){
-                    var outcome = node.project_outcomes[j];
-                    outcome = outcome.replace(/ /g, '_');
-                    outcome = outcome.replace('/','_');
-                    outcome = outcome.toLowerCase();
-                    if( original.indexOf(outcome) == '-1'){
-                        outcome = 'other';
-                    }
-                    var result = inputs.indexOf(outcome);
-                    if(result != '-1'){
-                        var id = getId(node);
-                        $(id).attr('opacity','0.9');
-                        highlightCollaborators(node);
-                        break;
-                    }
-                }
-            }
-        }
-    });
-
-    // disciplines filter
-    $('.disciplines-choices').on('click', function(){
-        initialization();
-        var original = getAllChoices('.disciplines-choices');
-        var inputs = [];
-        $('#disciplines-result').children('tag').each(function(){
-            inputs.push($(this).text().toLowerCase());
-        })
-        var inside = inputs.indexOf($(this).text().toLowerCase());
-        if( inside == '-1'){
-            inputs.push($(this).text().toLowerCase());
-        }else{
-            inputs.splice(inside, 1);
-        }
-        if(inputs.length === 0){
-            refresh();
-        }
-        for(var i = 0; i < graph.nodes.length; i++){
-            var node = graph.nodes[i];
-            if(node.type === 'Project') continue;
-            else{
-                var disciplinaries = node.disciplinary_backgrounds;
-                for(var k = 0; k < disciplinaries.length; k++){
-                    var disciplinary = disciplinaries[k];
-                    disciplinary = disciplinary.toLowerCase();
-                    var check = original.indexOf(disciplinary);
-                    if (check == '-1'){
-                        disciplinary = 'other';
-                    }
-                    var result = inputs.indexOf(disciplinary);
-                    if (result != '-1'){
-                        var id = getId(node);
-                        highlightProjects(node);
-                        break;
-                    }
-                }
-            }
-        }
-    });
-
-    //fcl project filter
-    $('.fcl_project-choices').on('click', function(){
-        initialization();
-        var original = getAllChoices('.fcl_project-choices');
-        var inputs = [];
-        $('#fcl_project-result').children('tag').each(function(){
-            inputs.push($(this).text().toLowerCase());
-        })
-        var inside = inputs.indexOf($(this).text().toLowerCase());
-        if( inside == '-1'){
-            inputs.push($(this).text().toLowerCase());
-        }else{
-            inputs.splice(inside, 1);
-        }
-        if(inputs.length === 0){
-            refresh();
-        }
-        for(var i = 0; i < graph.nodes.length; i++){
-            var node = graph.nodes[i];
-            if(node.type === 'Project') continue;
-            else{
-                var group = node.research_group;
-                group = group.toLowerCase();
-                var check = original.indexOf(group);
-                if (check == '-1'){
-                    group = 'other';
-                }
-                var result = inputs.indexOf(group);
-                if (result != '-1'){
-                    var id = getId(node);
-                    highlightProjects(node);
-                }
-            }
-        }
-    });
-
-    //location filter
-    $('.location-choices').on('click',function(){
-      initialization();
-      var original = getAllChoices('.location-choices');
-      var inputs = [];
-      $('#location-result').children('tag').each(function(){
-          inputs.push($(this).text().toLowerCase());
-      })
-      var inside = inputs.indexOf($(this).text().toLowerCase());
-      if( inside == '-1'){
-          inputs.push($(this).text().toLowerCase());
-      }else{
-          inputs.splice(inside, 1);
-      }
-      if(inputs.length === 0){
-          refresh();
-      }
-      for(var i = 0; i < graph.nodes.length; i++){
-          var node = graph.nodes[i];
-          if(node.type === 'Project') continue;
-          else{
-              var locations = node.locations;
-              locations = locations.split(",");
-              for(var k = 0; k < locations.length; k++){
-                  var location = locations[k];
-                  location = trim(location);
-                  location = location.toLowerCase();
-                  var result = inputs.indexOf(location);
-                  if (result != '-1'){
-                      var id = getId(node);
-                      highlightProjects(node);
-                      break;
-                  }
-              }
-          }
-      }
-    });
-
-    //language filter
-    $('.language-choices').on('click',function(){
-      initialization();
-      var original = getAllChoices('.language-choices');
-      var inputs = [];
-      $('#language-result').children('tag').each(function(){
-          inputs.push($(this).text().toLowerCase());
-      })
-      var inside = inputs.indexOf($(this).text().toLowerCase());
-      if( inside == '-1'){
-          inputs.push($(this).text().toLowerCase());
-      }else{
-          inputs.splice(inside, 1);
-      }
-      if(inputs.length === 0){
-          refresh();
-      }
-      for(var i = 0; i < graph.nodes.length; i++){
-          var node = graph.nodes[i];
-          if(node.type === 'Project') continue;
-          else{
-              var languages = node.mother_tongues;
-              languages = languages.split(",");
-              for(var k = 0; k < languages.length; k++){
-                  var language = languages[k];
-                  language = trim(language);
-                  language = language.toLowerCase();
-                  var check = original.indexOf(language);
-                  if (check == '-1'){
-                      language = 'others';
-                  }
-                  var result = inputs.indexOf(language);
-                  if (result != '-1'){
-                      var id = getId(node);
-                      highlightProjects(node);
-                      break;
-                  }
-              }
-          }
-      }
-    });
-
-    $('.glyphicon-repeat').on('click',function(){
-      reload();
-    });
+    function mousedown(choice) {
+      $('text').remove();
+      $('[id^=path]').remove();
+      drawing(choice);
+      simulation.restart();
+      simulation.alpha(1.0);
+    }
 
     function getId(node){
         var tempo_id = node.id;
@@ -1494,103 +1416,9 @@
         var tempo_id = '#' + tempo_id;
         return tempo_id;
     }
-
-    function highlightCollaborators(node){
-        for(var k = 0; k < graph.nodes.length; k++){
-            if(neighboring(graph.nodes[k], node) == '1'){
-                var collaboratorId = getId(graph.nodes[k]);
-                $(collaboratorId).attr('opacity','0.9');
-                path.style('stroke-width', function (l) {
-                    if (graph.nodes[k] === l.source && node === l.target) {
-                        $(this).attr('stroke-width', '3');
-                        return;
-                    }
-                });
-            }
-        }
-    }
-
-    function highlightProjects(node){
-        for(var k = 0; k < graph.nodes.length; k++){
-            if(neighboring(graph.nodes[k], node) == '1'){
-                var projectId = getId(graph.nodes[k]);
-                $(projectId).attr('opacity','0.9');
-                path.style('stroke-width', function (l) {
-                    if (node === l.source && graph.nodes[k] === l.target) {
-                        $(this).attr('stroke-width', '3');
-                        return;
-                    }
-                });
-            }
-        }
-    }
-
-    function getAllChoices(array){
-        var original = [];
-        if(array === '.project_outcome') {
-            $(array).each(function () {
-                original.push($(this).attr('id'));
-            })
-        }
-        else{
-            $(array).each(function(){
-                original.push($(this).text().toLowerCase());
-            })
-        }
-        return original;
-    }
-
-    function initialization(){
-        for(var i = 0; i < graph.nodes.length; i++){
-            var id = getId(graph.nodes[i]);
-            $(id).attr('opacity','0.2');
-        }
-        path.style('stroke-width', function (l) {
-            $(this).attr('stroke-width', '1');
-        });
-    }
-
-    function refresh(){
-        for(var i = 0; i < graph.nodes.length; i++){
-            var id = getId(graph.nodes[i]);
-            $(id).attr('opacity','0.9');
-        }
-        path.style('stroke-width', function (l) {
-            $(this).attr('stroke-width', '1');
-        });
-    }
-
-    function trim(str){
-      if(str[0] == ' '){
-        str = str.substring(1);
-        str = trim(str);
-      }
-      return str;
-    }
-
-    function reload(){
-      refresh();
-      $('.menu-list').hide();
-      $('.main-menu').show();
-      $('.glyphicon-menu-left').show();
-      $('.side-menu').hide();
-      $('.project_outcome').each(function(){
-        $(this).prop('checked',true);
-      });
-      $('[class$=-choices]').each(function(){
-        $(this).css('background-color','white');
-        $(this).css('color', 'black');
-      })
-      $('[id$=-result]').each(function(){
-        $(this).children().remove();
-      })
-      $("#slider-range").slider({
-          values: [2015, 2020]
-      });
-      $('#start_project').text('2015 - 2020');
-    }
-
-</script>
+    // });
+  </script>
 
 </body>
+
 </html>

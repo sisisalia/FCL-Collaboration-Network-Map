@@ -1,0 +1,596 @@
+{
+    "nodes":[{
+        "id": "project twice",
+        "type": "Project",
+        "start_date": "Apr. 2015",
+        "project_duration": "> 2 years",
+        "project_outcomes": ["Granted research proposal", "Joint publication", "Research modelling", "Joint prototype", "Data sharing", "Expert analysis"],
+        "research_groups": "Scenario 2.3, 3 for 2, Scenario 3.4, Scenario 3.1, Scenario 3.3, Scenario 1.2",
+        "pieChart": [{
+            "color": "#5C6BC0",
+            "percent": 16.666666666667
+        }, {
+            "color": "#FF80AB",
+            "percent": 16.666666666667
+        }, {
+            "color": "#FFCA28",
+            "percent": 16.666666666667
+        }, {
+            "color": "#9CCC65",
+            "percent": 16.666666666667
+        }, {
+            "color": "#4DB6AC",
+            "percent": 16.666666666667
+        }, {
+            "color": "#FFCA28",
+            "percent": 16.666666666667
+        }],
+        "radius": 7
+    }, {
+        "id": "1",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "< 1 year",
+        "academic_background": "bachelor",
+        "gender": "male",
+        "age": "41-50",
+        "disciplinary_backgrounds": ["Biology", "Chemistry"],
+        "nationality": "Indian",
+        "mother_tongues": "Chinese, English",
+        "research_group": "Scenario 2.3",
+        "locations": "FCL level 6"
+    }, {
+        "id": "project second",
+        "type": "Project",
+        "start_date": "Jan. 2015",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Joint publication", "Expert analysis", "Granted research proposal", "Joint prototype", "Data sharing", "Expertise contribution"],
+        "research_groups": "Scenario 2.4, Scenario 3.2, Scenario 3.1, research group new, Scenario 1.2, 3 for 2, Cooler Singapore, Scenario 1.1",
+        "pieChart": [{
+            "color": "#FF80AB",
+            "percent": 16.666666666667
+        }, {
+            "color": "#FFCA28",
+            "percent": 16.666666666667
+        }, {
+            "color": "#5C6BC0",
+            "percent": 16.666666666667
+        }, {
+            "color": "#9CCC65",
+            "percent": 16.666666666667
+        }, {
+            "color": "#4DB6AC",
+            "percent": 16.666666666667
+        }, {
+            "color": "#FC8D62",
+            "percent": 16.666666666667
+        }],
+        "radius": 9
+    }, {
+        "id": "3",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "2-5 years",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "20-30",
+        "disciplinary_backgrounds": ["Biology"],
+        "nationality": "New Zealander",
+        "mother_tongues": "Chinese",
+        "research_group": "Scenario 2.4",
+        "locations": "FCL level 15"
+    }, {
+        "id": "project abc",
+        "type": "Project",
+        "start_date": "Jan. 2015",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Expert analysis", "Granted research proposal"],
+        "research_groups": "Scenario 2.4, Scenario 1.2, 3 for 2",
+        "pieChart": [{
+            "color": "#FFCA28",
+            "percent": 50
+        }, {
+            "color": "#5C6BC0",
+            "percent": 50
+        }],
+        "radius": 4
+    }, {
+        "id": "this is others",
+        "type": "Project",
+        "start_date": "Jan. 2015",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Joint publication", "Expert analysis"],
+        "research_groups": "Scenario 2.4, Scenario 3.1",
+        "pieChart": [{
+            "color": "#FF80AB",
+            "percent": 50
+        }, {
+            "color": "#FFCA28",
+            "percent": 50
+        }],
+        "radius": 2
+    }, {
+        "id": "4",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "1-2 years",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "41-50",
+        "disciplinary_backgrounds": ["Ecology"],
+        "nationality": "New Zealander",
+        "mother_tongues": "Chinese",
+        "research_group": "Scenario 2.4",
+        "locations": "Other location in CREATE"
+    }, {
+        "id": "5",
+        "type": "Collaborator",
+        "start_date": "Apr. 2012",
+        "before_fcl": "1-2 years",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "20-30",
+        "disciplinary_backgrounds": ["Psychology"],
+        "nationality": "Italian",
+        "mother_tongues": "Dutch, Flemish",
+        "research_group": "3 for 2",
+        "locations": "ETH Zurich"
+    }, {
+        "id": "6",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "1-2 years",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "20-30",
+        "disciplinary_backgrounds": ["Ecology"],
+        "nationality": "Mexican",
+        "mother_tongues": "Chinese",
+        "research_group": "Scenario 3.4",
+        "locations": "SMU"
+    }, {
+        "id": "7",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "1-2 years",
+        "academic_background": "master",
+        "gender": "male",
+        "age": "41-50",
+        "disciplinary_backgrounds": ["Chemistry", "Computer Science"],
+        "nationality": "Iranian",
+        "mother_tongues": "Chinese, German",
+        "research_group": "Scenario 3.2",
+        "locations": "ETH Zurich"
+    }, {
+        "id": "this is new",
+        "type": "Project",
+        "start_date": "Jan. 2015",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Granted research proposal", "Joint prototype"],
+        "research_groups": "Cooler Singapore",
+        "pieChart": [{
+            "color": "#5C6BC0",
+            "percent": 50
+        }, {
+            "color": "#9CCC65",
+            "percent": 50
+        }],
+        "radius": 1
+    }, {
+        "id": "9",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "< 1 year",
+        "academic_background": "phD",
+        "gender": "female",
+        "age": "31-40",
+        "disciplinary_backgrounds": ["Biology"],
+        "nationality": "Russian",
+        "mother_tongues": "Chinese",
+        "research_group": "Cooler Singapore",
+        "locations": "NUS"
+    }, {
+        "id": "time",
+        "type": "Project",
+        "start_date": "Jan. 2015",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Granted research proposal", "Joint publication", "Joint prototype"],
+        "research_groups": "Scenario 3.2, Scenario 3.3",
+        "pieChart": [{
+            "color": "#5C6BC0",
+            "percent": 33.333333333333
+        }, {
+            "color": "#FF80AB",
+            "percent": 33.333333333333
+        }, {
+            "color": "#9CCC65",
+            "percent": 33.333333333333
+        }],
+        "radius": 2
+    }, {
+        "id": "11",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "2-5 years",
+        "academic_background": "bachelor",
+        "gender": "female",
+        "age": "41-50",
+        "disciplinary_backgrounds": ["Architecture", "Chemistry"],
+        "nationality": "New Zealander",
+        "mother_tongues": "Chinese, French",
+        "research_group": "Scenario 3.2",
+        "locations": "FCL level 15"
+    }, {
+        "id": "12",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "< 1 year",
+        "academic_background": "phD",
+        "gender": "male",
+        "age": "20-30",
+        "disciplinary_backgrounds": ["Computer Science"],
+        "nationality": "New Zealander",
+        "mother_tongues": "Chinese",
+        "research_group": "Scenario 3.1",
+        "locations": "NUS"
+    }, {
+        "id": "13",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "2-5 years",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "20-30",
+        "disciplinary_backgrounds": ["Chemistry", "Computer Science"],
+        "nationality": "Serbian",
+        "mother_tongues": "Dutch, Flemish",
+        "research_group": "Scenario 3.3",
+        "locations": "NUS"
+    }, {
+        "id": "gogo",
+        "type": "Project",
+        "start_date": "Jan. 2015",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Joint prototype", " Edit outcome", " Edit another outcome", "Data sharing"],
+        "research_groups": "Scenario 2.3, Scenario 2.4, research group new, Scenario 2.1",
+        "pieChart": [{
+            "color": "#9CCC65",
+            "percent": 25
+        }, {
+            "color": "#FFCA28",
+            "percent": 25
+        }, {
+            "color": "#FFCA28",
+            "percent": 25
+        }, {
+            "color": "#4DB6AC",
+            "percent": 25
+        }],
+        "radius": 4
+    }, {
+        "id": "14",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": ">10 years",
+        "academic_background": "bachelor",
+        "gender": "female",
+        "age": "31-40",
+        "disciplinary_backgrounds": ["Chemistry", "Computer Science"],
+        "nationality": "Mexican",
+        "mother_tongues": "Chinese",
+        "research_group": "Scenario 2.4",
+        "locations": "ETH Zurich"
+    }, {
+        "id": "16",
+        "type": "Collaborator",
+        "start_date": "Jan. 1993",
+        "before_fcl": "2-5 years",
+        "academic_background": "phD",
+        "gender": "female",
+        "age": "31-40",
+        "disciplinary_backgrounds": ["Computer science"],
+        "nationality": "sdfs",
+        "mother_tongues": "Chinese",
+        "research_group": "research group new",
+        "locations": "Other location in CREATE"
+    }, {
+        "id": "17",
+        "type": "Collaborator",
+        "start_date": "Jan. 1990",
+        "before_fcl": "2-5 years",
+        "academic_background": "phD",
+        "gender": "male",
+        "age": "41-50",
+        "disciplinary_backgrounds": ["Graphic designer"],
+        "nationality": "Italian",
+        "mother_tongues": "Chinese, Dutch, Flemish",
+        "research_group": "Scenario 3.3",
+        "locations": "Other location in CREATE"
+    }, {
+        "id": "Collaboration map",
+        "type": "Project",
+        "start_date": "Aug. 2016",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Joint prototype", "Granted research proposal", "Joint publication"],
+        "research_groups": "CIVAL, Scenario 3",
+        "pieChart": [{
+            "color": "#9CCC65",
+            "percent": 33.333333333333
+        }, {
+            "color": "#5C6BC0",
+            "percent": 33.333333333333
+        }, {
+            "color": "#FF80AB",
+            "percent": 33.333333333333
+        }],
+        "radius": 2
+    }, {
+        "id": "19",
+        "type": "Collaborator",
+        "start_date": "Sept. 2016",
+        "before_fcl": "< 1 year",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "20-30",
+        "disciplinary_backgrounds": ["Graphic designer"],
+        "nationality": "Japanese",
+        "mother_tongues": "Japanese",
+        "research_group": "CIVAL",
+        "locations": "FCL level 6"
+    }, {
+        "id": "SAO",
+        "type": "Project",
+        "start_date": "Jan. 2015",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Joint prototype", "Data sharing", "Granted research proposal", "Joint publication", "Other google outcome"],
+        "research_groups": "CIVAL, Scenario 1.2, Research Group Google",
+        "pieChart": [{
+            "color": "#9CCC65",
+            "percent": 20
+        }, {
+            "color": "#4DB6AC",
+            "percent": 20
+        }, {
+            "color": "#5C6BC0",
+            "percent": 20
+        }, {
+            "color": "#FF80AB",
+            "percent": 20
+        }, {
+            "color": "#FFCA28",
+            "percent": 20
+        }],
+        "radius": 3
+    }, {
+        "id": "20",
+        "type": "Collaborator",
+        "start_date": "Jan. 2010",
+        "before_fcl": "5-10 years",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "20-30",
+        "disciplinary_backgrounds": ["Ecology"],
+        "nationality": "Iranian",
+        "mother_tongues": "Chinese",
+        "research_group": "Scenario 2.4",
+        "locations": "FCL level 6"
+    }, {
+        "id": "21",
+        "type": "Collaborator",
+        "start_date": "Feb. 2013",
+        "before_fcl": "1-2 years",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "20-30",
+        "disciplinary_backgrounds": ["Chemistry"],
+        "nationality": "Colombian",
+        "mother_tongues": "Chinese, English",
+        "research_group": "Scenario 1.2",
+        "locations": "FCL level 15"
+    }, {
+        "id": "project title",
+        "type": "Project",
+        "start_date": "Apr. 2017",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Granted research proposal"],
+        "research_groups": "Cooler Singapore",
+        "pieChart": [{
+            "color": "#5C6BC0",
+            "percent": 100
+        }],
+        "radius": 1
+    }, {
+        "id": "22",
+        "type": "Collaborator",
+        "start_date": "Feb. 2011",
+        "before_fcl": "< 1 year",
+        "academic_background": "master",
+        "gender": "female",
+        "age": "41-50",
+        "disciplinary_backgrounds": ["Ecology"],
+        "nationality": "Taiwanese",
+        "mother_tongues": "Chinese, Dutch, Flemish",
+        "research_group": "Cooler Singapore",
+        "locations": "ETH Zurich"
+    }, {
+        "id": "23",
+        "type": "Collaborator",
+        "start_date": "Mar. 2012",
+        "before_fcl": "< 1 year",
+        "academic_background": "phD",
+        "gender": "female",
+        "age": "20-30",
+        "disciplinary_backgrounds": [""],
+        "nationality": "Dutch",
+        "mother_tongues": "Chinese",
+        "research_group": "Scenario 2.1",
+        "locations": "Other location"
+    }, {
+        "id": "Google Project",
+        "type": "Project",
+        "start_date": "Mar. 2016",
+        "project_duration": "12 months - 2 years",
+        "project_outcomes": ["Expert analysis", "Granted research proposal", "Google outcome"],
+        "research_groups": "Research Group Google",
+        "pieChart": [{
+            "color": "#FFCA28",
+            "percent": 33.333333333333
+        }, {
+            "color": "#5C6BC0",
+            "percent": 33.333333333333
+        }, {
+            "color": "#FFCA28",
+            "percent": 33.333333333333
+        }],
+        "radius": 1
+    }, {
+        "id": "37",
+        "type": "Collaborator",
+        "start_date": "Mar. 2014",
+        "before_fcl": "1-2 years",
+        "academic_background": "bachelor",
+        "gender": "male",
+        "age": "31-40",
+        "disciplinary_backgrounds": ["Chemistry", "Computer science", "Computer engineering"],
+        "nationality": "Other Nationality",
+        "mother_tongues": "Chinese, English, Indonesian",
+        "research_group": "Research Group Google",
+        "locations": "Other location,ETH Zurich"
+    }, {
+        "id": "38",
+        "type": "Collaborator",
+        "start_date": "Mar. 2012",
+        "before_fcl": "1-2 years",
+        "academic_background": "bachelor",
+        "gender": "male",
+        "age": "31-40",
+        "disciplinary_backgrounds": ["Psychology"],
+        "nationality": "Japanese",
+        "mother_tongues": "Chinese, Indonesian",
+        "research_group": "Cooler Singapore",
+        "locations": "ETH Zurich"
+    }, {
+        "id": "39",
+        "type": "Collaborator",
+        "start_date": "Sept. 2015",
+        "before_fcl": ">10 years",
+        "academic_background": "phD",
+        "gender": "female",
+        "age": "41-50",
+        "disciplinary_backgrounds": ["Architecture", "Urban design\/planning"],
+        "nationality": "Indonesian",
+        "mother_tongues": "Indonesian",
+        "research_group": "Scenario 3",
+        "locations": "FCL level 6"
+    }, {
+        "id": "35",
+        "type": "Collaborator",
+        "start_date": "Mar. 2013",
+        "before_fcl": "1-2 years",
+        "academic_background": "bachelor",
+        "gender": "male",
+        "age": "41-50",
+        "disciplinary_backgrounds": ["Art", "Ecology", "History"],
+        "nationality": "British",
+        "mother_tongues": "English",
+        "research_group": "Scenario 1.1",
+        "locations": "FCL level 15,FHNW"
+    }],
+    "links":[{
+        "source": "1",
+        "target": "project twice"
+    },{
+        "source": "3",
+        "target": "project abc"
+    }, {
+        "source": "3",
+        "target": "project second"
+    }, {
+        "source": "4",
+        "target": "this is others"
+    }, {
+        "source": "5",
+        "target": "project twice"
+    }, {
+        "source": "6",
+        "target": "project twice"
+    }, {
+        "source": "7",
+        "target": "project second"
+    }, {
+        "source": "9",
+        "target": "this is new"
+    }, {
+        "source": "11",
+        "target": "time"
+    }, {
+        "source": "12",
+        "target": "this is others"
+    }, {
+        "source": "12",
+        "target": "project twice"
+    }, {
+        "source": "12",
+        "target": "project second"
+    }, {
+        "source": "12",
+        "target": "project second"
+    }, {
+        "source": "13",
+        "target": "project twice"
+    }, {
+        "source": "13",
+        "target": "time"
+    }, {
+        "source": "16",
+        "target": "project second"
+    }, {
+        "source": "17",
+        "target": "project twice"
+    }, {
+        "source": "19",
+        "target": "Collaboration map"
+    }, {
+        "source": "19",
+        "target": "SAO"
+    }, {
+        "source": "20",
+        "target": "project abc"
+    }, {
+        "source": "21",
+        "target": "project twice"
+    }, {
+        "source": "21",
+        "target": "project second"
+    }, {
+        "source": "21",
+        "target": "SAO"
+    }, {
+        "source": "21",
+        "target": "project abc"
+    }, {
+        "source": "22",
+        "target": "project title"
+    }, {
+        "source": "5",
+        "target": "project second"
+    }, {
+        "source": "5",
+        "target": "project abc"
+    }, {
+        "source": "37",
+        "target": "Google Project"
+    }, {
+        "source": "37",
+        "target": "SAO"
+    }, {
+        "source": "38",
+        "target": "project second"
+    }, {
+        "source": "39",
+        "target": "Collaboration map"
+    }, {
+        "source": "35",
+        "target": "project second"
+    }]
+}
