@@ -43,7 +43,6 @@
 
 <body>
   <svg id="map"></svg>
-  <nav class="navbar navbar-toggleable-sm">
     <table>
       <tr>
         <td>
@@ -332,12 +331,12 @@
       </tr>
     </table>
     <div class='btn-group-vertical' style="padding-top: 50px;">
-      <button class='btn btn-primary' id='research_group'>Sort by FCL Project</button>
-      <button class='btn btn-primary' id='locations'>Sort by Location</button>
-      <button class='btn btn-primary' id='mother_tongues'>Sort by Language</button>
-      <button class='btn btn-primary' id='gender'>Sort by Gender</button>
-      <button class='btn btn-primary' id='academic_background'>Sort by Academic Background</button>
-      <button class='btn btn-primary' id='start_date'>Sort by Starting Date</button>
+      <button class='sort btn btn-primary' id='research_group'>Sort by FCL Project</button>
+      <button class='sort btn btn-primary' id='locations'>Sort by Location</button>
+      <button class='sort btn btn-primary' id='mother_tongues'>Sort by Language</button>
+      <button class='sort btn btn-primary' id='gender'>Sort by Gender</button>
+      <button class='sort btn btn-primary' id='academic_background'>Sort by Academic Background</button>
+      <button class='sort btn btn-primary' id='start_date'>Sort by Starting Date</button>
     </div>
   </nav>
 
@@ -358,38 +357,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   <script src="NavBar.js"></script>
   <script type="text/javascript">
-    $('.main-menu').hide();
-    $('.glyphicon-menu-left').hide();
+    // $('.main-menu').hide();
+    // $('.glyphicon-menu-left').hide();
 
     var graph = {
       "nodes": [{
-        "id": "project twice",
-        "type": "Project",
-        "start_date": "Apr. 2015",
-        "project_duration": "> 2 years",
-        "project_outcomes": ["Granted research proposal", "Joint publication", "Research modelling", "Joint prototype", "Data sharing", "Expert analysis"],
-        "research_groups": "Scenario 2.3, 3 for 2, Scenario 3.4, Scenario 3.1, Scenario 3.3, Scenario 1.2",
-        "pieChart": [{
-          "color": "#5C6BC0",
-          "percent": 16.666666666667
-        }, {
-          "color": "#FF80AB",
-          "percent": 16.666666666667
-        }, {
-          "color": "#FFCA28",
-          "percent": 16.666666666667
-        }, {
-          "color": "#9CCC65",
-          "percent": 16.666666666667
-        }, {
-          "color": "#4DB6AC",
-          "percent": 16.666666666667
-        }, {
-          "color": "#FFCA28",
-          "percent": 16.666666666667
-        }],
-        "radius": 7
-      }, {
         "id": "1",
         "type": "Collaborator",
         "start_date": "Jan. 1990",
@@ -680,6 +652,33 @@
         "research_group": "CIVAL",
         "locations": "FCL level 6"
       }, {
+        "id": "project twice",
+        "type": "Project",
+        "start_date": "Apr. 2015",
+        "project_duration": "> 2 years",
+        "project_outcomes": ["Granted research proposal", "Joint publication", "Research modelling", "Joint prototype", "Data sharing", "Expert analysis"],
+        "research_groups": "Scenario 2.3, 3 for 2, Scenario 3.4, Scenario 3.1, Scenario 3.3, Scenario 1.2",
+        "pieChart": [{
+          "color": "#5C6BC0",
+          "percent": 16.666666666667
+        }, {
+          "color": "#FF80AB",
+          "percent": 16.666666666667
+        }, {
+          "color": "#FFCA28",
+          "percent": 16.666666666667
+        }, {
+          "color": "#9CCC65",
+          "percent": 16.666666666667
+        }, {
+          "color": "#4DB6AC",
+          "percent": 16.666666666667
+        }, {
+          "color": "#FFCA28",
+          "percent": 16.666666666667
+        }],
+        "radius": 7
+      }, {
         "id": "SAO",
         "type": "Project",
         "start_date": "Jan. 2015",
@@ -956,6 +955,7 @@
     // d3.json('graph.json', function(error,graph){
 
     var outerRadius = xScale(50);
+    var innerRadius = xScale(25);
 
     var linkedByIndex = {};
 
@@ -1249,16 +1249,44 @@
         .text(label);
     }
 
+    var project_increment = 0;
+
+    function projectChart(number, radius, total_radius) {
+      pi = Math.PI;
+
+      var angle = project_increment + radius/total_radius * 2 * pi;
+
+        var arc = d3.arc()
+          .innerRadius(innerRadius)
+          .outerRadius(innerRadius + 4)
+          .startAngle(project_increment)
+          .endAngle(angle - 0.1);
+
+      project_increment = angle;
+
+      var temp_x = width / 2 + xScale(60);
+      var temp_y = height / 2 + yScale(15);
+
+      var textPath = svg.append("path")
+        .attr("d", arc)
+        .attr("id", "path" + number)
+        .attr("transform", "translate(" + temp_x + "," + temp_y + ")");
+
+        textPath.attr('fill', 'red');
+    }
+
     function drawing(choice) {
       var project_length = 0;
       var collaborator_length = 0;
       var choice_type = [];
       var choice_qty = [];
       var choice_qty_temp = [];
+      var total_radius = 0;
 
       for ($i = 0; $i < graph.nodes.length; $i++) {
         if (graph.nodes[$i].type == 'Project') {
           project_length++;
+          total_radius += graph.nodes[$i].radius;
         } else {
           collaborator_length++;
           if (choice_type.indexOf(graph.nodes[$i][choice]) == -1) {
@@ -1276,27 +1304,34 @@
         }
       }
 
+      // for (var i = 0; i < graph.nodes.length; i++){
+      //   if( graph.nodes[i].type == 'Project'){
+      //     projectChart(i, graph.nodes[i].radius, total_radius);
+      //   }
+      // }
+
       var start_angle = [];
       var end_angle = [];
       var increment = [];
 
-      var outer_angle = Math.PI / choice_type.length;
+      var outer_angle = 2 * Math.PI / choice_type.length;
 
       var angle = 0;
+
       for (var i = 0; i < choice_type.length; i++) {
         start_angle[i] = angle + 0.01;
-        var added = pieChartLabel(choice_type[i], angle, 2 * outer_angle, choice_qty[i] , i);
+        var added = pieChartLabel(choice_type[i], angle, outer_angle, choice_qty[i] , i);
         angle = added;
         end_angle[i] = angle - 0.06;
         increment[i] = 0;
       }
 
-      var inner_angle = Math.PI * 2 / (project_length);
+      var inner_angle = 2 * Math.PI / (project_length);
 
-      var x_outer = 0;
-      var y_outer = 0;
       var x_inner = 0;
       var y_inner = 0;
+
+      var angle;
 
       function translate_outer_x(d) {
         if (d.type == 'Collaborator') {
@@ -1323,24 +1358,26 @@
         return Math.sin(-Math.PI/2 + angle) * outerRadius;
       }
 
+      var project_start_angle = 0;
+      var project_end_angle = -0.09;
+      var project_angle = 0;
+
       function translate_inner_x(d) {
-        x_inner += inner_angle;
-        d.x = Math.cos(x_inner) * xScale(25) + xScale(100);
-        return Math.cos(x_inner) * xScale(25);
+        // x_inner += inner_angle;
+        project_increment = (d.radius /total_radius) * 2 * Math.PI;
+        project_end_angle += project_increment;
+        project_angle = (project_end_angle + project_start_angle)/2;
+        d.x = Math.cos(-Math.PI/2 + project_angle) * innerRadius + xScale(100);
+        return Math.cos(-Math.PI/2 + project_angle) * innerRadius;
       }
 
       function translate_inner_y(d) {
-        y_inner += inner_angle;
-        d.y = Math.sin(y_inner) * yScale(40) + yScale(60);
-        return Math.sin(y_inner) * yScale(40);
+        // y_inner += inner_angle;
+        d.y = Math.sin(-Math.PI/2 + project_angle) * innerRadius + yScale(60);
+        project_increment = (d.radius /total_radius) * 2 * Math.PI;
+        project_start_angle += project_increment;
+        return Math.sin(-Math.PI/2 + project_angle) * innerRadius;
       }
-
-      // var outer_angle = Math.PI / choice_type.length;
-      // var angle = 0;
-      // for (var i = 0; i < choice_type.length; i++) {
-      //   var added = pieChartLabel(choice_type[i], angle, 2 * outer_angle, choice_qty[i] , i);
-      //   angle = added;
-      // }
 
       node.attr("transform", function(d) {
         if (d.type == 'Project') {
@@ -1374,7 +1411,7 @@
       simulation.alpha(1.0);
     };
 
-    drawing('locations');
+    drawing('research_group');
 
     function neighboring(a, b) {
       return a.index == b.index || linkedByIndex[a.index + "," + b.index];
@@ -1397,7 +1434,7 @@
       d.fy = null;
     }
 
-    $('button').on('click', function() {
+    $('.sort').on('click', function() {
       mousedown($(this).attr('id'));
     })
 
@@ -1409,6 +1446,267 @@
       simulation.alpha(1.0);
     }
 
+    ////////////////////////
+
+    //Year filter
+    $("#start_project").bind('contentchanged',function(){
+      project_filtered = projectFilter($(this).text());
+    });
+
+    var project_filtered = [];
+    var collaborator_filtered = [];
+    var collaborator_alive = [];
+    var options = {
+      'project_outcome' : 'project_outcome',
+      'disciplines' : 'disciplinary_backgrounds',
+      'fcl_project' : 'research_group',
+      'location' : 'locations',
+      'language' : 'mother_tongues',
+    }
+
+    for (var i = 0; i < graph.nodes.length; i++){
+      if(graph.nodes[i].type == 'Project'){
+        project_filtered.push(graph.nodes[i]);
+      }else{
+        collaborator_filtered.push(graph.nodes[i]);
+      }
+    }
+
+    collaborator_alive = collaborator_filtered;
+
+    $('.project_outcome').on('click',function(){
+      project_filtered = projectFilter($(this).text());
+    })
+
+    //this seems to be a problem also
+    $('[class$=-choices]').on('click',function(){
+      collaboratorsFilter(project_filtered, collaborator_filtered, $(this).attr('class'), $(this).text());
+    })
+
+    function collaboratorsFilter(project_filtered, collaborator_filtered, class_name, click){
+      var original = getAllChoices('.' + class_name);
+      var click = click.toLowerCase();
+      var index = class_name.indexOf('-');
+      var choice = class_name.substring(0, index);
+      var inputID = '#' + choice + '-result';
+      var inputs = [];
+      var collaborator_alive = [];
+      $(inputID).children().each(function(){
+        inputs.push($(this).text().toLowerCase());
+      })
+      if(inputs.indexOf(click) == -1 && original.indexOf(click) != -1){
+        inputs.push(click);
+      }else{
+        index = inputs.indexOf(click);
+        inputs.splice(index, 1);
+      }
+      if(inputs.length != 0){
+        collaborator_alive = collaboratorFilteringFunction(collaborator_filtered, choice, original, inputs);
+      }else{
+        collaborator_alive = collaborator_filtered;
+        for(var i = 0; i < collaborator_alive.length; i++){
+          var node = collaborator_alive[i];
+          var nodeID = getId(node);
+          $(nodeID).attr('opacity', '0.9');
+        }
+      }
+      $('[id$=-result]').each(function(){
+        var name = $(this).attr('id');
+        var index = name.indexOf('-');
+        var cur = name.substring(0, index);
+        if ( cur == choice) return;
+        else{
+          var inputs = [];
+          var original = getAllChoices('.' + cur + '-choices');
+          $(this).children().each(function(){
+            inputs.push($(this).text().toLowerCase());
+          });
+          if(inputs.length != 0){
+            collaborator_alive = collaboratorFilteringFunction(collaborator_alive, cur, original, inputs);
+          }
+        }
+      });
+      highlightProjects(collaborator_alive, project_filtered);
+    }
+
+    function collaboratorFilteringFunction(array, choice, original, inputs ){
+      var temp = [];
+      for(var i = 0; i < array.length; i++){
+        var node = array[i];
+        var nodeID = getId(node);
+        var option = options[choice];
+        var attributes = node[option];
+        if(Array.isArray(attributes)){
+          for( var k = 0; k < attributes.length; k++){
+            var attr = attributes[k];
+            attr = attr.toLowerCase();
+            if( original.indexOf(attr) == -1){
+              attr = 'other';
+            }
+            var result = inputs.indexOf(attr);
+            if (result != '-1'){
+              $(nodeID).attr('opacity','0.9');
+              temp.push(node);
+              break;
+            }else{
+              $(nodeID).attr('opacity', '0.2');
+            }
+          }
+        }else{
+          var attr = attributes;
+          attr = attr.toLowerCase();
+          var check = original.indexOf(attr);
+          if (check == '-1'){
+              attr = 'other';
+          }
+          var result = inputs.indexOf(attr);
+          if (result != '-1'){
+              $(nodeID).attr('opacity','0.9');
+              temp.push(node);
+          }else{
+              $(nodeID).attr('opacity', '0.2');
+          }
+        }
+      }
+      return temp;
+    }
+
+    function projectFilter(click){
+        collaborator_filtered = [];
+        initialization();
+        var original = getAllChoices('.project_outcome');
+        var inputs = [];    //user input
+        var project_filtered = [];    //keep projects filtered
+        $('.project_outcome').each(function(){
+            if($(this).is(':checked')){
+                inputs.push($(this).attr('id'));
+            }
+        });
+        for(var i = 0; i < graph.nodes.length; i++){
+            var project_node = graph.nodes[i];
+            var project_id = getId(project_node);
+            if(project_node.type === 'Collaborator') {
+                continue;
+            }
+            else{
+                for(var j = 0; j < project_node.project_outcomes.length; j++){
+                    var outcome = project_node.project_outcomes[j];
+                    outcome = outcome.replace(/ /g, '_');
+                    outcome = outcome.replace('/','_');
+                    outcome = outcome.toLowerCase();
+                    if( original.indexOf(outcome) == '-1'){
+                        outcome = 'other';
+                    }
+                    var result = inputs.indexOf(outcome);
+                    if(result != '-1'){
+                        project_filtered.push(project_node);
+                        // $(project_id).attr('opacity','0.9');
+                        // highlightCollaborators(project_node);
+                        break;
+                    }
+                }
+            }
+        }
+        var duration = ($('#start_project').text());
+        var start = duration.substring( 0, 4);
+        var end = duration.substring(7, 11);
+        var remove = [];
+        for(var i = 0; i < project_filtered.length; i++) {
+            var project = project_filtered[i];
+            var projectId = getId(project);
+            var year = project.start_date;
+            year = year.substring('5', '9');
+            if (year >= start && year <= end) {
+                $(projectId).attr('opacity', '0.9');
+                highlightCollaborators(project);
+            }else{
+              $(projectId).attr('opacity', '0.2');
+              remove.push(i);
+            }
+        }
+        for(var i = 0; i < remove.length; i++){
+          project_filtered.splice(remove[i], 1);
+        }
+
+        collaborator_alive = collaborator_filtered;
+        $('[id$=-result]').each(function(){
+          var name = $(this).attr('id');
+          var index = name.indexOf('-');
+          var cur = name.substring(0, index);
+          var inputs = [];
+          var original = getAllChoices('.' + cur + '-choices');
+          $(this).children().each(function(){
+            inputs.push($(this).text().toLowerCase());
+          });
+          if(inputs.length != 0){
+            collaborator_alive = collaboratorFilteringFunction(collaborator_alive, cur, original, inputs);
+            highlightProjects(collaborator_alive,project_filtered);
+          }
+        });
+        return project_filtered;
+    }
+
+    function getCollaboratorFiltered(){
+      collaborator_filtered = [];
+      for(var i = 0; i < graph.nodes.length; i++){
+        if(graph.nodes[i].type == 'Collaborator'){
+          var id = getId(graph.nodes[i]);
+          if($(id).attr('opacity') == '0.9'){
+            collaborator_filtered.push(graph.nodes[i]);
+          }
+        }
+      }
+    }
+
+    function highlightCollaborators(node){
+        for(var k = 0; k < graph.nodes.length; k++){
+            if(neighboring(graph.nodes[k], node) == '1'){
+                var collaboratorId = getId(graph.nodes[k]);
+                $(collaboratorId).attr('opacity','0.9');
+                path.style('stroke-width', function (l) {
+                    if (graph.nodes[k] === l.source && node === l.target) {
+                        $(this).attr('stroke-width', '3');
+                        return;
+                    }
+                });
+            }
+        }
+        getCollaboratorFiltered();
+    }
+
+    function highlightProjects(results, before){
+        for( var i = 0; i < graph.nodes.length; i++){
+            if( graph.nodes[i].type == 'Project'){
+                var id = getId(graph.nodes[i]);
+                $(id).attr('opacity','0.2');
+            }
+        }
+        path.style('stroke-width', function (l) {
+            $(this).attr('stroke-width', '1');
+        });
+        for(var i = 0; i < results.length; i++) {
+            var node = results[i];
+            for (var k = 0; k < graph.nodes.length; k++) {
+                if (graph.nodes[k].type === 'Collaborator') continue;
+                var projectId = getId(graph.nodes[k]);
+                    if (neighboring(graph.nodes[k], node) === 1) {
+                        if(before.indexOf(graph.nodes[k]) == -1) continue;
+                        $(projectId).attr('opacity', '0.9');
+                        path.style('stroke-width', function (l) {
+                            if (node === l.source && graph.nodes[k] === l.target) {
+                                $(this).attr('stroke-width', '3');
+                            }
+                        });
+                    }
+
+            }
+        }
+    }
+
+    $('.glyphicon-repeat').on('click',function(){
+      reload();
+    });
+
     function getId(node){
         var tempo_id = node.id;
         var tempo_id = tempo_id.replace(/ /g,'_');
@@ -1416,6 +1714,74 @@
         var tempo_id = '#' + tempo_id;
         return tempo_id;
     }
+
+    function getAllChoices(array){
+        var original = [];
+        if(array === '.project_outcome') {
+            $(array).each(function () {
+                original.push($(this).attr('id'));
+            })
+        }
+        else{
+            $(array).each(function(){
+                original.push($(this).text().toLowerCase());
+            })
+        }
+        return original;
+    }
+
+    function initialization(){
+        for(var i = 0; i < graph.nodes.length; i++){
+            var id = getId(graph.nodes[i]);
+            $(id).attr('opacity','0.2');
+        }
+        path.style('stroke-width', function (l) {
+            $(this).attr('stroke-width', '1');
+        });
+    }
+
+    function refresh(){
+        for(var i = 0; i < graph.nodes.length; i++){
+            var id = getId(graph.nodes[i]);
+            $(id).attr('opacity','0.9');
+        }
+        path.style('stroke-width', function (l) {
+            $(this).attr('stroke-width', '1');
+        });
+    }
+
+    function trim(str){
+      if(str[0] == ' '){
+        str = str.substring(1);
+        str = trim(str);
+      }
+      return str;
+    }
+
+    function reload(){
+      refresh();
+      $('.menu-list').hide();
+      $('.main-menu').show();
+      $('.glyphicon-menu-left').show();
+      $('.side-menu').hide();
+      $('.arrow').removeClass('glyphicon-menu-up');
+      $('.arrow').addClass('glyphicon-menu-down');
+      $('.project_outcome').each(function(){
+        $(this).prop('checked',true);
+      });
+      $('[class$=-choices]').each(function(){
+        $(this).css('background-color','white');
+        $(this).css('color', 'black');
+      })
+      $('[id$=-result]').each(function(){
+        $(this).children().remove();
+      })
+      $("#slider-range").slider({
+          values: [2015, 2020]
+      });
+      $('#start_project').text('2015 - 2020');
+    }
+
     // });
   </script>
 
