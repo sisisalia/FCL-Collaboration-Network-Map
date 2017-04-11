@@ -42,7 +42,9 @@
 </head>
 
 <body>
-  <svg id="map"></svg>
+  <svg id="map">
+    <path id='try' stroke="red" stroke-width="2" fill="none" />
+  </svg>
     <table>
       <tr>
         <td>
@@ -357,6 +359,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   <script src="NavBar.js"></script>
   <script type="text/javascript">
+
     // $('.main-menu').hide();
     // $('.glyphicon-menu-left').hide();
 
@@ -939,6 +942,7 @@
     var width = $(window).width();
     var height = $(window).height();
 
+
     var xScale = d3.scaleLinear().domain([0, 100]).range([0, width]);
     var yScale = d3.scaleLinear().domain([0, 100]).range([0, height]);
 
@@ -1396,12 +1400,190 @@
         var dx = d.target.x - d.source.x,
           dy = d.target.y - d.source.y,
           dr = Math.sqrt(dx * dx + dy * dy);
-        return "M" +
-          d.source.x + "," +
-          d.source.y + "A" +
-          dr + "," + dr + " 0 0,1 " +
-          d.target.x + "," +
-          d.target.y;
+          //bezier curve
+          var source_NE;
+          var source_NW;
+          var source_SW;
+          var source_SE;
+          var target_NE;
+          var target_NW;
+          var target_SW;
+          var target_SE;
+          var vertical = width + xScale(20);
+          var horizontal = height - yScale(28);
+          if(d.source.x > vertical){
+            if(d.source.y > horizontal){
+              source_SE = 1;
+            }else{
+              source_NE = 1;
+            }
+          }else{
+            if(d.source.y > horizontal){
+              source_SW = 1;
+            }else{
+              source_NW = 1;
+            }
+          }
+          if(d.target.x > vertical){
+            if(d.target.y > horizontal){
+              target_SE = 1;
+            }else{
+              target_NE = 1;
+            }
+          }else{
+            if(d.target.y > horizontal){
+              target_SW = 1;
+            }else{
+              //sth wrong with NW target
+              target_NW = 1;
+            }
+          }
+          if(dr < xScale(55)){
+              return "M" +
+              d.source.x + "," +
+              d.source.y + "A" +
+              dr + "," + dr + " 0 0,1 " +
+              d.target.x+ "," +
+              d.target.y;
+          }
+          if((source_NW == 1 && target_SW == 1)){
+            var point1_x = vertical - xScale(50);
+            var point1_y = horizontal + yScale(20);
+            var point2_x = d.target.x ;
+            var point2_y = d.target.y;
+              return "M" +
+              d.source.x + " " +
+              d.source.y + " C " +
+              point1_x + " " + point1_y + " , " + point2_x + " " + point2_y + ","  +
+              d.target.x+ " " +
+              d.target.y;
+          }
+          if((source_NE == 1 && target_SE == 1)){
+            var point1_x = vertical + xScale(50);
+            var point1_y = horizontal - yScale(20);
+            var point2_x = d.target.x ;
+            var point2_y = d.target.y;
+              return "M" +
+              d.source.x + " " +
+              d.source.y + " C " +
+              point1_x + " " + point1_y + " , " + point2_x + " " + point2_y + ","  +
+              d.target.x+ " " +
+              d.target.y;
+          }
+          if((source_SE == 1 && target_NE == 1) ){
+            var point1_x = vertical + xScale(60);
+            var point1_y = horizontal + yScale(20);
+            var point2_x = d.target.x;
+            var point2_y = d.target.y;
+              return "M" +
+              d.source.x + " " +
+              d.source.y + " C " +
+              point1_x + " " + point1_y + " , " + point2_x + " " + point2_y + ","  +
+              d.target.x+ " " +
+              d.target.y;
+          }
+          if((source_SW == 1 && target_NW == 1) ){
+            var point1_x = vertical - xScale(60);
+            var point1_y = horizontal - yScale(20);
+            var point2_x = d.target.x;
+            var point2_y = d.target.y;
+              return "M" +
+              d.source.x + " " +
+              d.source.y + " C " +
+              point1_x + " " + point1_y + " , " + point2_x + " " + point2_y + ","  +
+              d.target.x+ " " +
+              d.target.y;
+          }
+
+          if(source_NE == 1 && target_SW == 1){
+            if(d.source.x > vertical + xScale(20)){
+              var point1_x = vertical + xScale(50) ;
+              var point1_y = horizontal + yScale(50) ;
+              var point2_x = vertical ;
+              var point2_y = horizontal + yScale(120);
+            }else{
+              var point1_x = vertical - xScale(50) ;
+              var point1_y = horizontal - yScale(50) ;
+              var point2_x = vertical - xScale (50) ;
+              var point2_y = horizontal + yScale(20);
+            }
+            return "M" +
+            d.source.x + " " +
+            d.source.y + " C " +
+            point1_x + " " + point1_y + " , " + point2_x + " " + point2_y + ","  +
+            d.target.x+ " " +
+            d.target.y;
+          }
+
+          if(source_SW == 1 && target_NE == 1){
+            if(d.source.x > vertical + xScale(20)){
+              var point1_x = vertical + xScale(50) ;
+              var point1_y = horizontal + yScale(50) ;
+              var point2_x = vertical ;
+              var point2_y = horizontal + yScale(120);
+            }else{
+              var point1_x = vertical - xScale(40) ;
+              var point1_y = horizontal - yScale(50) ;
+              var point2_x = vertical ;
+              var point2_y = horizontal - yScale(120);
+            }
+            return "M" +
+            d.source.x + " " +
+            d.source.y + " C " +
+            point1_x + " " + point1_y + " , " + point2_x + " " + point2_y + ","  +
+            d.target.x+ " " +
+            d.target.y;
+          }
+
+          if(source_SE == 1 && target_NW == 1){
+              if(d.source.x > vertical + xScale(20)){
+                var point1_x = vertical + xScale(50) ;
+                var point1_y = horizontal ;
+                var point2_x = vertical + xScale(50) ;
+                var point2_y = horizontal - xScale(50);
+              }else{
+                var point1_x = vertical - xScale(50) ;
+                var point1_y = horizontal ;
+                var point2_x = vertical - xScale(50) ;
+                var point2_y = horizontal;
+              }
+              return "M" +
+              d.source.x + " " +
+              d.source.y + " C " +
+              point1_x + " " + point1_y + " , " + point2_x + " " + point2_y + ","  +
+              d.target.x+ " " +
+              d.target.y;
+          }
+
+          //not really tested yet
+          if(source_NW == 1 && target_SE == 1){
+              if(d.source.x < vertical - xScale(20)){
+                var point1_x = vertical - xScale(50) ;
+                var point1_y = horizontal ;
+                var point2_x = vertical - xScale(50) ;
+                var point2_y = horizontal;
+              }else{
+                var point1_x = vertical + xScale(50) ;
+                var point1_y = horizontal ;
+                var point2_x = vertical + xScale(50) ;
+                var point2_y = horizontal - xScale(50);
+              }
+              return "M" +
+              d.source.x + " " +
+              d.source.y + " C " +
+              point1_x + " " + point1_y + " , " + point2_x + " " + point2_y + ","  +
+              d.target.x+ " " +
+              d.target.y;
+          }
+
+          // var path = 'M ' + d.source.x + ' ' + d.source.y + ' C ' + dx + ' ' + dy + ', ' + dr + ' ' + dr + ', ' + d.target.x + ' ' + d.target.y;
+          // return path;
+          // return "M" +
+        //   d.source.x + "," +
+        //   d.source.y + "A" +
+        //   dr + "," + dr + " 0 0,1 " +
+        //   d.target.x + "," +
+        //   d.target.y;
       });
 
       graph.links.forEach(function(d) {
