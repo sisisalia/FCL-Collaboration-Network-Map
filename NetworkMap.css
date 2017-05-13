@@ -10,7 +10,6 @@
 }
 
 div.tooltip {
-    position: absolute;
     text-align: left;
     width: auto;
     height: auto;
@@ -20,8 +19,6 @@ div.tooltip {
     box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.2);
     border: 0px;
     border-radius: 1px;
-    pointer-events: none;
-    display:inline-block;
     overflow: auto;
 }
 #project_tag_title , #collaborator_tag_title{
@@ -65,9 +62,37 @@ div.tooltip {
 }
 #map{
     z-index: 1;
+    position:absolute;
 }
 #myChart {
     -ms-transform: rotate(90deg); /* IE 9 */
     -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
     transform: rotate(90deg);
+}
+.glyphicon-remove-circle{
+  margin-left: 91%;
+	height: 0.5px;
+	width: 1px;
+	background-color: transparent;
+  color: black;
+  cursor: pointer;
+  border: none;
+}
+.tooltip #project_tag{
+  max-width: 300px;
+  margin-top : -20px;
+}
+.tooltip #collaborator_tag{
+  max-width: 250px;
+  margin-top : -20px;
+}
+.glyphicon-remove-sign{
+  color:black;
+  float:right;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
 }

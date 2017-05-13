@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="plug-in/node-pie.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="plug-in/jquery-ui-slider-pips.js"></script>
+    <link rel="stylesheet" href="plug-in/jquery-ui-slider-pips.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="NavBar.css">
+    <link rel="stylesheet" type="text/css" href="NetworkMap.css">
+    <script src="NetworkMap.js"></script>
+    <!-- Typekit for "adelle" font family -->
+    <script src="https://use.typekit.net/adt3ctv.js"></script>
+    <script>
+        try {
+            Typekit.load({
+                async: true
+            });
+        } catch (e) {}
+    </script>
+
+    <header class="navbar-fixed-top">
+        <div class="research-collab-header">
+            Research Collaboration in FCL
+        </div>
+        <div>
+            <img src="image/fcl.jpg" alt="FCL" class="fcl-image">
+            <br/>
+            <span class="cival">
+          Developed by CIVAL
+        </span>
+        </div>
+    </header>
+</head>
+
+<body>
+    <svg id="map">
+    </svg>
+    <table>
+        <tr>
+            <td>
+                <button class="menu-list glyphicon glyphicon-list" style='color:black;'></button>
+            </td>
+            <td style="padding-top: 100px;">
+                <div style="margin-left: 7px;">
+                    <ul class="main-menu">
+                        <li class="nav-item">
+                            <div style="font: bold 12px adelle; padding-top:12px;">Select Project Outcomes</div>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <label class="switch">
+                        <input type="checkbox" checked class="project_outcome" id="data_sharing">
+                        <div class="slider round"></div>
+                      </label>
+                                    </td>
+                                    <td class="project_outcomes_label">
+                                        Data Sharing
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label class="switch">
+                        <input type="checkbox" checked class="project_outcome" id="expertise_contribution">
+                        <div class="slider round"></div>
+                      </label>
+                                    </td>
+                                    <td class="project_outcomes_label">
+                                        Expertise Contribution
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label class="switch">
+                        <input type="checkbox" checked class="project_outcome" id="granted_research_proposal">
+                        <div class="slider round"></div>
+                      </label>
+                                    </td>
+                                    <td class="project_outcomes_label">
+                                        Granted Research Proposal
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label class="switch">
+                        <input type="checkbox" checked class="project_outcome" id="joint_publication">
+                        <div class="slider round"></div>
+                      </label>
+                                    </td>
+                                    <td class="project_outcomes_label">
+                                        Joint Publication
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label class="switch">
+                        <input type="checkbox" checked class="project_outcome" id="joint_prototype">
+                        <div class="slider round"></div>
+                      </label>
+                                    </td>
+                                    <td class="project_outcomes_label">
+                                        Joint Prototype
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label class="switch">
+                        <input type="checkbox" checked class="project_outcome" id="other">
+                        <div class="slider round"></div>
+                      </label>
+                                    </td>
+                                    <td class="project_outcomes_label">
+                                        Other
+                                    </td>
+                                </tr>
+                            </table>
+                        </li>
+                        <br />
+                        <div class="nav-item" style="font: bold 12px adelle; padding-bottom : 7px;">
+                            Explore the Collaborators
+                        </div>
+                        <li class="menu nav-item">
+                            <div id="disciplines">
+                                Disciplines
+                                <span class="arrow glyphicon glyphicon-menu-right" id="disciplines-arrow" aria-hidden="true" style="float:right; margin-right: 10px;"></span>
+                            </div>
+                            <ul id="disciplines-result"></ul>
+                        </li>
+                        <hr>
+                        <li class="menu nav-item">
+                            <div id="fcl_project">
+                                FCL Project
+                                <span class="arrow glyphicon glyphicon-menu-right" id="fcl_project-arrow" aria-hidden="true" style="float:right; margin-right: 10px;"></span>
+                            </div>
+                            <ul id="fcl_project-result"></ul>
+                        </li>
+                        <hr>
+                        <li class="menu nav-item">
+                            <div id="location">
+                                Location
+                                <span class="arrow glyphicon glyphicon-menu-right" id="location-arrow" aria-hidden="true" style="float:right; margin-right: 10px;"></span>
+                            </div>
+                            <ul id="location-result"></ul>
+                        </li>
+                        <hr>
+                        <li class="menu nav-item">
+                            <div id="language">
+                                Language
+                                <span class="arrow glyphicon glyphicon-menu-right" id="language-arrow" aria-hidden="true" style="float:right; margin-right: 10px;"></span>
+                            </div>
+                            <ul id="language-result"></ul>
+                        </li>
+                        <hr>
+                        <p></p>
+                        <div class="nav-item" style="font: bold 12px adelle;">
+                            Sort by Groups
+                        </div>
+                        <li>
+                            <div class="radio btn-group-vertical">
+                                <label>
+                                  <input type="radio" class="sorting" name="sorting" id="disciplinary_backgrounds" checked>
+                                  <span class="sorting-label">Disciplines</span>
+                                </label>
+                                <label>
+                                  <input type="radio" class="sorting" name="sorting" id="research_group">
+                                  <span class="sorting-label">FCL Project</span>
+                                </label>
+                                <label>
+                                  <input type="radio" class="sorting" name="sorting" id="gender">
+                                  <span class="sorting-label">Gender</span>
+                                </label>
+                                <label>
+                                  <input type="radio" class="sorting" name="sorting" id="mother_tongues">
+                                  <span class="sorting-label">Language</span>
+                                </label>
+                                <label>
+                                  <input type="radio" class="sorting" name="sorting" id="locations">
+                                  <span class="sorting-label">Location</span>
+                                </label>
+                                <label>
+                                  <input type="radio" class="sorting" name="sorting" id="start_date">
+                                  <span class="sorting-label">Starting Date</span>
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                    <footer>
+                        <span class="glyphicon glyphicon-resize-small"></span>
+                    </footer>
+                </div>
+            </td>
+            <td>
+                <div class="side-menu" id="disciplines-submenu">
+                    <li>
+                        <span class="collaborator_label">Disciplines</span>
+                        <p></p>
+                    </li>
+                    <button class="disciplines-choices">Architecture</button>
+                    <br />
+                    <button class="disciplines-choices">Art</button>
+                    <br />
+                    <button class="disciplines-choices">Biology</button>
+                    <br />
+                    <button class="disciplines-choices">Chemistry</button>
+                    <br />
+                    <button class="disciplines-choices">Computer science</button>
+                    <br />
+                    <button class="disciplines-choices">Ecology</button>
+                    <br />
+                    <button class="disciplines-choices">Economics</button>
+                    <br />
+                    <button class="disciplines-choices">Engineering</button>
+                    <br />
+                    <button class="disciplines-choices">Graphic design</button>
+                    <br />
+                    <button class="disciplines-choices">History</button>
+                    <br />
+                    <button class="disciplines-choices">Landscape architecture</button>
+                    <br />
+                    <button class="disciplines-choices">Law</button>
+                    <br />
+                    <button class="disciplines-choices">Literature</button>
+                    <br />
+                    <button class="disciplines-choices">Policy</button>
+                    <br />
+                    <button class="disciplines-choices">Psychology</button>
+                    <br />
+                    <button class="disciplines-choices">Sociology</button>
+                    <br />
+                    <button class="disciplines-choices">Urban design/planning</button>
+                    <br />
+                    <button class="disciplines-choices">Other</button>
+                    <br />
+                </div>
+
+                <div class="side-menu" id="fcl_project-submenu">
+                    <li>
+                        <span class="collaborator_label">FCL Project</span>
+                        <p></p>
+                    </li>
+                    <button class="fcl_project-choices">Scenario 1 Coordination</button>
+                    <br />
+                    <button class="fcl_project-choices">Scenario 1.1</button>
+                    <br />
+                    <button class="fcl_project-choices">Scenario 1.2</button>
+                    <br />
+                    <button class="fcl_project-choices">Scenario 1.3</button>
+                    <br />
+                    <button class="fcl_project-choices">Scenario 1.4</button>
+                    <br />
+                    <button class="fcl_project-choices">Scenario 2 Coordination</button>
+                    <br />
+                    <button class="fcl_project-choices">Scenario 2.1</button>
+                    <br />
+                    <button class="fcl_project-choices">Scenario 2.2</button>
+                    <br />
+                    <button class="fcl_project-choices">Scenario 2.3</button>
+                    <br />
+                    <button class="fcl_project-choices">Scenario 2.4</button>
+                    <br />
+                    <button class="fcl_project-choices">Scenario 3 Coordination</button>
+                    <br />
+                    <button class="fcl_project-choices">Scenario 3.1</button>
+                    <br />
+                    <button class="fcl_project-choices">Scenario 3.2</button>
+                    <br />
+                    <button class="fcl_project-choices">Scenario 3.3</button>
+                    <br />
+                    <button class="fcl_project-choices">Scenario 3.4</button>
+                    <br />
+                    <button class="fcl_project-choices">Cooler Singapore</button>
+                    <br />
+                    <button class="fcl_project-choices">3 for 2</button>
+                    <br />
+                    <button class="fcl_project-choices">Robotic Tiling</button>
+                    <br />
+                    <button class="fcl_project-choices">CIVAL</button>
+                    <br />
+                    <button class="fcl_project-choices">Other</button>
+                    <br />
+                </div>
+
+                <div class="side-menu" id="location-submenu">
+                    <li>
+                        <span class="collaborator_label">Location</span>
+                        <p></p>
+                    </li>
+                    <button class="location-choices">EPFL</button>
+                    <br />
+                    <button class="location-choices">ETH Zurich</button>
+                    <br />
+                    <button class="location-choices">FCL level 6</button>
+                    <br />
+                    <button class="location-choices">FCL level 15</button>
+                    <br />
+                    <button class="location-choices">FHNW</button>
+                    <br />
+                    <button class="location-choices">NTU</button>
+                    <br />
+                    <button class="location-choices">NUS</button>
+                    <br />
+                    <button class="location-choices">SMU</button>
+                    <br />
+                    <button class="location-choices">SUTD</button>
+                    <br />
+                    <button class="location-choices">Other location</button>
+                    <br />
+                </div>
+
+                <div class="side-menu" id="language-submenu">
+                    <li>
+                        <span class="collaborator_label">Language</span>
+                        <p></p>
+                    </li>
+                    <button class="language-choices">Arabic</button>
+                    <br />
+                    <button class="language-choices">Chinese</button>
+                    <br />
+                    <button class="language-choices">Dutch</button>
+                    <br />
+                    <button class="language-choices">English</button>
+                    <br />
+                    <button class="language-choices">French</button>
+                    <br />
+                    <button class="language-choices">German</button>
+                    <br />
+                    <button class="language-choices">Hindi</button>
+                    <br />
+                    <button class="language-choices">Indonesian</button>
+                    <br />
+                    <button class="language-choices">Italian</button>
+                    <br />
+                    <button class="language-choices">Japanese</button>
+                    <br />
+                    <button class="language-choices">Russian</button>
+                    <br />
+                    <button class="language-choices">Spanish</button>
+                    <br />
+                    <button class="language-choices">Malay</button>
+                    <br />
+                    <button class="language-choices">Others</button>
+                    <br />
+                </div>
+            </td>
+        </tr>
+    </table>
+    </nav>
+
+    <nav class="year-menu">
+        <div class="year-item" style="font: bold 12px adelle; padding-top: 20px;">
+            Starting Year of Projects
+        </div>
+        <br />
+        <div class="year-item" id="start_project" style="font: bold 11px lato;">2015 - 2020</div>
+        <p></p>
+        <li class="year-item">
+            <br />
+            <div id="slider-range"></div>
+            <br />
+        </li>
+    </nav>
+
+    <table id="nav-bottom">
+        <tr>
+            <td>
+                <button class="glyphicon glyphicon-repeat" style="width: 30px; height: 26px; font-size: 18px; color:black; border:none; background-color:transparent;"></button>
+            </td>
+            <td>
+                <button id="rationale" data-toggle="modal" data-target="#myModal" style="width: 74px; height: 18px; font-family: lato; font-size: 12px; line-height: 12px; border:none; background-color:transparent; padding-left: 10px; border-left: 2px solid rgba(200,200,200,0.2)">Rationale</button>
+            </td>
+        </tr>
+    </table>
+
+    <div class="legend">
+        <span id="legend-title">
+          Legends
+          <span class="arrow glyphicon glyphicon-menu-down" id="legend-arrow" aria-hidden="true" style="float:right; margin-right: 10px;"></span>
+        </span>
+        <table id="legend-table" style="margin-top:2px;">
+            <col width="23">
+            <tr>
+                <td>
+                    <svg width="8" height="10">
+            <rect width="8" height="8" style="fill:black;" />
+          </svg>
+                </td>
+                <td style="padding-bottom: 5px;">
+                    Collaborator
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <svg height="9" width="9">
+            <circle cx="4.5" cy="4.5" r="4.5" fill="#4DB6AC" />
+          </svg>
+                </td>
+                <td>
+                    Data Sharing
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <svg height="9" width="9">
+            <circle cx="4.5" cy="4.5" r="4.5" fill="#FC8D62" />
+          </svg>
+                </td>
+                <td>
+                    Expertise Contribution
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <svg height="9" width="9">
+            <circle cx="4.5" cy="4.5" r="4.5" fill="#5C6BC0" />
+          </svg>
+                </td>
+                <td>
+                    Granted Research Proposal
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <svg height="9" width="9">
+            <circle cx="4.5" cy="4.5" r="4.5" fill="#FF80AB" />
+          </svg>
+                </td>
+                <td>
+                    Joint Publication
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <svg height="9" width="9">
+            <circle cx="4.5" cy="4.5" r="4.5" fill="#9CCC65" />
+          </svg>
+                </td>
+                <td>
+                    Joint Prototype
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <svg height="9" width="9">
+            <circle cx="4.5" cy="4.5" r="4.5" fill="#FFCA28" />
+          </svg>
+                </td>
+                <td>
+                    Other
+                </td>
+            </tr>
+        </table>
+        <p></p>
+        <div id="legend-label" style="font: italic 11px lato; width: 80%;">
+            Numbers of collaborators involved in a project
+        </div>
+
+        <table id="legend-table-2" style="margin-top:5px;">
+            <tr>
+                <td style="padding-right:18px;">
+                    <svg id="legend-svg-3">
+            <circle id="legend-circle-3" fill="#B9CAD4" />
+          </svg>
+                </td>
+                <td style="font-size:9px; text-align:center">
+                    6
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-right:18px;">
+                    <svg id="legend-svg-2">
+            <circle id="legend-circle-2" fill="#B9CAD4" />
+          </svg>
+                </td>
+                <td style="font-size:9px; text-align:center">
+                    4
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-right:18px;">
+                    <svg id="legend-svg-1">
+            <circle id="legend-circle-1" fill="#B9CAD4" />
+          </svg>
+                </td>
+                <td style="font-size:9px; text-align:center">
+                    2
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script type="text/javascript">
+
+    $('.glyphicon-repeat').on('click', function() {
+        reload();
+    });
+
+    function reload(){
+      $('.menu-list').hide();
+      $('.main-menu').show();
+      $('.side-menu').hide();
+      $('.arrow').removeClass('glyphicon-menu-left');
+      $('.arrow').addClass('glyphicon-menu-right');
+      $('.project_outcome').each(function() {
+          $(this).prop('checked', true);
+      });
+      $('[class$=-choices]').each(function() {
+          $(this).css('background-color', 'white');
+          $(this).css('color', 'black');
+      })
+      $('[id$=-result]').each(function() {
+          $(this).children().remove();
+      })
+      $("#slider-range").slider({
+          values: [2015, 2020]
+      });
+      $('#start_project').text('2015 - 2020');
+      $('#legend-label').show();
+      $('#legend-collaborator').show();
+      $('#legend-table').show();
+      $('#legend-table-2').show();
+      $('.legend').css('height', 'auto');
+      $('#legend-arrow').addClass('glyphicon-menu-down');
+      $('#legend-arrow').removeClass('glyphicon-menu-up');
+      $('.glyphicon-resize-small').show();
+      $('head').find('script[src="NetworkMap.js"]').remove();
+      $('#map').empty();
+      $('.tooltip').remove();
+      $('.side-menu button').unbind('click');
+      $.getScript('NetworkMap.js');
+    }
+
+    // Year slider
+    var show = 1;
+    $("#slider-range").slider({
+        range: true,
+        min: 2015,
+        max: 2020,
+        step: 1,
+        values: [2015, 2020],
+        slide: function(event, ui) {
+            if (ui.values[0] === ui.values[1]) {
+                $("#start_project").text(ui.values[0]);
+            } else {
+                $("#start_project").text(ui.values[0] + " - " + ui.values[1]);
+            }
+            $('#start_project').trigger('contentchanged');
+        }
+    });
+
+    $('#slider-range').slider().slider('pips');
+
+    $('.ui-slider-handle').css('background-color', 'white');
+    $('.ui-slider-handle').css('border-radius', '1px');
+    $('.ui-slider-handle').css('height', '18px');
+    $('.ui-slider-handle').css('width', '8px');
+    $('.ui-slider-handle').css('box-shadow', '0 1px 2px 0 rgba(0,0,0,0.5);');
+    $('.ui-slider-handle').css('margin-top', '-4.5px');
+    $('.ui-slider-handle').css('margin-left', '-3px');
+
+    $('.glyphicon-resize-small').on('click', function() {
+        $('.side-menu').hide();
+        $('.main-menu').hide();
+        $('.menu-list').show();
+        $('.menu-list').css('top', '100px');
+        $('.glyphicon-resize-small').hide();
+    });
+
+    $('.glyphicon-list').on('click', function() {
+        $('.menu-list').hide();
+        $('.main-menu').show();
+        $('[id$=-arrow]').removeClass('glyphicon-menu-left');
+        $('[id$=-arrow]').addClass('glyphicon-menu-right');
+        $('.glyphicon-resize-small').show();
+    });
+
+    $('#legend-title').on('click', function() {
+        if ($('#legend-label').is(':visible')) {
+            $('#legend-label').hide();
+            $('#legend-collaborator').hide();
+            $('#legend-table').hide();
+            $('#legend-table-2').hide();
+            $('.legend').css('height', '30px');
+            $('#legend-arrow').removeClass('glyphicon-menu-down');
+            $('#legend-arrow').addClass('glyphicon-menu-up');
+        } else {
+            $('#legend-label').show();
+            $('#legend-collaborator').show();
+            $('#legend-table').show();
+            $('#legend-table-2').show();
+            $('.legend').css('height', 'auto');
+            $('#legend-arrow').addClass('glyphicon-menu-down');
+            $('#legend-arrow').removeClass('glyphicon-menu-up');
+        }
+    })
+
+    var max_height = $(window).height() - 170;
+
+    $('.main-menu').css('max-height', max_height + 'px');
+
+    $('#rationale').on('click', function() {
+        $('.glyphicon-remove-circle').trigger('click');
+        $('.glyphicon-remove-sign').trigger('click');
+    })
+
+    $('.menu').on('click', function(){
+      var id = '#' + $(this).children().attr('id');
+      openSideMenu(id);
+    })
+
+    function openSideMenu(id){
+      if ($( id + '-submenu').is(':visible')) {
+          $('[id$=-arrow]').removeClass('glyphicon-menu-left');
+          $('[id$=-arrow]').addClass('glyphicon-menu-right');
+          $( id + '-submenu').hide();
+      } else {
+          $('[id$=-arrow]').removeClass('glyphicon-menu-left');
+          $('[id$=-arrow]').addClass('glyphicon-menu-right');
+          $('.side-menu').hide();
+          $( id + '-arrow').removeClass('glyphicon-menu-right');
+          $( id + '-arrow').addClass('glyphicon-menu-left');
+          $( id + '-submenu').show();
+      }
+    }
+
+    </script>
+
+</body>
+
+</html>

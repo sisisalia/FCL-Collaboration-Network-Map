@@ -1,19 +1,17 @@
-body{
-    font-family: lato;
-}
+/* Header */
 .navbar-fixed-top{
     position:fixed;
-    background-color:transparent;
-    width:1024px;
-    height:70px;
     font-family: "adelle";
+    width:100%;
+    height:90px;
+    background-color:white;
+    opacity:0.9;
 }
 .research-collab-header{
     font-size: 20px;
-    font-family: "adelle";
     font-weight: bold;
     font-style: italic;
-    padding-left: 9px;
+    padding: 12px;
 }
 .fcl-image{
     height:43px;
@@ -28,23 +26,28 @@ body{
     top:66px;
     right:9px;
 }
-.navbar{
-    padding-top: 40px;
+
+
+/* Body */
+body{
+    font-family: lato;
 }
-.main-menu{
-    margin-top: auto;
-    margin-top: 3%;
-    margin-left: 5px;
-    width: 260px;
-    height: 100%;
-    padding-bottom: 8px;
-    background-color: rgba(243,245,247,0.8);
-    box-shadow: 1px 2px 4px 1px rgba(0,0,0,0.1);
-    border-radius: 2px;
+
+
+/* Filter bar - top right */
+.year-menu{
+  width: 204px;
+  height: 110px;
+  padding-bottom: 8px;
+  background-color: rgba(243,245,247,0.8);
+  box-shadow: 1px 2px 4px 1px rgba(0,0,0,0.1);
+  border-radius: 2px;
+  top: 110px;
+  right: 8px;
+  position: absolute;
+  z-index: 3;
 }
-ul{
-    margin-left: -40px;
-}
+/* slider at the year-menu */
 .ui-slider-handle:focus{
     outline: 0 none !important;
     border-color: lightgray;
@@ -54,6 +57,7 @@ ul{
 }
 .ui-slider-label{
     color: black;
+    font-family:lato;
     font-size: 9px;
     margin-top : -10px;
 }
@@ -61,7 +65,7 @@ ul{
     height:5px;
 }
 #slider-range{
-    width:216px;
+    width:165px;
     margin-left:10px;
 }
 .ui-slider-line{
@@ -71,22 +75,68 @@ ul{
 #slider-range .ui-slider-range,
 #slider-range .ui-slider-pip[class*=ui-slider-pip-selected] .ui-slider-line,
 #slider-range .ui-slider-pip.ui-slider-pip-inrange .ui-slider-line {
-    background-color: black;
+    background-color: rgba(34, 52, 60, 0.9);
+    cursor: pointer;
+}
+.year-item{
+  margin-left: 10px;
+  margin-top: -10px;
+}
+/* legend - bottom right */
+.legend{
+  width: 204px;
+  height: auto;
+  padding-top: 6px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  background-color: rgba(243,245,247,0.8);
+  box-shadow: 1px 2px 4px 1px rgba(0,0,0,0.1);
+  border-radius: 2px;
+  bottom: 13px;
+  right: 8px;
+  position: absolute;
+  z-index: 3;
+}
+.legend td{
+  font-family: lato;
+  font-size: 11px;
+  line-height: 15px;
+}
+#legend-title{
+  font: bold 12px adelle;
+  cursor:pointer;
+  padding-right: 124px;
 }
 
+
+/* Filter bar - top left*/
+.navbar{
+    padding-top: 40px;
+}
+.main-menu{
+    margin-top: 3%;
+    margin-left: 5px;
+    width: 204px;
+    height: 100%;
+    padding-bottom: 8px;
+    background-color: rgba(243,245,247,0.8);
+    box-shadow: 1px 2px 4px 1px rgba(0,0,0,0.1);
+    border-radius: 2px;
+    overflow-y:scroll;
+    position: relative;
+    z-index: 3;
+}
 /* The switch - the box around the slider */
 .switch {
     position: relative;
     display: inline-block;
-    width: 29px;
-    height: 18.5px;
-    bottom: -8px;
+    width: 25px;
+    height: 15px;
+    bottom: -7px;
 }
-
 /* Hide default HTML checkbox */
 .switch input {display:none;}
-
-/* The slider */
+/* The slider, checkbox for project outcome */
 .slider {
     position: absolute;
     cursor: pointer;
@@ -97,61 +147,51 @@ ul{
     background-color: #ccc;
     -webkit-transition: .4s;
     transition: .4s;
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 1px 2px 0 rgba(0,0,0,0.2);
 }
-
 .slider:before {
     position: absolute;
     content: "";
-    height: 12px;
-    width: 12px;
-    left: 1.5px;
-    bottom: 2.5px;
+    height: 11.54px;
+    width: 11.54px;
+    left: 0.8px;
+    bottom: 2px;
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
 }
-
 input#data_sharing:checked + .slider{
     background-color: #4DB6AC;
 }
-
 input#expertise_contribution:checked + .slider{
     background-color: #FC8D62;
 }
-
 input#granted_research_proposal:checked + .slider{
     background-color: #5C6BC0;
 }
-
 input#joint_publication:checked + .slider{
     background-color: #FF80AB;
 }
-
 input#joint_prototype:checked + .slider{
     background-color: #9CCC65;
 }
-
 input#other:checked + .slider{
     background-color: #FFCA28;
 }
-
 input:focus + .slider {
     box-shadow: 0 0 1px #2196F3;
 }
-
 input:checked + .slider:before {
     -webkit-transform: translateX(10px);
     -ms-transform: translateX(10px);
     transform: translateX(10px);
 }
-
 /* Rounded sliders */
 .slider.round {
     border-radius: 21px;
 }
-
 .slider.round:before {
     border-radius: 50%;
 }
@@ -159,60 +199,32 @@ li{
     list-style : none;
 }
 td{
-    font: 12px lato;
+    font: 11px lato;
 }
 .project_outcomes_label{
     padding-top : 6.5px;
-    padding-left: 7px;
+    padding-left: 13px;
 }
 hr{
     box-sizing: border-box;
-    width: 240px;
-    height: 2px;
-    border: 1px solid #C8C8C8;
+    width: 180px;
+    height: 0.5px;
+    border: 0.5px solid #B9CAD4;
     margin : 4px;
-    margin-left: -27px;
+    margin-left: -30px;
+    opacity: 0.5;
 }
 .menu{
     font: 12px adelle;
-}
-.side-menu{
-    display: inline-block;
-    background-color: rgba(243,245,247,0.8);
-    box-shadow: -1px 2px 4px 1px rgba(0,0,0,0.1);
-    border-radius: 2px;
-    padding-left: 8px;
-    padding-top : 18px;
-    padding-right: 25px;
-    padding-bottom: 10px;
-    margin-left: 265px;
-    position: absolute;
-    top: 98px;
-    left: 10px;
-    display : none;
-    z-index: 2;
-}
-button{
-    background-color: white;
-    font: 12px lato;
-    border: none;
-    display: inline-block;
-    text-align: left;
-    border: 1px solid #C8C8C8;
-    border-radius: 3px;
-    white-space: nowrap;
-    margin : 1px;
-}
-button:focus{
-    outline: 0;
+    cursor: pointer;
 }
 .nav-item{
-    margin-left: -25px;
+    margin-left: -30px;
 }
 tag{
-    background-color: #4A4A4A;
+    background-color: black;
     color: white;
-    font: 12px lato;
+    font: 11px lato;
     border: none;
     display: inline-block;
     text-align: left;
@@ -229,40 +241,92 @@ tag{
 #disciplines, #fcl_project, #location, #language{
     cursor: pointer;
 }
-.glyphicon-menu-down, .glyphicon-menu-up{
-    box-sizing: border-box;
-    width: 16.52px;
-    height: 8.28px;
+label {
+  font: 11px lato;
 }
-#map{
-    position:absolute;
+.radio{
+  margin-left: -30px;
+  cursor: pointer;
 }
-.glyphicon-menu-left {
-    cursor: pointer;
-    background-color: rgba(243, 245, 247, 0.8);
-    padding-top: 9px;
-    top: 100px;
-    height: 30px;
-    width: 15px;
-    border-bottom-right-radius: 30px;
-    border-top-right-radius: 30px;
-    position: absolute;
-    left: 270px;
-    z-index: 2;
+input[type=radio]{
+  margin-top:1px;
+}
+ul{
+  margin-left: -40px;
+}
+.sorting-label{
+  padding-left: 5px;
+}
+.collaborator-label{
+  font:12px adelle;
 }
 
+
+/* Pop up menu from main menu */
+.side-menu{
+    display: inline-block;
+    background-color: rgba(243,245,247,0.8);
+    box-shadow: -1px 2px 4px 1px rgba(0,0,0,0.1);
+    border-radius: 2px;
+    padding-left: 8px;
+    padding-top : 12px;
+    padding-right: 25px;
+    padding-bottom: 10px;
+    margin-left: 265px;
+    position: absolute;
+    top: 107px;
+    left: -45px;
+    display : none;
+    z-index: 2;
+}
+button{
+    background-color: white;
+    font: 11px lato;
+    border: none;
+    display: inline-block;
+    text-align: left;
+    border: 1px solid #C8C8C8;
+    border-radius: 3px;
+    white-space: nowrap;
+    margin : 1px;
+}
+button:focus{
+    outline: 0;
+}
+
+
+/* Glyphicon */
+.glyphicon-menu-down, .glyphicon-menu-up{
+    box-sizing: border-box;
+    width: 18px;
+    height: 8.28px;
+}
+.glyphicon-resize-small {
+    cursor: pointer;
+    transform: translate(193px,-27px) rotate(90deg);
+    font-size: 18px;
+    position: relative;
+    z-index: 3;
+}
 .glyphicon-list{
     background-color: rgba(243,245,247,0.8);
     box-shadow: 1px 2px 4px 1px rgba(0,0,0,0.1);
     border-radius: 2px;
-    color: black;
-    top: 17.5%;
+    margin-top: 7px;
+    margin-left: 10px;
     position: absolute;
     width: 30px;
     height: 30px;
     display: none;
     z-index:2;
 }
+.glyphicon {
+  color: #B9CAD4;
+  font-size: 14px;
+}
+
+
+/* Nav bar - bottom left */
 #nav-bottom{
     text-align: center;
     left : 9px;
@@ -271,4 +335,12 @@ tag{
     background-color: rgba(243,245,247,0.8);
     box-shadow: 1px 2px 4px 1px rgba(0,0,0,0.1);
     border-radius: 2px;
+    z-index: 3;
+}
+#myModal{
+  font-family: lato;
+  font-size: 12px;
+}
+.modal-body{
+  background-color:#F8F9F9;
 }
