@@ -13,7 +13,7 @@ This sub-project is to visualize the connections between each individual with th
 ## Getting Started
 
 1. Downlaod all the files to Desktop
-2. Change the data in 'graph.json'
+2. Change the database connection at 'DataRetrieval.php' file to same database used in 'Collaboration Form'
 3. Go to terminal and to the root folder
 4. Enter 'php -S localhost:8000'
 5. Go to web browser (preferably Google Chrome) and enter URL 'localhost:8000'
