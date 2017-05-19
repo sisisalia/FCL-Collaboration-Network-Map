@@ -8,7 +8,7 @@ This project includes sub-projects:
 
 # Collaboration Network
 
-Collaboration Network is visualization of collaboration between researchers in FCL. It is implemented by using D3.js.
+Collaboration Network is visualization of collaboration between researchers in FCL. It is implemented by using D3.js. The data used in visualization is gathered from 'Collaboration Form'.
 
 The objectives of Collaboration Network are:
 1. how certain project outcomes are influenced by different collaborators' characteristics and vice versa
