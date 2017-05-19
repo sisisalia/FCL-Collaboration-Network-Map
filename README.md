@@ -7,4 +7,13 @@ This project includes sub-projects:
 2. Collaboration Network
 
 # Collaboration Network
+
 This sub-project is to visualize the connections between each individual with the projects and vice versa. By allowing filtering and sorting functions, the researchers will have a better insight on the emerging organic collaboration. This sub-project is implemented using D3.js.
+
+## Getting Started
+
+1. Downlaod all the files to Desktop
+2. Change the data in 'graph.json'
+3. Go to terminal and to the root folder
+4. Enter 'php -S localhost:8000'
+5. Go to web browser (preferably Google Chrome) and enter URL 'localhost:8000'
