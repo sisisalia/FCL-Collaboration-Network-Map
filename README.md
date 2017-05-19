@@ -8,7 +8,13 @@ This project includes sub-projects:
 
 # Collaboration Network
 
-This sub-project is to visualize the connections between each individual with the projects and vice versa. By allowing filtering and sorting functions, the researchers will have a better insight on the emerging organic collaboration. This sub-project is implemented using D3.js.
+Collaboration Network is visualization of collaboration between researchers in FCL. It is implemented by using D3.js.
+
+This visualization will allow the researchers to see:
+1. how certain project outcomes are influenced by different collaborators' characteristics and vice versa
+2. how the researchers collaborate with one another based on their characteristics
+3. if collaborations of multidisciplinary/multi-languages are more common than collaborations of single disciplinary/single language
+
 
 ## Getting Started
 
