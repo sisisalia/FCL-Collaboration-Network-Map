@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   // Running DataRetrieval.php file
-  // $.get('DataRetrieval.php');
+  $.get('DataRetrieval.php');
 
   // Get the width and height of the window
   var width = $(window).width();
