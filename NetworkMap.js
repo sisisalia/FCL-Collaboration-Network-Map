@@ -17,7 +17,7 @@ $(document).ready(function() {
   // Dynamically set up the svg's width, height and view box when page is load
   $('#map').attr('width', width);
   $('#map').attr('height', height);
-  $('#map').attr('viewBox', '-300 0 ' + xScale(250) + ' ' + yScale(95));
+  $('#map').attr('viewBox', '-300 0 ' + xScale(250) + ' ' + height);
 
   d3.json('graph.json', function(error, graph) {
 
@@ -42,13 +42,30 @@ $(document).ready(function() {
       var opacity_highlight = 0.9;
       var opacity_fade = 0.2;
 
-      var collaborator_color = 'reds';
+      var collaborator_color = 'black';
       var collaborator_size = xScale(30);
 
       var label_size = xScale(1.5);
 
       var zoom_min = 0.5;
       var zoom_max = 1.5;
+
+      var collabo_dist;
+
+      var month_translation = {
+        'Jan' : 1,
+        'Feb' : 2,
+        'Mar' : 3,
+        'Apr' : 4,
+        'May' : 5,
+        'Jun' : 6,
+        'Jul' : 7,
+        'Aug' : 8,
+        'Sept' : 9,
+        'Oct' : 10,
+        'Nov' : 11,
+        'Dec' : 12,
+      };
 
       /////////////////////////////
       // Nodes, paths and tooltip //
@@ -271,7 +288,7 @@ $(document).ready(function() {
               }
           });
 
-      // Project and collaborator nodes
+      // Project and collaborator nodes' shape
       node.append('path')
           .attr('d', d3.symbol()
               .size(collaborator_size)
@@ -283,7 +300,7 @@ $(document).ready(function() {
                   }
               }));
 
-      // Project nodes
+      // Project nodes' size
       node.each(function(d) {
           if (d.type == 'Project') {
               NodePieBuilder.drawNodePie(d3.select(this), d.pieChart, {
@@ -298,6 +315,8 @@ $(document).ready(function() {
       simulation.force('link').links(graph.links);
 
       // Drawing of the visualization
+      // variable choice is the attribute name depends on 'Sort by group' choice in the interface
+      // e.g. mother_tongues, disciplinary_backgrounds...
       function drawing(choice) {
           var project_length = 0;
           var collaborator_length = 0;
@@ -310,6 +329,8 @@ $(document).ready(function() {
 
           $('[id^="arc"]').remove();
 
+          // Get project length, collaborator length
+          // min and max are for arranging the attribute values in ascending order
           for ($i = 0; $i < graph.nodes.length; $i++) {
               if (graph.nodes[$i].type == 'Project') {
                   project_length++;
@@ -325,13 +346,87 @@ $(document).ready(function() {
               }
           }
 
+          // get first collaborator nodes and store the index in i
           for (i = 0; i < graph.nodes.length; i++) {
               if (graph.nodes[i].type == 'Collaborator') {
                   break;
               }
           }
 
-          if (!Array.isArray(graph.nodes[i][choice])) {
+          // choice_type is to keep the values of the attribute for all the collabotor nodes in ascending order with spaces between each values
+          // choice_qty is a correspondent array of choice_type to keep the number of collaborator nodes in every indexes of choice_type
+          // choice_qty_temp is same array with choice_qty for checking purposes during drawing of collaborator nodes
+
+          // check if it is a start date, arrange in ascending order
+          // By using i, check if 'choice' is a single value attribute or multiple values attribute
+          // if it is an array, ordered in ascending order
+          if(choice == 'start_date'){
+            for ($i = 0; $i < graph.nodes.length; $i++) {
+                if (graph.nodes[$i].type == 'Project') {
+                    continue;
+                } else {
+                    var temp = graph.nodes[$i][choice];
+                    if (choice_type.indexOf(temp) == -1) {
+                      if(choice_type.length == 0){
+                        choice_type.push(temp);
+                        choice_qty.push(1);
+                        choice_qty_temp.push(1);
+                        continue;
+                      }
+                      for (j = 0; j < choice_type.length+1; j++){
+                        if(j === choice_type.length){
+                          choice_type.push(temp);
+                          choice_qty.push(1);
+                          choice_qty_temp.push(1);
+                          break;
+                        }
+                        if(choice_type[j] == '') continue;
+                        temp_index = temp.indexOf('.');
+                        choice_index = choice_type[j].indexOf('.');
+                        temp_year = parseInt(temp.substring(temp_index+2, temp.length));
+                        temp_month = month_translation[temp.substring(0, temp_index)];
+                        choice_year = parseInt(choice_type[j].substring(choice_index + 2 , choice_type[j].length));
+                        choice_month = month_translation[choice_type[j].substring(0,choice_index)];
+                        if(temp_year > choice_year) {
+                          continue;
+                        }
+                        if(temp_year === choice_year){
+                          if(temp_month > choice_month) {
+                            continue;
+                          }
+                        }
+                        choice_type.splice(j, 0, temp);
+                        choice_qty.splice(j, 0, 1);
+                        choice_qty_temp.splice(j, 0, 1);
+                        break;
+                      }
+                    } else {
+                        var index = choice_type.indexOf(temp);
+                        choice_qty[index] += 1;
+                        choice_qty_temp[index] += 1;
+                    }
+                }
+            }
+            temp_array = [];
+            temp_qty = [];
+            temp_qty_temp = [];
+            for (i = 0; i < choice_type.length; i++){
+              temp_array.push(choice_type[i]);
+              temp_array.push('');
+            }
+            for (i = 0; i < choice_qty.length; i++){
+              temp_qty.push(choice_qty[i]);
+              temp_qty.push('-1');
+            }
+            for (i = 0; i < choice_qty_temp.length; i++){
+              temp_qty_temp.push(choice_qty_temp[i]);
+              temp_qty_temp.push('-1');
+            }
+            choice_type = temp_array;
+            choice_qty = temp_qty;
+            choice_qty_temp = temp_qty_temp;
+          }
+          else if (!Array.isArray(graph.nodes[i][choice])) {
               for ($i = 0; $i < graph.nodes.length; $i++) {
                   if (graph.nodes[$i].type == 'Project') {
                       continue;
@@ -342,6 +437,7 @@ $(document).ready(function() {
                           choice_qty.push(1);
                           choice_qty_temp.push(1);
                           if ($i != graph.nodes.length - 1) {
+                              // for division between different groups
                               choice_type.push('');
                               choice_qty.push(-1);
                               choice_qty_temp.push(-1);
@@ -360,11 +456,13 @@ $(document).ready(function() {
                           continue;
                       } else {
                           if (graph.nodes[$i][choice].length == j) {
+                              // need to sort, so that [a,b] is equal to [b,a]
                               var temp = sortArray(graph.nodes[$i][choice]);
                               if (choice_type.indexOf(temp) == -1) {
                                   choice_type.push(temp);
                                   choice_qty.push(1);
                                   choice_qty_temp.push(1);
+                                  // for division between different groups
                                   choice_type.push('');
                                   choice_qty.push(-1);
                                   choice_qty_temp.push(-1);
@@ -390,15 +488,19 @@ $(document).ready(function() {
           var end_angle = [];
           var increment = [];
 
-          var outer_angle = 2 * Math.PI / (choice_type.length - 1);
+          var cat_dist = 2 * Math.PI / (choice_type.length);
+          collabo_dist = Math.PI / (collaborator_length);
 
           var angle = 0;
 
+          // Draw the label arc
+          // get start_angle and end_angle of each sort group
           for (var i = 0; i < choice_type.length; i++) {
+              // additional and substraction at start_angle and end_angle are there to put the nodes inside the label arc
               start_angle[i] = angle + 0.01;
-              var added = pieChartLabel(choice_type[i], angle, outer_angle, choice_qty[i], i);
+              var added = pieChartLabel(choice_type[i], angle, cat_dist, choice_qty[i], i);
               angle = added;
-              end_angle[i] = angle - 0.06;
+              end_angle[i] = angle;
               increment[i] = 0;
           }
 
@@ -409,6 +511,8 @@ $(document).ready(function() {
 
           var angle;
 
+          // By using start_angle, end_angle obtained and the quantity of the sort group
+          // Put the collaborators accordingly (to the group and divide the spaces accordingly depend on number of collaborators in that group)
           function translate_outer_x(d) {
               if (d.type == 'Collaborator') {
                   var arr = Array.isArray(d[choice]);
@@ -419,6 +523,9 @@ $(document).ready(function() {
                   }
                   var index = choice_type.indexOf(temp);
               }
+              // If only have one node in that particular group, put in the centre
+              // else if it is more than one node and is the first node, put on the start_angle
+              // else if it is more than one node and is not the first node to put inside the group, divide the space accordingly
               if (choice_qty[index] == 1) {
                   angle = (start_angle[index] + end_angle[index]) / 2;
               } else if (choice_qty[index] == choice_qty_temp[index]) {
@@ -451,8 +558,7 @@ $(document).ready(function() {
           var project_angle = 0;
 
           function translate_inner_x(d) {
-              // x_inner += inner_angle;
-              project_increment = (d.radius / total_radius) * 2 * Math.PI;
+              project_increment = ( d.radius / total_radius) * 2 * Math.PI;
               project_end_angle += project_increment;
               project_angle = (project_end_angle + project_start_angle) / 2;
               d.x = Math.cos(-Math.PI / 2 + project_angle) * innerRadius + xScale(100);
@@ -460,7 +566,6 @@ $(document).ready(function() {
           }
 
           function translate_inner_y(d) {
-              // y_inner += inner_angle;
               d.y = Math.sin(-Math.PI / 2 + project_angle) * innerRadius + yScale(60);
               project_increment = (d.radius / total_radius) * 2 * Math.PI;
               project_start_angle += project_increment;
@@ -487,194 +592,9 @@ $(document).ready(function() {
               return "M" +
                   d.source.x + "," +
                   d.source.y + "A" +
-                  dr + "," + dr + " 0 0,1 " +
+                  dr + "," + dr + " 0 0 0 " +
                   d.target.x + "," +
                   d.target.y;
-              // var dx = d.target.x - d.source.x,
-              //   dy = d.target.y - d.source.y,
-              //   dr = Math.sqrt(dx * dx + dy * dy);
-              //   //bezier curve
-              //   var source_NE;
-              //   var source_NW;
-              //   var source_SW;
-              //   var source_SE;
-              //   var target_NE;
-              //   var target_NW;
-              //   var target_SW;
-              //   var target_SE;
-              //   var vertical = width;
-              //   var horizontal = height;
-              //   if(d.source.x > vertical){
-              //     if(d.source.y > horizontal){
-              //       source_SE = 1;
-              //     }else{
-              //       source_NE = 1;
-              //     }
-              //   }else{
-              //     if(d.source.y > horizontal){
-              //       source_SW = 1;
-              //     }else{
-              //       source_NW = 1;
-              //     }
-              //   }
-              //   if(d.target.x > vertical){
-              //     if(d.target.y > horizontal){
-              //       target_SE = 1;
-              //     }else{
-              //       target_NE = 1;
-              //     }
-              //   }else{
-              //     if(d.target.y > horizontal){
-              //       target_SW = 1;
-              //     }else{
-              //       target_NW = 1;
-              //     }
-              //   }
-              //   if((source_NW == 1 && target_SW == 1)){
-              //     var point1_x = vertical;
-              //     var point1_y = horizontal;
-              //     var point2_x = d.target.x ;
-              //     var point2_y = d.target.y;
-              //       return "M" +
-              //       d.source.x + " " +
-              //       d.source.y + " C " +
-              //       point1_x + " " + point1_y + " , " + point2_x + " " + point2_y + ","  +
-              //       d.target.x+ " " +
-              //       d.target.y;
-              //   }
-              //   else if((source_NE == 1 && target_SE == 1)){
-              //     var point1_x = vertical;
-              //     var point1_y = horizontal;
-              //     var point2_x = d.target.x ;
-              //     var point2_y = d.target.y;
-              //       return "M" +
-              //       d.source.x + " " +
-              //       d.source.y + " C " +
-              //       point1_x + " " + point1_y + " , " + point2_x + " " + point2_y + ","  +
-              //       d.target.x+ " " +
-              //       d.target.y;
-              //   }
-              //   else if((source_SE == 1 && target_NE == 1) ){
-              //     var point1_x = vertical;
-              //     var point1_y = horizontal;
-              //     var point2_x = d.target.x;
-              //     var point2_y = d.target.y;
-              //       return "M" +
-              //       d.source.x + " " +
-              //       d.source.y + " C " +
-              //       point1_x + " " + point1_y + " , " + point2_x + " " + point2_y + ","  +
-              //       d.target.x+ " " +
-              //       d.target.y;
-              //   }
-              //   else if((source_SW == 1 && target_NW == 1) ){
-              //     var point1_x = vertical;
-              //     var point1_y = horizontal;
-              //     var point2_x = d.target.x;
-              //     var point2_y = d.target.y;
-              //       return "M" +
-              //       d.source.x + " " +
-              //       d.source.y + " C " +
-              //       point1_x + " " + point1_y + " , " + point2_x + " " + point2_y + ","  +
-              //       d.target.x+ " " +
-              //       d.target.y;
-              //   }
-              //
-              //   else if(source_NE == 1 && target_SW == 1){
-              //     if(d.source.x > vertical){
-              //       var point1_x = vertical ;
-              //       var point1_y = horizontal;
-              //       var point2_x = vertical ;
-              //       var point2_y = horizontal;
-              //     }else{
-              //       var point1_x = vertical ;
-              //       var point1_y = horizontal  ;
-              //       var point2_x = vertical ;
-              //       var point2_y = horizontal;
-              //     }
-              //     return "M" +
-              //     d.source.x + " " +
-              //     d.source.y + " C " +
-              //     point1_x + " " + point1_y + " , " + point2_x + " " + point2_y + ","  +
-              //     d.target.x+ " " +
-              //     d.target.y;
-              //   }
-              //
-              //   else if(source_SW == 1 && target_NE == 1){
-              //     if(d.source.x > vertical ){
-              //       var point1_x = vertical ;
-              //       var point1_y = horizontal ;
-              //       var point2_x = vertical ;
-              //       var point2_y = horizontal ;
-              //     }else{
-              //       var point1_x = vertical;
-              //       var point1_y = horizontal  ;
-              //       var point2_x = vertical ;
-              //       var point2_y = horizontal;
-              //     }
-              //     return "M" +
-              //     d.source.x + " " +
-              //     d.source.y + " C " +
-              //     point1_x + " " + point1_y + " , " + point2_x + " " + point2_y + ","  +
-              //     d.target.x+ " " +
-              //     d.target.y;
-              //   }
-              //
-              //   else if(source_SE == 1 && target_NW == 1){
-              //       if(d.source.x > vertical ){
-              //         var point1_x = vertical;
-              //         var point1_y = horizontal ;
-              //         var point2_x = vertical  ;
-              //         var point2_y = horizontal;
-              //       }else{
-              //         var point1_x = vertical;
-              //         var point1_y = horizontal ;
-              //         var point2_x = vertical ;
-              //         var point2_y = horizontal;
-              //       }
-              //       return "M" +
-              //       d.source.x + " " +
-              //       d.source.y + " C " +
-              //       point1_x + " " + point1_y + " , " + point2_x + " " + point2_y + ","  +
-              //       d.target.x+ " " +
-              //       d.target.y;
-              //   }
-              //
-              //   //not really tested yet
-              //   else if(source_NW == 1 && target_SE == 1){
-              //       if(d.source.x < vertical){
-              //         var point1_x = vertical ;
-              //         var point1_y = horizontal ;
-              //         var point2_x = vertical  ;
-              //         var point2_y = horizontal;
-              //       }else{
-              //         var point1_x = vertical  ;
-              //         var point1_y = horizontal ;
-              //         var point2_x = vertical  ;
-              //         var point2_y = horizontal;
-              //       }
-              //       return "M" +
-              //       d.source.x + " " +
-              //       d.source.y + " C " +
-              //       point1_x + " " + point1_y + " , " + point2_x + " " + point2_y + ","  +
-              //       d.target.x+ " " +
-              //       d.target.y;
-              //   }
-              //
-              //   else if(dr < xScale(25)){
-              //       return "M" +
-              //       d.source.x + "," +
-              //       d.source.y + "A" +
-              //       dr + "," + dr + " 0 0,1 " +
-              //       d.target.x+ "," +
-              //       d.target.y;
-              //   }else{
-              //     return "M" +
-              //     d.source.x + "," +
-              //     d.source.y + "A" +
-              //     dr + "," + dr + " 0 0,1 " +
-              //     d.target.x+ "," +
-              //     d.target.y;
-              //   }
           });
 
           graph.links.forEach(function(d) {
@@ -703,14 +623,14 @@ $(document).ready(function() {
                   .innerRadius(outerRadius + xScale(2))
                   .outerRadius(outerRadius + xScale(2.3))
                   .startAngle((angle))
-                  .endAngle((angle + plus) - 0.05);
+                  .endAngle((angle + plus));
           } else {
-              var added = (angle + qty * 0.143);
+              var added  = angle + collabo_dist * qty;
               var arc = d3.arc()
                   .innerRadius(outerRadius + xScale(2))
                   .outerRadius(outerRadius + xScale(2.3))
                   .startAngle((angle))
-                  .endAngle((angle + qty * 0.143) - 0.05);
+                  .endAngle(added);
           }
 
           var textPath = group.append("path")
@@ -748,19 +668,19 @@ $(document).ready(function() {
       // Put the labels above the arcs
       function textLabel(label, angle, plus, qty, number, add) {
           pi = Math.PI;
-          var added = (angle + qty * 0.143);
+          var added = (angle + collabo_dist * qty);
           if (add != null) {
               var arc = d3.arc()
                   .innerRadius(outerRadius + xScale(2))
                   .outerRadius(outerRadius + xScale(2.3 * add))
-                  .startAngle((angle) - 1.05)
-                  .endAngle((angle + qty * 0.143) + 1);
+                  .startAngle((angle) - 1)
+                  .endAngle(added + 1);
           } else {
               var arc = d3.arc()
                   .innerRadius(outerRadius + xScale(2))
                   .outerRadius(outerRadius + xScale(2.3))
-                  .startAngle((angle) - 1.05)
-                  .endAngle((angle + qty * 0.143) + 1);
+                  .startAngle((angle) - 1)
+                  .endAngle(added + 1);
           }
 
           var textPath = svg.append("path")

@@ -524,6 +524,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script type="text/javascript">
 
+    // When the user clicks on 'Refresh' button
     $('.glyphicon-repeat').on('click', function() {
         reload();
     });
@@ -583,6 +584,7 @@
 
     $('#slider-range').slider().slider('pips');
 
+    // Year slider's styling
     $('.ui-slider-handle').css('background-color', 'white');
     $('.ui-slider-handle').css('border-radius', '1px');
     $('.ui-slider-handle').css('height', '18px');
@@ -629,6 +631,7 @@
 
     var max_height = $(window).height() - 170;
 
+    // to set criteria of overflow-y
     $('.main-menu').css('max-height', max_height + 'px');
 
     $('#rationale').on('click', function() {
@@ -636,6 +639,7 @@
         $('.glyphicon-remove-sign').trigger('click');
     })
 
+    // open side menu
     $('.menu').on('click', function(){
       var id = '#' + $(this).children().attr('id');
       openSideMenu(id);
