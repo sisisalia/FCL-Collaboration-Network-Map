@@ -254,8 +254,6 @@ for($i = 0; $i < sizeof($linkarray); $i++){
     array_push($link_result, $obj);
 }
 
-print_r($link_result);
-
 // Turn string to array for those attribute with multiple values
 $projectarray_keys = array_keys($projectarray[0]);
 $collabarray_keys = array_keys($collabarray[0]);
