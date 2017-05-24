@@ -130,7 +130,7 @@ $(document).ready(function() {
                   $('.tooltip').append(
                       '<button class="glyphicon glyphicon-remove-circle" style="text-align:right;">' + '</button>' +
                       '<div id="project_tag">' +
-                      '<table id="project_tag_table1"><col width="10%"><col width="80%"><col width="10%">' +
+                      '<table id="project_tag_table1"><col width="10%"><col width="83%"><col width="5%">' +
                       '<tr>' +
                       '<td style="padding-right: 7px">' +
                       '<canvas id="myChart"></canvas>' + '</td>' +
@@ -159,6 +159,14 @@ $(document).ready(function() {
                       '</td>' +
                       '<td class="project_tag_content_subject">' +
                       d.research_groups +
+                      '</td>' +
+                      '</tr>' +
+                      '<tr>' +
+                      '<td class="project_tag_content_title">' +
+                      'Average working time' +
+                      '</td>' +
+                      '<td class="project_tag_content_subject">' +
+                      d.ave_working_time + '%' +
                       '</td>' +
                       '</tr>' +
                       '</table>' + '</div>'
@@ -283,8 +291,8 @@ $(document).ready(function() {
                           },
                       },
                   });
-                  $('#myChart').width('30');
-                  $('#myChart').height('30');
+                  $('#myChart').width('15');
+                  $('#myChart').height('15');
               }
           });
 
@@ -475,6 +483,44 @@ $(document).ready(function() {
                       }
                   }
               }
+          }
+
+          // Arrange the choice if it is research group
+          if(choice == 'research_group'){
+            var array = [];
+            temp_array = [];
+            temp_qty = [];
+            temp_qty_temp = [];
+            $('.fcl_project-choices').each(function(){
+              array.push($(this).text());
+            })
+            for(i = 0; i < array.length; i++){
+              var index = choice_type.indexOf(array[i]);
+              if(index != -1){
+                temp_array.push(choice_type[index]);
+                temp_array.push('');
+                temp_qty.push(choice_qty[index]);
+                temp_qty.push('-1');
+                temp_qty_temp.push(choice_qty_temp[index]);
+                temp_qty_temp.push('-1');
+              }
+            }
+            // For 'Others'
+            for(i = 0; i < choice_type.length; i++){
+              if(choice_type[i] == '') continue;
+              var index = array.indexOf(choice_type[i]);
+              if(index == -1){
+                temp_array.push(choice_type[i]);
+                temp_array.push('');
+                temp_qty.push(choice_qty[i]);
+                temp_qty.push('-1');
+                temp_qty_temp.push(choice_qty_temp[i]);
+                temp_qty_temp.push('-1');
+              }
+            }
+            choice_type = temp_array;
+            choice_qty = temp_qty;
+            choice_qty_temp = temp_qty_temp;
           }
 
           // Uncomment to show projects' arcs

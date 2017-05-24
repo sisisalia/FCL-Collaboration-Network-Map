@@ -258,19 +258,23 @@ for($i = 0; $i < sizeof($linkarray); $i++){
 $projectarray_keys = array_keys($projectarray[0]);
 $collabarray_keys = array_keys($collabarray[0]);
 
+// Keeping the keys which have multiple values
 $projectarray_keys_multi = [];
 $collabarray_keys_multi = [];
 
 // Insert attributes with multiple values into keys_multi
+// for project
 for($i = 0; $i < sizeof($projectarray_keys); $i++){
   $key = $projectarray_keys[$i];
   $index = strlen($key) - 1;
+  // exclude 'collaborators' key
   if($key == 'collaborators') continue;
   if($key[$index] == 's'){
     array_push($projectarray_keys_multi, $projectarray_keys[$i]);
   }
 }
 
+// for collaborator
 for($i = 0; $i < sizeof($collabarray_keys); $i++){
   $key = $collabarray_keys[$i];
   $index = strlen($key) - 1;
@@ -288,7 +292,7 @@ for($i = 0; $i < sizeof($projectarray) ; $i++)
 }
 
 // Turn to array using collabarray_keys_multi
-// Decode mother_tounges
+// Decode mother_tongues by using $month_translation
 // Change 'Urban design and planning' to 'Urban design/planning'
 for($i = 0; $i < sizeof($collabarray); $i++)
 {
@@ -297,6 +301,7 @@ for($i = 0; $i < sizeof($collabarray); $i++)
   }
   for($j = 0; $j < sizeof($collabarray[$i][mother_tongues]); $j++)
   {
+      if($language_translation[$collabarray[$i][mother_tongues][$j]] == null) continue;
       $collabarray[$i][mother_tongues][$j] = $language_translation[$collabarray[$i][mother_tongues][$j]];
   }
   for($j = 0; $j < sizeof($collabarray[$i][disciplinary_backgrounds]); $j++){
@@ -306,6 +311,7 @@ for($i = 0; $i < sizeof($collabarray); $i++)
   }
 }
 
+// The final result of "nodes" array in JSON file
 $result = array();
 
 // Putting collaborators information to $result
@@ -323,28 +329,29 @@ for($i = 0; $i < sizeof($collabarray); $i++){
    array_push($result, $obj);
 }
 
+// Variable to check if the project has already added into $result
 $addedProject = 0;
 
+// Putting projects information to $result
 for($i = 0; $i < sizeof($projectarray); $i++)
 {
-    // Check if have similar record
-    // If similar change some parameters
+    // Check if have similar record in $result
+    // If similar change values in some keys (start_date, project_duration, project_outcomes)
    for ($j = 0; $j < sizeof($result) ; $j++)
    {
-        // If there is a record for this project
         if($result[$j]->id == $projectarray[$i][name]){
             $addedProject = 1;
-            // Since got variety of start date, hence take the earliest one
+            // Take the earliest start date
             if($result[$j]->start_date > $projectarray[$i][start_date]){
                $result[$j]->start_date = $projectarray[$i][start_date];
             }
-            // Project duration take the longest one
+            // Take the longest project duration
             $old = projectDuration($result[$j]->project_duration);
             $new = projectDuration($projectarray[$i][project_duration]);
             if($old < $new){
                 $result[$j]->project_duration = $projectarray[$i][project_duration];
             }
-            // Add project outcomes into the project
+            // Add project outcomes into the project if it is not exist yet
             for($m = 0; $m < sizeof($projectarray[$i][project_outcomes]) ; $m++){
                 $inside = inside($projectarray[$i][project_outcomes][$m], $result[$j]->project_outcomes);
                 if($inside == 0){
@@ -376,26 +383,54 @@ for($i = 0; $i < sizeof($projectarray); $i++)
    $addedProject = 0;
 }
 
+// Get starting index of project
+for($i = 0; $i < sizeof($result); $i++){
+  $project_index = $i;
+  if($result[$i]->type == 'Project') break;
+}
+
+// Arrange the project from earliest starting date to latest
+for($i = $project_index + 1; $i < sizeof($result); $i++){
+  for($j = $i - 1; $j > $project_index - 1; $j--){
+    if($result[$i]->start_date < $result[$j]->start_date){
+      if($result[$j-1] ==  null){
+        $temp = $result[$i];
+        $result[$i] = $result[$j];
+        $result[$j] = $temp;
+        $i--;
+      }
+      if($result[$i]->start_date >= $result[$j - 1]->start_date){
+        $temp = $result[$i];
+        $result[$i] = $result[$j];
+        $result[$j] = $temp;
+        $i--;
+      }
+    }
+  }
+}
+
 // Piechart color
-for( $i = 0; $i < sizeof($result); $i++){
-    if($result[$i]->type == 'Collaborator') continue;
+for( $i = $project_index; $i < sizeof($result); $i++){
     $result[$i]->pieChart = [];
+    // Traverse through project outcomes and add in the color
     for($j = 0; $j < sizeof($result[$i]->project_outcomes); $j++){
         $temp = ($result[$i]->project_outcomes[$j]);
         $objInner = new stdClass();
+        // If project outcome is 'Other'
         if($projectOutcome_color[$temp] == null){
-            $objInner->color = '#00000';
+            $objInner->color = '#FFCA28';
         }else{
-            $objInner->color = $projectOutcome_color[$temp];}
+            $objInner->color = $projectOutcome_color[$temp];
+        }
         $percentage = 100/sizeof($result[$i]->project_outcomes);
         $objInner->percent = $percentage;
         array_push($result[$i]->pieChart, $objInner);
     }
 }
 
-// Adding radius, according to number of collaborators in the project
-for( $i = 0; $i < sizeof($result); $i++){
-    if($result[$i]->type == 'Collaborator') continue;
+// Adding radius to project information, according to number of collaborators in the project
+// Number of collaborators depend on how many individual submits this project
+for( $i = $project_index; $i < sizeof($result); $i++){
     $radius = 0;
     $name = $result[$i]->id;
     for ($j = 0; $j < sizeof($projectarray); $j++){
@@ -405,6 +440,7 @@ for( $i = 0; $i < sizeof($result); $i++){
 }
 
 // Changing start date representation
+// From '2017-01-01' to 'Jan. 2017'
 for ($i = 0; $i < sizeof($result); $i++){
         $date = $result[$i]->start_date;
         $year = substr($date, 0, 4);
@@ -415,25 +451,31 @@ for ($i = 0; $i < sizeof($result); $i++){
 }
 
 // Adding research groups into the project information
+// Research groups are added depending on the individual who has submitted the project
 for ($i = 0 ; $i < sizeof($projectarray) ; $i++){
    {
         $added = 0;
         $projectname = $projectarray[$i][name];
         $individualid = $projectarray[$i][individual_id];
+        // find research group of the individual
         for ($j = 0; $j < sizeof($result); $j++){
             if($result[$j]->id == $individualid){
                 $RG = $result[$j]->research_group ;
                 break;
             }
         }
-        for ($j = 0; $j < sizeof($result); $j++){
+
+        for ($j = $project_index; $j < sizeof($result); $j++){
+            // find the project
             if($result[$j]->id == $projectname){
+                // check if the research group has already exist in the project
                 for($k = 0; $k < sizeof($result[$j]->research_groups); $k++){
                     if($result[$j]->research_groups[$k] == $RG){
                         $added = 1;
                         break;
                     }
                 }
+                // if not added yet, then push the research group into project's research groups
                 if($added == 0){
                     array_push($result[$j]->research_groups, $RG);
                 }
@@ -443,8 +485,7 @@ for ($i = 0 ; $i < sizeof($projectarray) ; $i++){
 }
 
 // Changing array of research groups into a string
-for($i = 0; $i < sizeof($result); $i++){
-    if($result[$i]->type == 'Collaborator') continue;
+for($i = $project_index; $i < sizeof($result); $i++){
    $research_groups = $result[$i]->research_groups;
    for($j = 0; $j < sizeof($research_groups); $j++){
         if($j == 0){
@@ -454,6 +495,21 @@ for($i = 0; $i < sizeof($result); $i++){
         }
    }
    $result[$i]->research_groups = $temp;
+}
+
+// Obtain average working time of each project
+for($i = $project_index; $i < sizeof($result); $i++){
+  $name = $result[$i]->id;
+  $total_wt = 0;
+  $wt_qty = 0;
+  for($j = 0; $j < sizeof($projectarray); $j++){
+    if($projectarray[$j][name] == $name){
+      $total_wt += (int)$projectarray[$j][working_time];
+      $wt_qty++;
+    }
+  }
+  $ave_wt = $total_wt/$wt_qty;
+  $result[$i]->ave_working_time = $ave_wt;
 }
 
 // writing to json file
