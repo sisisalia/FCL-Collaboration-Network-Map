@@ -418,6 +418,7 @@ for( $i = $project_index; $i < sizeof($result); $i++){
         $objInner = new stdClass();
         // If project outcome is 'Other'
         if($projectOutcome_color[$temp] == null){
+            // "Other" color
             $objInner->color = '#FFCA28';
         }else{
             $objInner->color = $projectOutcome_color[$temp];
